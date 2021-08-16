@@ -190,6 +190,38 @@ public class GameMap : MonoBehaviour
         });
     }
 
+    public List<GameAction> HandleEnemyTurns()
+    {
+        List<GameAction> gameActions = new List<GameAction>();
+
+        foreach (Tile tile in m_Actors)
+        {
+            if (!tile.IsVisible)
+            {
+                continue;
+            }
+
+            AIComponent aiComponent = tile.GetComponent<AIComponent>();
+            if (aiComponent == null)
+            {
+                continue;
+            }
+
+            GameAction action = aiComponent.GetAction(this, Player);
+            if (action != null)
+            {
+                gameActions.Add(action);
+            }
+        }
+
+        return gameActions;
+    }
+
+    public void RemoveActor(Tile tile)
+    {
+        m_Actors.Remove(tile);
+    }
+
     private List<(int, int)> TunnelBetween(int x1, int y1, int x2, int y2)
     {
         List<(int, int)> tunnel = new List<(int, int)>();

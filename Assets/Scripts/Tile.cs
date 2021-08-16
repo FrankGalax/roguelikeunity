@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Tile : MonoBehaviour
 {
@@ -39,5 +40,10 @@ public class Tile : MonoBehaviour
         {
             m_SpriteRenderer.enabled = false;
         }
+    }
+
+    public int GetDistance(Tile otherTile)
+    {
+        return Math.Abs(X - otherTile.X) + Math.Abs(Y - otherTile.Y);
     }
 }

@@ -7,13 +7,13 @@ public class DamageComponent : MonoBehaviour
     public int Armor;
     public GameObject Corpse;
 
+    public int CurrentHP { get; private set; }
     private bool m_IsAlive;
-    private int m_CurrentHP;
 
     private void Awake()
     {
         m_IsAlive = true;
-        m_CurrentHP = MaxHP;
+        CurrentHP = MaxHP;
     }
 
     public void TakeDamage(GameObject instigator, int damage)
@@ -32,32 +32,33 @@ public class DamageComponent : MonoBehaviour
 
         if (damage > 0)
         {
-            m_CurrentHP = Math.Max(m_CurrentHP - damage, 0);
+            CurrentHP = Math.Max(CurrentHP - damage, 0);
 
-            if (m_CurrentHP == 0)
+            if (CurrentHP == 0)
             {
                 Die();
             }
         }
     }
 
-    private void Heal(int amount)
+    public void Heal(int amount)
     {
-        if (amount > MaxHP - m_CurrentHP)
+        if (amount > MaxHP - CurrentHP)
         {
-            amount = MaxHP - m_CurrentHP;
+            amount = MaxHP - CurrentHP;
         }
 
-        m_CurrentHP += amount;
+        CurrentHP += amount;
     }
 
     private void Die()
     {
+        Tile tile = GetComponent<Tile>();
         if (Corpse != null)
         {
-            Tile tile = GetComponent<Tile>();
             Instantiate(Corpse, new Vector3((float)tile.X, (float)tile.Y, 0.0f), Quaternion.identity);
         }
         Destroy(gameObject);
+        FindObjectOfType<GameMap>().RemoveActor(tile);
     }
 }

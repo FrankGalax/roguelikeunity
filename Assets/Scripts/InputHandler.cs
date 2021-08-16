@@ -18,19 +18,19 @@ public class InputHandler : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
-            m_ActionQueue.AddAction(new MoveAction { GameObject = Player, Speed = MoveSpeed, Direction = (0, 1) });
+            m_ActionQueue.AddAction(new BumpAction { GameObject = Player, Speed = MoveSpeed, Direction = (0, 1) });
         }
         else if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            m_ActionQueue.AddAction(new MoveAction { GameObject = Player, Speed = MoveSpeed, Direction = (-1, 0) });
+            m_ActionQueue.AddAction(new BumpAction { GameObject = Player, Speed = MoveSpeed, Direction = (-1, 0) });
         }
         else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
         {
-            m_ActionQueue.AddAction(new MoveAction { GameObject = Player, Speed = MoveSpeed, Direction = (0, -1) });
+            m_ActionQueue.AddAction(new BumpAction { GameObject = Player, Speed = MoveSpeed, Direction = (0, -1) });
         }
         else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
         {
-            m_ActionQueue.AddAction(new MoveAction { GameObject = Player, Speed = MoveSpeed, Direction = (1, 0) });
+            m_ActionQueue.AddAction(new BumpAction { GameObject = Player, Speed = MoveSpeed, Direction = (1, 0) });
         }
     }
 }
