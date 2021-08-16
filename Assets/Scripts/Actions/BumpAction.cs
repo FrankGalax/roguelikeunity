@@ -4,8 +4,7 @@ public class BumpAction : GameAction
     public (int, int) Direction { get; set; }
     public float Speed { get; set; }
 
-    private MoveAction m_MoveAction;
-    private MeleeAction m_MeleeAction;
+    private GameAction m_SubAction;
 
     public override void Apply(GameMap gameMap)
     {
@@ -18,8 +17,9 @@ public class BumpAction : GameAction
         Tile actorTile = gameMap.GetActorAtLocation(destX, destY);
         if (actorTile != null && actorTile.BlocksMovement)
         {
-            m_MeleeAction = new MeleeAction { GameObject = GameObject, Target = actorTile.gameObject };
-            m_MeleeAction.Apply(gameMap);
+            m_SubAction = new MeleeAction { GameObject = GameObject, Target = actorTile.gameObject };
+            m_SubAction.Apply(gameMap);
+            IsDone = m_SubAction.IsDone;
         }
         else
         {
@@ -30,8 +30,9 @@ public class BumpAction : GameAction
             }
             else
             {
-                m_MoveAction = new MoveAction { GameObject = GameObject, Direction = Direction, Speed = Speed };
-                m_MoveAction.Apply(gameMap);
+                m_SubAction = new MoveAction { GameObject = GameObject, Direction = Direction, Speed = Speed };
+                m_SubAction.Apply(gameMap);
+                IsDone = m_SubAction.IsDone;
             }
         }
     }
@@ -40,16 +41,10 @@ public class BumpAction : GameAction
     {
         base.Update(gameMap);
 
-        if (m_MeleeAction != null)
+        if (m_SubAction != null)
         {
-            m_MeleeAction.Update(gameMap);
-            IsDone |= m_MeleeAction.IsDone;
-        }
-
-        if (m_MoveAction != null)
-        {
-            m_MoveAction.Update(gameMap);
-            IsDone |= m_MoveAction.IsDone;
+            m_SubAction.Update(gameMap);
+            IsDone = m_SubAction.IsDone;
         }
     }
 }

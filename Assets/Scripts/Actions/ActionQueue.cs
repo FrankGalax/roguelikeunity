@@ -46,4 +46,9 @@ public class ActionQueue : MonoBehaviour
         }
         m_GameActions.Add(gameAction);
     }
+
+    public bool IsBusy()
+    {
+        return m_GameActions.Count > 0;
+    }
 }
