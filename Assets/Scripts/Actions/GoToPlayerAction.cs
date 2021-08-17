@@ -13,6 +13,12 @@ public class GoToPlayerAction : GameAction
     {
         base.Apply(gameMap);
 
+        if (Player == null)
+        {
+            IsDone = true;
+            return;
+        }
+
         Tile tile = GameObject.GetComponent<Tile>();
         Tile playerTile = Player.GetComponent<Tile>();
         int distance = tile.GetDistance(playerTile);
@@ -48,5 +54,15 @@ public class GoToPlayerAction : GameAction
             m_SubAction.Update(gameMap);
             IsDone = m_SubAction.IsDone;
         }
+    }
+
+    public override string GetDebugString()
+    {
+        if (m_SubAction != null)
+        {
+            return m_SubAction.GetDebugString();
+        }
+
+        return "GoToPlayerAction without a sub action";
     }
 }

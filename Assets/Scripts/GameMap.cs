@@ -39,12 +39,14 @@ public class GameMap : MonoBehaviour
     public GameObject Wall;
     public GameObject Rat;
     public GameObject Troll;
+    public GameObject HealthPotion;
     public int MaxRooms;
     public int RoomMinSize;
     public int RoomMaxSize;
     public int DungeonWidth;
     public int DungeonHeight;
     public int MaxMobsPerRoom;
+    public int MaxItemsPerRoom;
 
     private List<List<Tile>> m_Tiles;
     private HashSet<(int, int)> m_CantDestroy;
@@ -115,6 +117,13 @@ public class GameMap : MonoBehaviour
                 );
                 playerX = roomCenter.Item1;
                 playerY = roomCenter.Item2;
+
+                Tile actor = GetActorAtLocation(roomCenter.Item1, roomCenter.Item2);
+                if (actor != null)
+                {
+                    RemoveActor(actor);
+                    Destroy(actor.gameObject);
+                }
             }
             else
             {
@@ -276,12 +285,21 @@ public class GameMap : MonoBehaviour
             float r = UnityEngine.Random.value;
             if (r < 0.8)
             {
-                AddMob(Rat, x, y);
+                AddActor(Rat, x, y);
             }
             else
             {
-                AddMob(Troll, x, y);
+                AddActor(Troll, x, y);
             }
+        }
+
+        int nbItems = UnityEngine.Random.Range(0, MaxItemsPerRoom + 1);
+        for (int i = 0; i < nbItems; ++i)
+        {
+            int x = UnityEngine.Random.Range(room.X1 + 1, room.X2);
+            int y = UnityEngine.Random.Range(room.Y1 + 1, room.Y2);
+
+            AddActor(HealthPotion, x, y);
         }
     }
 
@@ -333,7 +351,7 @@ public class GameMap : MonoBehaviour
         }
     }
 
-    private void AddMob(GameObject prefab, int x, int y)
+    private void AddActor(GameObject prefab, int x, int y)
     {
         if (GetActorAtLocation(x, y) == null)
         {

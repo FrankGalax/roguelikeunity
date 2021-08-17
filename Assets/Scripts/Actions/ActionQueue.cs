@@ -33,7 +33,12 @@ public class ActionQueue : MonoBehaviour
 
             if (m_GameActions.Count > 0)
             {
-                m_GameActions[0].Apply(m_GameMap);
+                GameAction gameAction = m_GameActions[0];
+                gameAction.Apply(m_GameMap);
+                if (gameAction.GameObject != m_GameMap.Player)
+                {
+                    Debug.Log(gameAction.GetDebugString());
+                }
             }
         }
     }
@@ -43,6 +48,10 @@ public class ActionQueue : MonoBehaviour
         if (m_GameActions.Count == 0)
         {
             gameAction.Apply(m_GameMap);
+            if (gameAction.GameObject != m_GameMap.Player)
+            {
+                Debug.Log(gameAction.GetDebugString());
+            }
         }
         m_GameActions.Add(gameAction);
     }

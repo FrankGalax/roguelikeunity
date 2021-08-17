@@ -12,4 +12,6 @@ public abstract class GameAction
     public virtual void Update(GameMap gameMap) { }
 
     public bool IsDone { get; protected set; }
+
+    public virtual string GetDebugString() { return null; }
 }

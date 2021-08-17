@@ -69,4 +69,9 @@ public class MoveAction : GameAction
             }
         }
     }
+
+    public override string GetDebugString()
+    {
+        return "MoveAction with Direction (" + Direction.Item1 + ", " + Direction.Item2 + ")";
+    }
 }

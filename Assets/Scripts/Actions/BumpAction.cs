@@ -47,4 +47,14 @@ public class BumpAction : GameAction
             IsDone = m_SubAction.IsDone;
         }
     }
+
+    public override string GetDebugString()
+    {
+        if (m_SubAction != null)
+        {
+            return m_SubAction.GetDebugString();
+        }
+
+        return "BumpAction without a sub action";
+    }
 }

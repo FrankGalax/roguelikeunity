@@ -7,6 +7,7 @@ public class InputHandler : MonoBehaviour
     public GameObject Player;
     public float MoveSpeed = 4.0f;
     private ActionQueue m_ActionQueue;
+    private float m_Timer;
 
     private void Awake()
     {
