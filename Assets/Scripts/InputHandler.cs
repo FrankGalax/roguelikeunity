@@ -38,5 +38,9 @@ public class InputHandler : MonoBehaviour
         {
             m_ActionQueue.AddAction(new BumpAction { GameObject = Player, Speed = MoveSpeed, Direction = (1, 0) });
         }
+        else if (Input.GetKey(KeyCode.E))
+        {
+            m_ActionQueue.AddAction(new PickupAction { GameObject = Player });
+        }
     }
 }

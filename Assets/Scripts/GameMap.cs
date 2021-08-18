@@ -122,7 +122,6 @@ public class GameMap : MonoBehaviour
                 if (actor != null)
                 {
                     RemoveActor(actor);
-                    Destroy(actor.gameObject);
                 }
             }
             else
@@ -229,6 +228,7 @@ public class GameMap : MonoBehaviour
     public void RemoveActor(Tile tile)
     {
         m_Actors.Remove(tile);
+        Destroy(tile.gameObject);
     }
 
     private List<(int, int)> TunnelBetween(int x1, int y1, int x2, int y2)

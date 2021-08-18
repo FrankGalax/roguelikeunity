@@ -1,11 +1,12 @@
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "NewHealItemEffect", menuName = "Items/HealItemEffect")]
 public class HealItemEffect : ItemEffect
 {
-    private int m_Amount;
+    public int Amount;
 
-    public HealItemEffect(int amount)
+    public override void Apply(GameObject gameObject)
     {
-        m_Amount = amount;
+        throw new System.NotImplementedException();
     }
 }

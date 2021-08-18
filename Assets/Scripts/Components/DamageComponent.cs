@@ -66,7 +66,6 @@ public class DamageComponent : MonoBehaviour
         {
             Instantiate(Corpse, new Vector3((float)tile.X, (float)tile.Y, 0.0f), Quaternion.identity);
         }
-        Destroy(gameObject);
         FindObjectOfType<GameMap>().RemoveActor(tile);
     }
 }

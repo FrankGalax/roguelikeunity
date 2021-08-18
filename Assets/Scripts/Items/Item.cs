@@ -1,16 +1,8 @@
 using System.Collections.Generic;
+using UnityEngine;
 
-public class Item
+[CreateAssetMenu(fileName = "NewItem", menuName = "Items/Item")]
+public class Item : ScriptableObject
 {
-    private List<ItemEffect> m_ItemEffects;
-
-    public Item()
-    {
-        m_ItemEffects = new List<ItemEffect>();
-    }
-
-    public void AddItemEffect(ItemEffect itemEffect)
-    {
-        m_ItemEffects.Add(itemEffect);
-    }
+    public List<ItemEffect> ItemEffects;
 }
