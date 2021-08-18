@@ -369,6 +369,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: InventorySlot (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 6671969248420989253, guid: 6302bc7f8f5db724aa44966eb01fd20a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1207271274}
+    - target: {fileID: 6671969248420989253, guid: 6302bc7f8f5db724aa44966eb01fd20a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnInventoryItemClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 6671969248420989253, guid: 6302bc7f8f5db724aa44966eb01fd20a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 8906023976270081235, guid: 6302bc7f8f5db724aa44966eb01fd20a, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -470,6 +482,22 @@ PrefabInstance:
     - target: {fileID: 712100406326888842, guid: 6302bc7f8f5db724aa44966eb01fd20a, type: 3}
       propertyPath: m_Name
       value: InventorySlot (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6671969248420989253, guid: 6302bc7f8f5db724aa44966eb01fd20a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6671969248420989253, guid: 6302bc7f8f5db724aa44966eb01fd20a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1207271274}
+    - target: {fileID: 6671969248420989253, guid: 6302bc7f8f5db724aa44966eb01fd20a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnInventoryItemClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 6671969248420989253, guid: 6302bc7f8f5db724aa44966eb01fd20a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8906023976270081235, guid: 6302bc7f8f5db724aa44966eb01fd20a, type: 3}
       propertyPath: m_Pivot.x
@@ -877,6 +905,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: InventorySlot (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 6671969248420989253, guid: 6302bc7f8f5db724aa44966eb01fd20a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1207271274}
+    - target: {fileID: 6671969248420989253, guid: 6302bc7f8f5db724aa44966eb01fd20a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnInventoryItemClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 6671969248420989253, guid: 6302bc7f8f5db724aa44966eb01fd20a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8906023976270081235, guid: 6302bc7f8f5db724aa44966eb01fd20a, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -979,6 +1019,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: InventorySlot (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 6671969248420989253, guid: 6302bc7f8f5db724aa44966eb01fd20a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1207271274}
+    - target: {fileID: 6671969248420989253, guid: 6302bc7f8f5db724aa44966eb01fd20a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnInventoryItemClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 6671969248420989253, guid: 6302bc7f8f5db724aa44966eb01fd20a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 8906023976270081235, guid: 6302bc7f8f5db724aa44966eb01fd20a, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1080,6 +1132,30 @@ PrefabInstance:
     - target: {fileID: 712100406326888842, guid: 6302bc7f8f5db724aa44966eb01fd20a, type: 3}
       propertyPath: m_Name
       value: InventorySlot (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 712100406326888842, guid: 6302bc7f8f5db724aa44966eb01fd20a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6671969248420989253, guid: 6302bc7f8f5db724aa44966eb01fd20a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6671969248420989253, guid: 6302bc7f8f5db724aa44966eb01fd20a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1207271274}
+    - target: {fileID: 6671969248420989253, guid: 6302bc7f8f5db724aa44966eb01fd20a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnInventoryItemClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 6671969248420989253, guid: 6302bc7f8f5db724aa44966eb01fd20a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UI, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6671969248420989253, guid: 6302bc7f8f5db724aa44966eb01fd20a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8906023976270081235, guid: 6302bc7f8f5db724aa44966eb01fd20a, type: 3}
       propertyPath: m_Pivot.x
@@ -1227,6 +1303,18 @@ PrefabInstance:
     - target: {fileID: 712100406326888842, guid: 6302bc7f8f5db724aa44966eb01fd20a, type: 3}
       propertyPath: m_Name
       value: InventorySlot (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6671969248420989253, guid: 6302bc7f8f5db724aa44966eb01fd20a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1207271274}
+    - target: {fileID: 6671969248420989253, guid: 6302bc7f8f5db724aa44966eb01fd20a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnInventoryItemClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 6671969248420989253, guid: 6302bc7f8f5db724aa44966eb01fd20a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8906023976270081235, guid: 6302bc7f8f5db724aa44966eb01fd20a, type: 3}
       propertyPath: m_Pivot.x
@@ -1486,6 +1574,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 565852633}
+  InventoryPanel: {fileID: 94062856}
 --- !u!114 &1207271275
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1714,6 +1803,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: InventorySlot (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 6671969248420989253, guid: 6302bc7f8f5db724aa44966eb01fd20a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6671969248420989253, guid: 6302bc7f8f5db724aa44966eb01fd20a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1207271274}
+    - target: {fileID: 6671969248420989253, guid: 6302bc7f8f5db724aa44966eb01fd20a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnInventoryItemClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 6671969248420989253, guid: 6302bc7f8f5db724aa44966eb01fd20a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 8906023976270081235, guid: 6302bc7f8f5db724aa44966eb01fd20a, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1815,6 +1920,18 @@ PrefabInstance:
     - target: {fileID: 712100406326888842, guid: 6302bc7f8f5db724aa44966eb01fd20a, type: 3}
       propertyPath: m_Name
       value: InventorySlot (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6671969248420989253, guid: 6302bc7f8f5db724aa44966eb01fd20a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1207271274}
+    - target: {fileID: 6671969248420989253, guid: 6302bc7f8f5db724aa44966eb01fd20a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnInventoryItemClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 6671969248420989253, guid: 6302bc7f8f5db724aa44966eb01fd20a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8906023976270081235, guid: 6302bc7f8f5db724aa44966eb01fd20a, type: 3}
       propertyPath: m_Pivot.x
@@ -1974,6 +2091,18 @@ PrefabInstance:
     - target: {fileID: 712100406326888842, guid: 6302bc7f8f5db724aa44966eb01fd20a, type: 3}
       propertyPath: m_Name
       value: InventorySlot (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6671969248420989253, guid: 6302bc7f8f5db724aa44966eb01fd20a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1207271274}
+    - target: {fileID: 6671969248420989253, guid: 6302bc7f8f5db724aa44966eb01fd20a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnInventoryItemClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 6671969248420989253, guid: 6302bc7f8f5db724aa44966eb01fd20a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8906023976270081235, guid: 6302bc7f8f5db724aa44966eb01fd20a, type: 3}
       propertyPath: m_Pivot.x
@@ -2258,22 +2387,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: InventorySlot
       objectReference: {fileID: 0}
-    - target: {fileID: 8377271405856480907, guid: 6302bc7f8f5db724aa44966eb01fd20a, type: 3}
-      propertyPath: m_fontColor.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8377271405856480907, guid: 6302bc7f8f5db724aa44966eb01fd20a, type: 3}
-      propertyPath: m_fontColor.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8377271405856480907, guid: 6302bc7f8f5db724aa44966eb01fd20a, type: 3}
-      propertyPath: m_fontColor.r
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8377271405856480907, guid: 6302bc7f8f5db724aa44966eb01fd20a, type: 3}
-      propertyPath: m_fontColor32.rgba
-      value: 4278190080
-      objectReference: {fileID: 0}
+    - target: {fileID: 6671969248420989253, guid: 6302bc7f8f5db724aa44966eb01fd20a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1207271274}
     - target: {fileID: 8906023976270081235, guid: 6302bc7f8f5db724aa44966eb01fd20a, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

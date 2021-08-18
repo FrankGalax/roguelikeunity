@@ -7,6 +7,10 @@ public class HealItemEffect : ItemEffect
 
     public override void Apply(GameObject gameObject)
     {
-        throw new System.NotImplementedException();
+        DamageComponent damageComponent = gameObject.GetComponent<DamageComponent>();
+        if (damageComponent != null)
+        {
+            damageComponent.Heal(Amount);
+        }
     }
 }
