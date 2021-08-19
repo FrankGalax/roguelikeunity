@@ -20,6 +20,7 @@ public class BumpAction : GameAction
             m_SubAction = new MeleeAction { GameObject = GameObject, Target = actorTile.gameObject };
             m_SubAction.Apply(gameMap);
             IsDone = m_SubAction.IsDone;
+            IsSuccess = m_SubAction.IsSuccess;
         }
         else
         {
@@ -27,12 +28,14 @@ public class BumpAction : GameAction
             if (tile != null && tile.BlocksMovement)
             {
                 IsDone = true;
+                IsSuccess = false;
             }
             else
             {
                 m_SubAction = new MoveAction { GameObject = GameObject, Direction = Direction, Speed = Speed };
                 m_SubAction.Apply(gameMap);
                 IsDone = m_SubAction.IsDone;
+                IsSuccess = m_SubAction.IsSuccess;
             }
         }
     }
@@ -45,6 +48,7 @@ public class BumpAction : GameAction
         {
             m_SubAction.Update(gameMap);
             IsDone = m_SubAction.IsDone;
+            IsSuccess = m_SubAction.IsSuccess;
         }
     }
 

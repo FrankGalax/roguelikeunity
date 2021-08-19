@@ -20,6 +20,7 @@ public class MoveAction : GameAction
         if (!gameMap.IsInBounds(destX, destY))
         {
             IsDone = true;
+            IsSuccess = false;
             return;
         }
 
@@ -28,6 +29,7 @@ public class MoveAction : GameAction
         if (targetTile != null && targetTile.BlocksMovement)
         {
             IsDone = true;
+            IsSuccess = false;
             return;
         }
 

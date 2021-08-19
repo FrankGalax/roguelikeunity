@@ -5,12 +5,17 @@ using UnityEngine;
 public class InventoryComponent : MonoBehaviour
 {
     public List<Item> Items;
+    public int MaxItems;
+
     public Signal UpdateInventorySignal { get; private set; }
+
+    private ActionQueue m_ActionQueue;
 
     private void Awake()
     {
         Items = new List<Item>();
         UpdateInventorySignal = new Signal();
+        m_ActionQueue = FindObjectOfType<ActionQueue>();
     }
 
     public void AddItem(Item item)
@@ -30,11 +35,11 @@ public class InventoryComponent : MonoBehaviour
         if (Items.Count > index)
         {
             Item item = Items[index];
-            foreach (ItemEffect itemEffect in item.ItemEffects)
+            if (item != null)
             {
-                itemEffect.Apply(gameObject);
+                RemoveItem(item);
+                m_ActionQueue.AddAction(new UseItemAction { GameObject = gameObject, Item = item });
             }
-            RemoveItem(item);
         }
     }
 }

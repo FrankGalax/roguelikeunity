@@ -19,6 +19,7 @@ public class PickupAction : GameAction
         if (actorTile == null)
         {
             IsDone = true;
+            IsSuccess = false;
             return;
         }
 
@@ -26,6 +27,7 @@ public class PickupAction : GameAction
         if (itemComponent == null)
         {
             IsDone = true;
+            IsSuccess = false;
             return;
         }
 
@@ -33,6 +35,14 @@ public class PickupAction : GameAction
         if (inventoryComponent == null)
         {
             IsDone = true;
+            IsSuccess = false;
+            return;
+        }
+
+        if (inventoryComponent.Items.Count > inventoryComponent.MaxItems)
+        {
+            IsDone = true;
+            IsSuccess = false;
             return;
         }
 

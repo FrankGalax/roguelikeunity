@@ -16,6 +16,7 @@ public class GoToPlayerAction : GameAction
         if (Player == null)
         {
             IsDone = true;
+            IsSuccess = false;
             return;
         }
 
@@ -28,6 +29,7 @@ public class GoToPlayerAction : GameAction
             m_SubAction = new MeleeAction { GameObject = GameObject, Target = Player };
             m_SubAction.Apply(gameMap);
             IsDone = m_SubAction.IsDone;
+            IsSuccess = m_SubAction.IsSuccess;
             return;
         }
 
@@ -36,6 +38,7 @@ public class GoToPlayerAction : GameAction
         if (path == null || path.Count < 2)
         {
             IsDone = true;
+            IsSuccess = false;
             return;
         }
 
@@ -43,6 +46,7 @@ public class GoToPlayerAction : GameAction
         m_SubAction = new MoveAction { GameObject = GameObject, Direction = direction, Speed = Speed };
         m_SubAction.Apply(gameMap);
         IsDone = m_SubAction.IsDone;
+        IsSuccess = m_SubAction.IsSuccess;
     }
 
     public override void Update(GameMap gameMap)
@@ -53,6 +57,7 @@ public class GoToPlayerAction : GameAction
         {
             m_SubAction.Update(gameMap);
             IsDone = m_SubAction.IsDone;
+            IsSuccess = m_SubAction.IsSuccess;
         }
     }
 

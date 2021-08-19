@@ -22,9 +22,10 @@ public class ActionQueue : MonoBehaviour
         if (m_GameActions[0].IsDone)
         {
             GameObject gameObject = m_GameActions[0].GameObject;
+            bool isSuccess = m_GameActions[0].IsSuccess;
             m_GameActions.RemoveAt(0);
 
-            if (gameObject.tag == "Player")
+            if (gameObject.tag == "Player" && isSuccess)
             {
                 m_GameActions.AddRange(m_GameMap.HandleEnemyTurns());
                 Tile playerTile = gameObject.GetComponent<Tile>();

@@ -15,6 +15,7 @@ public class MeleeAction : GameAction
         if (damageComponent == null)
         {
             IsDone = true;
+            IsSuccess = false;
             return;
         }
 
@@ -22,6 +23,7 @@ public class MeleeAction : GameAction
         if (meleeComponent == null)
         {
             IsDone = true;
+            IsSuccess = false;
             return;
         }
 
