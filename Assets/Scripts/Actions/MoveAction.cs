@@ -3,10 +3,10 @@ using UnityEngine;
 public class MoveAction : GameAction
 {
     public (int, int) Direction { get; set; }
-    public float Speed { get; set; }
 
     private Vector3 m_DirectionVector;
     private Vector3 m_Target;
+    private float m_Speed;
 
     public override void Apply(GameMap gameMap)
     {
@@ -38,6 +38,7 @@ public class MoveAction : GameAction
         tile.Y += Direction.Item2;
         m_DirectionVector = new Vector3((float)Direction.Item1, (float)Direction.Item2, 0.0f);
         m_Target = startPosition + m_DirectionVector;
+        m_Speed = Config.Instance.MoveSpeed;
     }
 
     public override void Update(GameMap gameMap)
@@ -58,7 +59,7 @@ public class MoveAction : GameAction
         }
         else
         {
-            float movement = Speed * Time.deltaTime;
+            float movement = m_Speed * Time.deltaTime;
             float remainingDistance = distance.magnitude;
             if (movement > remainingDistance)
             {

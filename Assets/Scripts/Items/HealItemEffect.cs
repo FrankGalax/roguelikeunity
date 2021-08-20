@@ -5,7 +5,7 @@ public class HealItemEffect : ItemEffect
 {
     public int Amount;
 
-    public override void Apply(GameObject gameObject)
+    public override void Apply(GameObject gameObject, GameMap gameMap)
     {
         DamageComponent damageComponent = gameObject.GetComponent<DamageComponent>();
         if (damageComponent != null)

@@ -6,11 +6,14 @@
     {
         base.Apply(gameMap);
 
-        foreach (ItemEffect itemEffect in Item.ItemEffects)
-        {
-            itemEffect.Apply(GameObject);
-        }
+        Item.Apply(GameObject, gameMap);
 
+        IsSuccess = !Item.IsCastingSpell;
         IsDone = true;
+    }
+
+    public override string GetDebugString()
+    {
+        return "UseItemAction with Item " + Item.name;
     }
 }

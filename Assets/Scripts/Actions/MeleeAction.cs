@@ -44,6 +44,6 @@ public class MeleeAction : GameAction
 
     public override string GetDebugString()
     {
-        return "MeleeAction with Target " + Target.name;
+        return "MeleeAction with Target " + (Target != null ? Target.name : "NULL");
     }
 }

@@ -60,6 +60,7 @@ public class DamageComponent : MonoBehaviour
 
     private void Die()
     {
+        Debug.Log(gameObject.name + " Dies");
         IsAlive = false;
         Tile tile = GetComponent<Tile>();
         if (Corpse != null)

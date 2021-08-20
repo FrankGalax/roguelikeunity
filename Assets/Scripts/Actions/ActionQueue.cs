@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class ActionQueue : MonoBehaviour
 {
-    private List<GameAction> m_GameActions = new List<GameAction>();
+    private Queue<GameAction> m_GameActions = new Queue<GameAction>();
     private GameMap m_GameMap;
 
     private void Awake()
@@ -18,27 +18,33 @@ public class ActionQueue : MonoBehaviour
             return;
         }
 
-        m_GameActions[0].Update(m_GameMap);
-        if (m_GameActions[0].IsDone)
+        GameAction first = m_GameActions.Peek();
+        first.Update(m_GameMap);
+        if (first.IsDone)
         {
-            GameObject gameObject = m_GameActions[0].GameObject;
-            bool isSuccess = m_GameActions[0].IsSuccess;
-            m_GameActions.RemoveAt(0);
+            GameObject gameObject = first.GameObject;
+            bool isSuccess = first.IsSuccess;
+            Debug.Log("Complete " + first.GetDebugString() + " with GameObject " + gameObject + " isSuccess " + isSuccess);
+            m_GameActions.Dequeue();
 
             if (gameObject.tag == "Player" && isSuccess)
             {
-                m_GameActions.AddRange(m_GameMap.HandleEnemyTurns());
+                List<GameAction> enemyActions = m_GameMap.HandleEnemyTurns();
+                foreach (GameAction enemyAction in enemyActions)
+                {
+                    m_GameActions.Enqueue(enemyAction);
+                }
                 Tile playerTile = gameObject.GetComponent<Tile>();
                 m_GameMap.ComputeFOV(playerTile.X, playerTile.Y);
             }
 
             if (m_GameActions.Count > 0)
             {
-                GameAction gameAction = m_GameActions[0];
+                GameAction gameAction = m_GameActions.Peek();
                 gameAction.Apply(m_GameMap);
                 if (gameAction.GameObject != m_GameMap.Player)
                 {
-                    Debug.Log(gameAction.GetDebugString());
+                    Debug.Log(gameAction.GameObject.name + " : " + gameAction.GetDebugString());
                 }
             }
         }
@@ -46,7 +52,9 @@ public class ActionQueue : MonoBehaviour
 
     public void AddAction(GameAction gameAction)
     {
-        if (m_GameActions.Count == 0)
+        Debug.Log("Add action " + gameAction.GetDebugString());
+        m_GameActions.Enqueue(gameAction);
+        if (m_GameActions.Count == 1)
         {
             gameAction.Apply(m_GameMap);
             if (gameAction.GameObject != m_GameMap.Player)
@@ -54,7 +62,6 @@ public class ActionQueue : MonoBehaviour
                 Debug.Log(gameAction.GetDebugString());
             }
         }
-        m_GameActions.Add(gameAction);
     }
 
     public bool IsBusy()

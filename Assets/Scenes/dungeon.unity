@@ -256,6 +256,49 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!1 &183169877
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 183169879}
+  - component: {fileID: 183169878}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &183169878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 183169877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2df59f152811c18429d7d02e8d358f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &183169879
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 183169877}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -358,6 +401,18 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5090740618954376232, guid: 7a500260e03b4e747acceadb3ad7f6e2, type: 3}
   m_PrefabInstance: {fileID: 2003144514}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &565852634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 565852633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82eecb5be2e3041428343d5e8694f117, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &619641197
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -892,7 +947,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &913692453
 PrefabInstance:
@@ -1279,6 +1334,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DamagePopup: {fileID: 7583565885135466249, guid: 80498ae82839604469e2c4d43783dcb6, type: 3}
   DamagePopupOffset: {x: 0, y: 0.75, z: 0}
+  MoveSpeed: 4
+  SingleTarget: {fileID: 1544309821120019972, guid: 4c79158a34369c64084e49cad04ebd76, type: 3}
+  AreaSelection: {fileID: 6726839551662997188, guid: 0da7e8dfa1096a64f8067140f3b94b5d, type: 3}
+  AreaSelectionTop: {fileID: 4393253843088001708, guid: 0c1571c9fe87c22489b0da0c56f233c3, type: 3}
+  AreaSelectionTopLeft: {fileID: 881224642535869201, guid: 1e0897fea79aca84b844ff708b6ab686, type: 3}
+  AreaSelectionLeft: {fileID: 3909320353152442188, guid: 11d6eabbf369fcd4aa7612ee0cce4956, type: 3}
+  AreaSelectionBottomLeft: {fileID: 102079442517222855, guid: 416157d92ff160a4a9d699e1826240a9, type: 3}
+  AreaSelectionBottom: {fileID: 9096656491650791649, guid: e5fd343fff2ab934abf260cf508cef83, type: 3}
+  AreaSelectionBottomRight: {fileID: 383154870544199944, guid: 495f46ece5fda8742b48209364a69827, type: 3}
+  AreaSelectionRight: {fileID: 2616993009991038677, guid: 600f85f1cf1868a41a63ef7aa24f6686, type: 3}
+  AreaSelectionTopRight: {fileID: 1819383844190907940, guid: 94c6b1f01408dab49a7bb2589b832b17, type: 3}
 --- !u!4 &1039061577
 Transform:
   m_ObjectHideFlags: 0
@@ -1291,7 +1357,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1176023811
 PrefabInstance:
@@ -1651,7 +1717,7 @@ RectTransform:
   - {fileID: 858980469}
   - {fileID: 873456474}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2037,7 +2103,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5090740618954376238, guid: 7a500260e03b4e747acceadb3ad7f6e2, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5090740618954376238, guid: 7a500260e03b4e747acceadb3ad7f6e2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2303,7 +2369,6 @@ GameObject:
   - component: {fileID: 2137187582}
   - component: {fileID: 2137187581}
   - component: {fileID: 2137187584}
-  - component: {fileID: 2137187583}
   m_Layer: 0
   m_Name: Dungeon
   m_TagString: Untagged
@@ -2329,13 +2394,18 @@ MonoBehaviour:
   Rat: {fileID: 8548977278361031755, guid: 50943f9ee307cd3479829d39be83edba, type: 3}
   Troll: {fileID: 8398144802756975928, guid: b08e3ccf2d3907549ae38a014b2dab5f, type: 3}
   HealthPotion: {fileID: 2617087261389305819, guid: 47f508098bca3944598423f218fb6280, type: 3}
+  LightningMedalion: {fileID: 4339184411076700817, guid: afeee6ac494ad904f856e49407179614, type: 3}
+  ConfusionMedalion: {fileID: 765099499073486484, guid: b63220fe59461484084e6aa077743388, type: 3}
+  FireMedalion: {fileID: 3442177546461130226, guid: 64a9f58a148782243af953af62f91645, type: 3}
   MaxRooms: 30
   RoomMinSize: 6
   RoomMaxSize: 10
   DungeonWidth: 80
   DungeonHeight: 45
   MaxMobsPerRoom: 2
+  MinMobsPerRoom: 1
   MaxItemsPerRoom: 2
+  MinItemsPerRoom: 1
 --- !u!4 &2137187582
 Transform:
   m_ObjectHideFlags: 0
@@ -2348,22 +2418,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2137187583
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2137187580}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf93811aa67ebea498755d67ed5a9217, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Player: {fileID: 565852633}
-  MoveSpeed: 4
 --- !u!114 &2137187584
 MonoBehaviour:
   m_ObjectHideFlags: 0

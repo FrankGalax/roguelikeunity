@@ -6,4 +6,15 @@ public class Config : GameSingleton<Config>
 {
     public GameObject DamagePopup;
     public Vector3 DamagePopupOffset;
+    public float MoveSpeed = 4.0f;
+    public GameObject SingleTarget;
+    public GameObject AreaSelection;
+    public GameObject AreaSelectionTop;
+    public GameObject AreaSelectionTopLeft;
+    public GameObject AreaSelectionLeft;
+    public GameObject AreaSelectionBottomLeft;
+    public GameObject AreaSelectionBottom;
+    public GameObject AreaSelectionBottomRight;
+    public GameObject AreaSelectionRight;
+    public GameObject AreaSelectionTopRight;
 }

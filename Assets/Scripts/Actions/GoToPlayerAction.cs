@@ -5,7 +5,6 @@ using UnityEngine;
 public class GoToPlayerAction : GameAction
 {
     public GameObject Player { get; set; }
-    public float Speed { get; set; }
 
     private GameAction m_SubAction;
 
@@ -13,7 +12,7 @@ public class GoToPlayerAction : GameAction
     {
         base.Apply(gameMap);
 
-        if (Player == null)
+        if (Player == null || GameObject == null)
         {
             IsDone = true;
             IsSuccess = false;
@@ -43,7 +42,7 @@ public class GoToPlayerAction : GameAction
         }
 
         (int, int) direction = (path[1].Item1 - tile.X, path[1].Item2 - tile.Y);
-        m_SubAction = new MoveAction { GameObject = GameObject, Direction = direction, Speed = Speed };
+        m_SubAction = new MoveAction { GameObject = GameObject, Direction = direction };
         m_SubAction.Apply(gameMap);
         IsDone = m_SubAction.IsDone;
         IsSuccess = m_SubAction.IsSuccess;

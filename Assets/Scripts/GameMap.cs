@@ -40,13 +40,18 @@ public class GameMap : MonoBehaviour
     public GameObject Rat;
     public GameObject Troll;
     public GameObject HealthPotion;
+    public GameObject LightningMedalion;
+    public GameObject ConfusionMedalion;
+    public GameObject FireMedalion;
     public int MaxRooms;
     public int RoomMinSize;
     public int RoomMaxSize;
     public int DungeonWidth;
     public int DungeonHeight;
     public int MaxMobsPerRoom;
+    public int MinMobsPerRoom;
     public int MaxItemsPerRoom;
+    public int MinItemsPerRoom;
 
     private List<List<Tile>> m_Tiles;
     private HashSet<(int, int)> m_CantDestroy;
@@ -166,6 +171,20 @@ public class GameMap : MonoBehaviour
         return null;
     }
 
+    public List<Tile> GetVisibleEnemies()
+    {
+        List<Tile> visibleActors = new List<Tile>();
+        foreach (Tile actor in m_Actors)
+        {
+            if (actor.IsVisible && actor.GetComponent<DamageComponent>() != null)
+            {
+                visibleActors.Add(actor);
+            }
+        }
+
+        return visibleActors;
+    }
+
     public bool IsInBounds(int x, int y)
     {
         return x >= 0 && x < DungeonWidth && y >= 0 && y < DungeonHeight;
@@ -200,6 +219,7 @@ public class GameMap : MonoBehaviour
 
     public List<GameAction> HandleEnemyTurns()
     {
+        Debug.Log("Handle Enemy Turns");
         List<GameAction> gameActions = new List<GameAction>();
 
         foreach (Tile tile in m_Actors)
@@ -276,7 +296,7 @@ public class GameMap : MonoBehaviour
             AddTile(Wall, i, room.Y2, true, true);
         }
 
-        int nbMobs = UnityEngine.Random.Range(0, MaxMobsPerRoom + 1);
+        int nbMobs = UnityEngine.Random.Range(MinMobsPerRoom, MaxMobsPerRoom + 1);
         for (int i = 0; i < nbMobs; ++i)
         {
             int x = UnityEngine.Random.Range(room.X1 + 1, room.X2);
@@ -293,13 +313,29 @@ public class GameMap : MonoBehaviour
             }
         }
 
-        int nbItems = UnityEngine.Random.Range(0, MaxItemsPerRoom + 1);
+        int nbItems = UnityEngine.Random.Range(MinItemsPerRoom, MaxItemsPerRoom + 1);
         for (int i = 0; i < nbItems; ++i)
         {
             int x = UnityEngine.Random.Range(room.X1 + 1, room.X2);
             int y = UnityEngine.Random.Range(room.Y1 + 1, room.Y2);
 
-            AddActor(HealthPotion, x, y);
+            float r = UnityEngine.Random.value;
+            if (r < 0.5f)
+            {
+                AddActor(HealthPotion, x, y);
+            }
+            else if (r < 0.7f)
+            {
+                AddActor(LightningMedalion, x, y);
+            }
+            else if (r < 0.9f)
+            {
+                AddActor(ConfusionMedalion, x, y);
+            }
+            else
+            {
+                AddActor(FireMedalion, x, y);
+            }
         }
     }
 
