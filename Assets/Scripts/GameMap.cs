@@ -48,16 +48,13 @@ public class GameMap : MonoBehaviour
     public int RoomMaxSize;
     public int DungeonWidth;
     public int DungeonHeight;
-    public int MaxMobsPerRoom;
-    public int MinMobsPerRoom;
-    public int MaxItemsPerRoom;
-    public int MinItemsPerRoom;
 
     private List<List<Tile>> m_Tiles;
     private HashSet<(int, int)> m_CantDestroy;
     private List<Tile> m_Actors;
     private Tile m_Stairs;
     private GameObject m_Player;
+    private FloorDefinition m_FloorDefinition;
 
     private void Awake()
     {
@@ -79,6 +76,15 @@ public class GameMap : MonoBehaviour
     void Start()
     {
         m_Player = GameObject.FindGameObjectWithTag("Player");
+        int currentFloor = GameManager.Instance.CurrentFloor;
+        if (currentFloor >= Config.Instance.FloorDefinitions.Count)
+        {
+            m_FloorDefinition = Config.Instance.FloorDefinitions[Config.Instance.FloorDefinitions.Count - 1];
+        }
+        else
+        {
+            m_FloorDefinition = Config.Instance.FloorDefinitions[currentFloor];
+        }
 
         List<Room> rooms = new List<Room>();
         List<List<(int, int)>> tunnels = new List<List<(int, int)>>();
@@ -325,45 +331,29 @@ public class GameMap : MonoBehaviour
             AddTile(Wall, i, room.Y2, true, true);
         }
 
-        int nbMobs = UnityEngine.Random.Range(MinMobsPerRoom, MaxMobsPerRoom + 1);
+        int nbMobs = UnityEngine.Random.Range(m_FloorDefinition.MinMobsPerRoom, m_FloorDefinition.MaxMobsPerRoom + 1);
         for (int i = 0; i < nbMobs; ++i)
         {
             int x = UnityEngine.Random.Range(room.X1 + 1, room.X2);
             int y = UnityEngine.Random.Range(room.Y1 + 1, room.Y2);
 
-            float r = UnityEngine.Random.value;
-            if (r < 0.8)
+            GameObject mob = m_FloorDefinition.GetMob();
+            if (mob != null)
             {
-                AddActor(Rat, x, y);
-            }
-            else
-            {
-                AddActor(Troll, x, y);
+                AddActor(mob, x, y);
             }
         }
 
-        int nbItems = UnityEngine.Random.Range(MinItemsPerRoom, MaxItemsPerRoom + 1);
+        int nbItems = UnityEngine.Random.Range(m_FloorDefinition.MinItemsPerRoom, m_FloorDefinition.MaxItemsPerRoom + 1);
         for (int i = 0; i < nbItems; ++i)
         {
             int x = UnityEngine.Random.Range(room.X1 + 1, room.X2);
             int y = UnityEngine.Random.Range(room.Y1 + 1, room.Y2);
 
-            float r = UnityEngine.Random.value;
-            if (r < 0.5f)
+            GameObject item = m_FloorDefinition.GetItem();
+            if (item != null)
             {
-                AddActor(HealthPotion, x, y);
-            }
-            else if (r < 0.7f)
-            {
-                AddActor(LightningMedalion, x, y);
-            }
-            else if (r < 0.9f)
-            {
-                AddActor(ConfusionMedalion, x, y);
-            }
-            else
-            {
-                AddActor(FireMedalion, x, y);
+                AddActor(item, x, y);
             }
         }
     }

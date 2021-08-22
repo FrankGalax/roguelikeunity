@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4729a2258a62c79469872a9d517c5da7, type: 3}
+  m_Name: Floor0
+  m_EditorClassIdentifier: 
+  MaxMobsPerRoom: 2
+  MinMobsPerRoom: 0
+  MaxItemsPerRoom: 2
+  MinItemsPerRoom: 0
+  Mobs:
+  - GameObject: {fileID: 8548977278361031755, guid: 50943f9ee307cd3479829d39be83edba, type: 3}
+    weight: 8
+  Items:
+  - GameObject: {fileID: 2617087261389305819, guid: 47f508098bca3944598423f218fb6280, type: 3}
+    weight: 5
+  - GameObject: {fileID: 4339184411076700817, guid: afeee6ac494ad904f856e49407179614, type: 3}
+    weight: 2
+  - GameObject: {fileID: 765099499073486484, guid: b63220fe59461484084e6aa077743388, type: 3}
+    weight: 2
+  - GameObject: {fileID: 3442177546461130226, guid: 64a9f58a148782243af953af62f91645, type: 3}
+    weight: 1

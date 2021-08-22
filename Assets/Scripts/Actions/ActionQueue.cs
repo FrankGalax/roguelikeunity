@@ -85,6 +85,7 @@ public class ActionQueue : MonoBehaviour
 
     private void ChangeFloor()
     {
+        GameManager.Instance.CurrentFloor = GameManager.Instance.CurrentFloor + 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

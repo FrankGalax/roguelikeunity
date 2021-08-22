@@ -12,10 +12,13 @@ public enum GameStateRequest
 
 public class GameManager : GameSingleton<GameManager>
 {
+    public int CurrentFloor { get; set; }
+
     private StateMachine m_StateMachine;
 
     private void Awake()
     {
+        CurrentFloor = 0;
         DontDestroyOnLoad(gameObject);
     }
 

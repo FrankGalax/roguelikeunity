@@ -295,7 +295,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e6c8ce80e3c9a445a813c0bdba0c631, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 0}
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -1285,6 +1284,10 @@ MonoBehaviour:
   AreaSelectionBottomRight: {fileID: 383154870544199944, guid: 495f46ece5fda8742b48209364a69827, type: 3}
   AreaSelectionRight: {fileID: 2616993009991038677, guid: 600f85f1cf1868a41a63ef7aa24f6686, type: 3}
   AreaSelectionTopRight: {fileID: 1819383844190907940, guid: 94c6b1f01408dab49a7bb2589b832b17, type: 3}
+  FloorDefinitions:
+  - {fileID: 11400000, guid: 73700e4ff880e7f47b879d07164eddad, type: 2}
+  - {fileID: 11400000, guid: 1f72a62e8c1234249bb4593a422cf3c6, type: 2}
+  - {fileID: 11400000, guid: d9dc8af964a43e849ba616d8be2252bc, type: 2}
 --- !u!4 &1039061577
 Transform:
   m_ObjectHideFlags: 0
@@ -2073,6 +2076,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 5090740618954376232, guid: 7a500260e03b4e747acceadb3ad7f6e2, type: 3}
+  InitialFloor: 0
 --- !u!1001 &2006675764
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2323,15 +2327,11 @@ MonoBehaviour:
   ConfusionMedalion: {fileID: 765099499073486484, guid: b63220fe59461484084e6aa077743388, type: 3}
   FireMedalion: {fileID: 3442177546461130226, guid: 64a9f58a148782243af953af62f91645, type: 3}
   Stairs: {fileID: 2871246133465703278, guid: d0c8bd3c19fbbd94b98cc174db07e3ca, type: 3}
-  MaxRooms: 2
+  MaxRooms: 30
   RoomMinSize: 6
   RoomMaxSize: 10
   DungeonWidth: 60
   DungeonHeight: 40
-  MaxMobsPerRoom: 2
-  MinMobsPerRoom: 1
-  MaxItemsPerRoom: 2
-  MinItemsPerRoom: 1
 --- !u!4 &2137187582
 Transform:
   m_ObjectHideFlags: 0
