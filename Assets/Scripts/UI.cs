@@ -5,17 +5,16 @@ using System.Collections.Generic;
 
 public class UI : MonoBehaviour
 {
-    public GameObject Player;
     public GameObject InventoryPanel;
 
     private TextMeshProUGUI m_PlayerHPText;
     private DamageComponent m_PlayerDamageComponent;
     private List<GameObject> m_InventorySlots;
+    private GameObject m_Player;
 
     private void Awake()
     {
         m_PlayerHPText = transform.Find("PlayerHP").GetComponent<TextMeshProUGUI>();
-        m_PlayerDamageComponent = Player.GetComponent<DamageComponent>();
         m_InventorySlots = new List<GameObject>();
         if (InventoryPanel != null)
         {
@@ -28,11 +27,14 @@ public class UI : MonoBehaviour
 
     private void Start()
     {
+        m_Player = GameObject.FindGameObjectWithTag("Player");
+        m_PlayerDamageComponent = m_Player.GetComponent<DamageComponent>();
+
         UpdateInventory();
 
-        if (Player != null)
+        if (m_Player != null)
         {
-            Player.GetComponent<InventoryComponent>().UpdateInventorySignal.AddSlot(() => UpdateInventory());
+            m_Player.GetComponent<InventoryComponent>().UpdateInventorySignal.AddSlot(() => UpdateInventory());
         }
     }
 
@@ -43,7 +45,7 @@ public class UI : MonoBehaviour
 
     public void UpdateInventory()
     {
-        InventoryComponent inventoryComponent = Player.GetComponent<InventoryComponent>();
+        InventoryComponent inventoryComponent = m_Player.GetComponent<InventoryComponent>();
         for (int i = 0; i < m_InventorySlots.Count; ++i)
         {
             GameObject inventorySlot = m_InventorySlots[i];
@@ -75,9 +77,9 @@ public class UI : MonoBehaviour
 
     public void OnInventoryItemClick(int index)
     {
-        if (Player != null)
+        if (m_Player != null)
         {
-            InventoryComponent inventoryComponent = Player.GetComponent<InventoryComponent>();
+            InventoryComponent inventoryComponent = m_Player.GetComponent<InventoryComponent>();
             if (inventoryComponent != null)
             {
                 inventoryComponent.UseItem(index);

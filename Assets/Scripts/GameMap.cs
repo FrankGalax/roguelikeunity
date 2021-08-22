@@ -34,7 +34,6 @@ public class Room
 
 public class GameMap : MonoBehaviour
 {
-    public GameObject Player;
     public GameObject Floor;
     public GameObject Wall;
     public GameObject Rat;
@@ -43,6 +42,7 @@ public class GameMap : MonoBehaviour
     public GameObject LightningMedalion;
     public GameObject ConfusionMedalion;
     public GameObject FireMedalion;
+    public GameObject Stairs;
     public int MaxRooms;
     public int RoomMinSize;
     public int RoomMaxSize;
@@ -56,6 +56,8 @@ public class GameMap : MonoBehaviour
     private List<List<Tile>> m_Tiles;
     private HashSet<(int, int)> m_CantDestroy;
     private List<Tile> m_Actors;
+    private Tile m_Stairs;
+    private GameObject m_Player;
 
     private void Awake()
     {
@@ -76,6 +78,8 @@ public class GameMap : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        m_Player = GameObject.FindGameObjectWithTag("Player");
+
         List<Room> rooms = new List<Room>();
         List<List<(int, int)>> tunnels = new List<List<(int, int)>>();
         int playerX = 0;
@@ -111,13 +115,13 @@ public class GameMap : MonoBehaviour
             if (rooms.Count == 0)
             {
                 (int, int) roomCenter = newRoom.GetCenter();
-                Player.transform.position = new Vector3((float)roomCenter.Item1, (float)roomCenter.Item2, 0.0f);
-                Tile playerTile = Player.GetComponent<Tile>();
+                m_Player.transform.position = new Vector3((float)roomCenter.Item1, (float)roomCenter.Item2, 0.0f);
+                Tile playerTile = m_Player.GetComponent<Tile>();
                 playerTile.X = roomCenter.Item1;
                 playerTile.Y = roomCenter.Item2;
                 Camera.main.transform.position = new Vector3(
-                    Player.transform.position.x, 
-                    Player.transform.position.y, 
+                    m_Player.transform.position.x,
+                    m_Player.transform.position.y, 
                     Camera.main.transform.position.z
                 );
                 playerX = roomCenter.Item1;
@@ -145,6 +149,8 @@ public class GameMap : MonoBehaviour
         {
             SpawnTunnelWalls(tunnel);
         }
+
+        SpawnStairs(rooms[rooms.Count - 1]);
 
         ComputeFOV(playerX, playerY);
     }
@@ -183,6 +189,29 @@ public class GameMap : MonoBehaviour
         }
 
         return visibleActors;
+    }
+
+    public List<Tile> GetEnemiesInRange(int x, int y, int radius)
+    {
+        List<Tile> enemies = new List<Tile>();
+        foreach (Tile actor in m_Actors)
+        {
+            if (actor.GetComponent<DamageComponent>() != null)
+            {
+                int distance = Math.Max(Math.Abs(actor.X - x), Math.Abs(actor.Y - y));
+                if (distance <= radius)
+                {
+                    enemies.Add(actor);
+                }
+            }
+        }
+
+        return enemies;
+    }
+
+    public Tile GetStairs()
+    {
+        return m_Stairs;
     }
 
     public bool IsInBounds(int x, int y)
@@ -235,7 +264,7 @@ public class GameMap : MonoBehaviour
                 continue;
             }
 
-            GameAction action = aiComponent.GetAction(this, Player);
+            GameAction action = aiComponent.GetAction(this, m_Player);
             if (action != null)
             {
                 gameActions.Add(action);
@@ -359,6 +388,30 @@ public class GameMap : MonoBehaviour
             AddTile(Wall, tile.Item1 + 1, tile.Item2 + 1, false, false);
             AddTile(Wall, tile.Item1 + 1, tile.Item2, false, false);
             AddTile(Wall, tile.Item1 + 1, tile.Item2 - 1, false, false);
+        }
+    }
+
+    private void SpawnStairs(Room room)
+    {
+        while (true)
+        {
+            int x = UnityEngine.Random.Range(room.X1 + 1, room.X2);
+            int y = UnityEngine.Random.Range(room.Y1 + 1, room.Y2);
+
+            if (GetActorAtLocation(x, y) == null)
+            {
+                Tile tile = GetTileAtLocation(x, y);
+                if (tile != null)
+                {
+                    Destroy(tile.gameObject);
+                    m_Tiles[x][y] = null;
+                }
+
+                GameObject stairs = Instantiate(Stairs, new Vector3((float)x, (float)y, 0.0f), Quaternion.identity);
+                m_Stairs = stairs.GetComponent<Tile>();
+                m_Tiles[x][y] = m_Stairs;
+                break;
+            }
         }
     }
 

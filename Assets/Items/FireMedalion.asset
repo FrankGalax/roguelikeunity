@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7cc0c398d5560043a351aa04232211a, type: 3}
+  m_Name: FireMedalion
+  m_EditorClassIdentifier: 
+  ItemName: Fire Medalion
+  Sprite: {fileID: 3034550429799673827, guid: 843e6437e08c241489fd5a7a841147fb, type: 3}
+  ItemEffects:
+  - {fileID: 11400000, guid: b3a4cde9fb317b540bbd2896c00ce890, type: 2}
+  IsCastingSpell: 1

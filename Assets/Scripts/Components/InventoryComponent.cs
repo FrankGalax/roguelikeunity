@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class InventoryComponent : MonoBehaviour
 {
@@ -15,6 +16,20 @@ public class InventoryComponent : MonoBehaviour
     {
         Items = new List<Item>();
         UpdateInventorySignal = new Signal();
+        m_ActionQueue = FindObjectOfType<ActionQueue>();
+    }
+
+    private void Start()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (UpdateInventorySignal != null)
+        {
+            UpdateInventorySignal.ClearSlots();
+        }
         m_ActionQueue = FindObjectOfType<ActionQueue>();
     }
 

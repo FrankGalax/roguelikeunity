@@ -5,27 +5,28 @@ using System.Collections.Generic;
 public class FireballSpellItemEffect : ItemEffect
 {
     public int Damage;
+    public int Radius;
     private GameObject m_GameObject;
 
     public override void Apply(GameObject gameObject, GameMap gameMap)
     {
         m_GameObject = gameObject;
-        gameMap.GetComponent<ActionQueue>().AddAction(new UseNoTargetSpellAction { GameObject = gameObject, SpellCallback = UseSpell });
+        gameMap.GetComponent<ActionQueue>().AddAction(new UseAreaTargetSpellAction { GameObject = gameObject, Radius = Radius, SpellCallback = UseSpell });
     }
 
-    private bool UseSpell(GameMap gameMap)
+    private bool UseSpell(GameMap gameMap, Tile target)
     {
-        List<Tile> visibleEnemies = gameMap.GetVisibleEnemies();
+        List<Tile> enemies = gameMap.GetEnemiesInRange(target.X, target.Y, Radius);
 
-        if (visibleEnemies.Count == 0)
+        if (enemies.Count == 0)
         {
             return false;
         }
 
-        int r = UnityEngine.Random.Range(0, visibleEnemies.Count);
-        Tile visibleEnemy = visibleEnemies[r];
-
-        visibleEnemy.GetComponent<DamageComponent>().TakeDamage(m_GameObject, Damage);
+        foreach (Tile enemy in enemies)
+        {
+            enemy.GetComponent<DamageComponent>().TakeDamage(m_GameObject, Damage);
+        }
 
         return true;
     }

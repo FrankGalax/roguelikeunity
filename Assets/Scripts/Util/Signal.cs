@@ -22,4 +22,9 @@ public class Signal
     {
         m_Slots.Add(action);
     }
+
+    public void ClearSlots()
+    {
+        m_Slots.Clear();
+    }
 }

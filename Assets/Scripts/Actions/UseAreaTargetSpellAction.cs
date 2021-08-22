@@ -5,6 +5,7 @@ public class UseAreaTargetSpellAction : GameAction
 {
     public float WaitTime = 0.5f;
     public Func<GameMap, Tile, bool> SpellCallback { get; set; }
+    public int Radius { get; set; }
 
     private float m_Timer;
     private TargetComponent m_TargetComponent;
@@ -14,8 +15,9 @@ public class UseAreaTargetSpellAction : GameAction
     {
         base.Apply(gameMap);
 
-        GameManager.Instance.RequestGameState(GameStateRequest.SingleTarget);
         m_TargetComponent = GameObject.GetComponent<TargetComponent>();
+        m_TargetComponent.Radius = Radius;
+        GameManager.Instance.RequestGameState(GameStateRequest.AreaTarget);
         m_Timer = 0;
         m_SpellCallbackCalled = false;
     }
@@ -43,6 +45,6 @@ public class UseAreaTargetSpellAction : GameAction
 
     public override string GetDebugString()
     {
-        return "UseSingleTargetSpellAction";
+        return "UseAreaTargetSpellAction";
     }
 }
