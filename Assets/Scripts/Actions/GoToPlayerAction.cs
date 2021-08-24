@@ -60,6 +60,16 @@ public class GoToPlayerAction : GameAction
         }
     }
 
+    public override void Release(GameMap gameMap)
+    {
+        base.Release(gameMap);
+
+        if (m_SubAction != null)
+        {
+            m_SubAction.Release(gameMap);
+        }
+    }
+
     public override string GetDebugString()
     {
         if (m_SubAction != null)

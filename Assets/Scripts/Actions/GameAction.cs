@@ -12,6 +12,8 @@ public abstract class GameAction
 
     public virtual void Update(GameMap gameMap) { }
 
+    public virtual void Release(GameMap gameMap) { }
+
     public bool IsDone { get; protected set; }
 
     public bool IsSuccess { get; protected set; }

@@ -18,7 +18,7 @@ MonoBehaviour:
   MinItemsPerRoom: 1
   Mobs:
   - GameObject: {fileID: 8548977278361031755, guid: 50943f9ee307cd3479829d39be83edba, type: 3}
-    weight: 7
+    weight: 6
   - GameObject: {fileID: 8398144802756975928, guid: b08e3ccf2d3907549ae38a014b2dab5f, type: 3}
-    weight: 3
+    weight: 4
   Items: []

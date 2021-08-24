@@ -28,6 +28,11 @@ public class AIComponent : MonoBehaviour
     {
         m_StateMachine.Transition(new ConfuseState(gameObject, nbTurns, () => m_StateMachine.Transition(new GoToPlayerState(gameObject))));
     }
+
+    public void Sleep(int nbTurns)
+    {
+        m_StateMachine.Transition(new SleepState(gameObject, nbTurns, () => m_StateMachine.Transition(new GoToPlayerState(gameObject))));
+    }
 }
 
 public class GoToPlayerState : State
@@ -85,5 +90,30 @@ public class ConfuseState : State
         }
 
         return new BumpAction() { GameObject = m_GameObject, Direction = direction };
+    }
+}
+
+public class SleepState : State
+{
+    private GameObject m_GameObject;
+    private int m_NbTurns;
+    private Action m_Callback;
+
+    public SleepState(GameObject gameObject, int nbTurns, Action callback)
+    {
+        m_GameObject = gameObject;
+        m_NbTurns = nbTurns;
+        m_Callback = callback;
+    }
+
+    public override GameAction GetAction(GameMap gameMap, GameObject player)
+    {
+        m_NbTurns--;
+        if (m_NbTurns < 0)
+        {
+            m_Callback();
+        }
+
+        return null;
     }
 }

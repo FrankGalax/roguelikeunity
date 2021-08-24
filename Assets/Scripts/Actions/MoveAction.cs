@@ -39,6 +39,12 @@ public class MoveAction : GameAction
         m_DirectionVector = new Vector3((float)Direction.Item1, (float)Direction.Item2, 0.0f);
         m_Target = startPosition + m_DirectionVector;
         m_Speed = Config.Instance.MoveSpeed;
+
+        AnimationComponent animationComponent = GameObject.GetComponent<AnimationComponent>();
+        if (animationComponent != null)
+        {
+            animationComponent.StartMoving(Direction);
+        }
     }
 
     public override void Update(GameMap gameMap)
@@ -70,6 +76,24 @@ public class MoveAction : GameAction
             {
                 GameObject.transform.Translate(m_DirectionVector * movement);
             }
+        }
+    }
+
+    public override void Release(GameMap gameMap)
+    {
+        base.Release(gameMap);
+
+        AnimationComponent animationComponent = GameObject.GetComponent<AnimationComponent>();
+        if (animationComponent != null)
+        {
+            animationComponent.StopMoving();
+        }
+
+        Tile tile = GameObject.GetComponent<Tile>();
+        AreaControl areaControl = gameMap.GetAreaControl(tile.X, tile.Y);
+        if (areaControl != null)
+        {
+            areaControl.OnEnter(GameObject);
         }
     }
 

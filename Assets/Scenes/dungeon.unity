@@ -1285,7 +1285,7 @@ MonoBehaviour:
   AreaSelectionRight: {fileID: 2616993009991038677, guid: 600f85f1cf1868a41a63ef7aa24f6686, type: 3}
   AreaSelectionTopRight: {fileID: 1819383844190907940, guid: 94c6b1f01408dab49a7bb2589b832b17, type: 3}
   FloorDefinitions:
-  - {fileID: 11400000, guid: 73700e4ff880e7f47b879d07164eddad, type: 2}
+  - {fileID: 11400000, guid: 4e6edfeb88fb2cd43bf7956545810edf, type: 2}
   - {fileID: 11400000, guid: 1f72a62e8c1234249bb4593a422cf3c6, type: 2}
   - {fileID: 11400000, guid: d9dc8af964a43e849ba616d8be2252bc, type: 2}
 --- !u!4 &1039061577

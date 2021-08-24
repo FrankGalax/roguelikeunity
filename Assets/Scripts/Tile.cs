@@ -53,4 +53,9 @@ public class Tile : MonoBehaviour
     {
         return Math.Abs(X - otherTile.X) + Math.Abs(Y - otherTile.Y);
     }
+
+    public int GetRadius(int x, int y)
+    {
+        return Math.Max(Math.Abs(X - x), Math.Abs(Y - y));
+    }
 }

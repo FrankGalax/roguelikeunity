@@ -52,6 +52,7 @@ public class GameMap : MonoBehaviour
     private List<List<Tile>> m_Tiles;
     private HashSet<(int, int)> m_CantDestroy;
     private List<Tile> m_Actors;
+    private List<AreaControl> m_AreaControls;
     private Tile m_Stairs;
     private GameObject m_Player;
     private FloorDefinition m_FloorDefinition;
@@ -60,6 +61,7 @@ public class GameMap : MonoBehaviour
     {
         m_Tiles = new List<List<Tile>>();
         m_Actors = new List<Tile>();
+        m_AreaControls = new List<AreaControl>();
         for (int i = 0; i < DungeonWidth; ++i)
         {
             List<Tile> column = new List<Tile>();
@@ -204,7 +206,7 @@ public class GameMap : MonoBehaviour
         {
             if (actor.GetComponent<DamageComponent>() != null)
             {
-                int distance = Math.Max(Math.Abs(actor.X - x), Math.Abs(actor.Y - y));
+                int distance = actor.GetRadius(x, y);
                 if (distance <= radius)
                 {
                     enemies.Add(actor);
@@ -213,6 +215,27 @@ public class GameMap : MonoBehaviour
         }
 
         return enemies;
+    }
+
+    public List<Tile> GetFloorsInRange(int x, int y, int radius)
+    {
+        List<Tile> floors = new List<Tile>();
+        foreach (List<Tile> column in m_Tiles)
+        {
+            foreach (Tile tile in column)
+            {
+                if (tile != null && tile.Transparent && !tile.BlocksMovement)
+                {
+                    int distance = tile.GetRadius(x, y);
+                    if (distance <= radius)
+                    {
+                        floors.Add(tile);
+                    }
+                }
+            }
+        }
+
+        return floors;
     }
 
     public Tile GetStairs()
@@ -284,6 +307,53 @@ public class GameMap : MonoBehaviour
     {
         m_Actors.Remove(tile);
         Destroy(tile.gameObject);
+    }
+
+    public void AddAreaControl(AreaControl areaControl)
+    {
+        m_AreaControls.Add(areaControl);
+        Tile areaControlTile = areaControl.GetComponent<Tile>();
+        foreach (Tile actor in m_Actors)
+        {
+            if (actor.X == areaControlTile.X && actor.Y == areaControlTile.Y)
+            {
+                areaControl.OnEnter(actor.gameObject);
+            }
+        }
+
+        Tile playerTile = m_Player.GetComponent<Tile>();
+        if (playerTile.X == areaControlTile.X && playerTile.Y == areaControlTile.Y)
+        {
+            areaControl.OnEnter(m_Player);
+        }
+    }
+
+    public void RemoveAreaControl(AreaControl areaControl)
+    {
+        m_AreaControls.Remove(areaControl);
+    }
+
+    public AreaControl GetAreaControl(int x, int y)
+    {
+        foreach (AreaControl areaControl in m_AreaControls)
+        {
+            Tile tile = areaControl.GetComponent<Tile>();
+            if (tile != null && tile.X == x && tile.Y == y)
+            {
+                return areaControl;
+            }
+        }
+
+        return null;
+    }
+
+    public void EndTurn()
+    {
+        for (int i = m_AreaControls.Count - 1; i >= 0; --i)
+        {
+            AreaControl areaControl = m_AreaControls[i];
+            areaControl.OnEndTurn(this);
+        }
     }
 
     private List<(int, int)> TunnelBetween(int x1, int y1, int x2, int y2)

@@ -32,6 +32,7 @@ public class ActionQueue : MonoBehaviour
             GameObject gameObject = first.GameObject;
             bool isSuccess = first.IsSuccess;
             Debug.Log("Complete " + first.GetDebugString() + " with GameObject " + gameObject + " isSuccess " + isSuccess);
+            first.Release(m_GameMap);
             m_GameActions.Dequeue();
 
             if (gameObject.tag == "Player" && isSuccess)
@@ -50,6 +51,7 @@ public class ActionQueue : MonoBehaviour
                     m_GameActions.Enqueue(enemyAction);
                 }
                 m_GameMap.ComputeFOV(playerTile.X, playerTile.Y);
+                m_GameMap.EndTurn();
             }
 
             if (m_GameActions.Count > 0)
