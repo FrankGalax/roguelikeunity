@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class Room
+public class RectangularRoom
 {
-    public Room(int x, int y, int width, int height)
+    public RectangularRoom(int x, int y, int width, int height)
     {
         X1 = x;
         Y1 = y;
@@ -13,7 +13,7 @@ public class Room
         Y2 = y + height;
     }
 
-    public bool Intersects(Room otherRoom)
+    public bool Intersects(RectangularRoom otherRoom)
     {
         return X1 <= otherRoom.X2 &&
             X2 >= otherRoom.X1 &&
@@ -32,6 +32,12 @@ public class Room
     public int Y2 { get; private set; }
 }
 
+public enum ProcGenAlgo
+{
+    SquareRoomsWithTunnels,
+    Brogue
+}
+
 public class GameMap : MonoBehaviour
 {
     public GameObject Floor;
@@ -43,11 +49,13 @@ public class GameMap : MonoBehaviour
     public GameObject ConfusionMedalion;
     public GameObject FireMedalion;
     public GameObject Stairs;
+    public GameObject Door;
     public int MaxRooms;
     public int RoomMinSize;
     public int RoomMaxSize;
     public int DungeonWidth;
     public int DungeonHeight;
+    public ProcGenAlgo ProcGenAlgo = ProcGenAlgo.SquareRoomsWithTunnels;
 
     private List<List<Tile>> m_Tiles;
     private HashSet<(int, int)> m_CantDestroy;
@@ -78,87 +86,114 @@ public class GameMap : MonoBehaviour
     void Start()
     {
         m_Player = GameObject.FindGameObjectWithTag("Player");
-        int currentFloor = GameManager.Instance.CurrentFloor;
-        if (currentFloor >= Config.Instance.FloorDefinitions.Count)
-        {
-            m_FloorDefinition = Config.Instance.FloorDefinitions[Config.Instance.FloorDefinitions.Count - 1];
-        }
-        else
-        {
-            m_FloorDefinition = Config.Instance.FloorDefinitions[currentFloor];
-        }
-
-        List<Room> rooms = new List<Room>();
-        List<List<(int, int)>> tunnels = new List<List<(int, int)>>();
         int playerX = 0;
         int playerY = 0;
 
-        for (int i = 0; i < MaxRooms; ++i)
+        if (ProcGenAlgo == ProcGenAlgo.SquareRoomsWithTunnels)
         {
-            int roomWidth = UnityEngine.Random.Range(RoomMinSize, RoomMaxSize + 1);
-            int roomHeight = UnityEngine.Random.Range(RoomMinSize, RoomMaxSize + 1);
-
-            int x = UnityEngine.Random.Range(0, DungeonWidth - roomWidth);
-            int y = UnityEngine.Random.Range(0, DungeonHeight - roomHeight);
-
-            Room newRoom = new Room(x, y, roomWidth, roomHeight);
-
-            bool intersect = false;
-            foreach (Room otherRoom in rooms)
+            int currentFloor = GameManager.Instance.CurrentFloor;
+            if (currentFloor >= Config.Instance.FloorDefinitions.Count)
             {
-                if (otherRoom.Intersects(newRoom))
-                {
-                    intersect = true;
-                    break;
-                }
-            }
-
-            if (intersect)
-            {
-                continue;
-            }
-
-            SpawnEntities(newRoom);
-
-            if (rooms.Count == 0)
-            {
-                (int, int) roomCenter = newRoom.GetCenter();
-                m_Player.transform.position = new Vector3((float)roomCenter.Item1, (float)roomCenter.Item2, 0.0f);
-                Tile playerTile = m_Player.GetComponent<Tile>();
-                playerTile.X = roomCenter.Item1;
-                playerTile.Y = roomCenter.Item2;
-                Camera.main.transform.position = new Vector3(
-                    m_Player.transform.position.x,
-                    m_Player.transform.position.y, 
-                    Camera.main.transform.position.z
-                );
-                playerX = roomCenter.Item1;
-                playerY = roomCenter.Item2;
-
-                Tile actor = GetActorAtLocation(roomCenter.Item1, roomCenter.Item2);
-                if (actor != null)
-                {
-                    RemoveActor(actor);
-                }
+                m_FloorDefinition = Config.Instance.FloorDefinitions[Config.Instance.FloorDefinitions.Count - 1];
             }
             else
             {
-                (int, int) newRoomCenter = newRoom.GetCenter();
-                (int, int) lastRoomCenter = rooms[rooms.Count - 1].GetCenter();
-                List<(int, int)> tunnel = TunnelBetween(newRoomCenter.Item1, newRoomCenter.Item2, lastRoomCenter.Item1, lastRoomCenter.Item2);
-                SpawnTunnel(tunnel);
-                tunnels.Add(tunnel);
+                m_FloorDefinition = Config.Instance.FloorDefinitions[currentFloor];
             }
 
-            rooms.Add(newRoom);
-        }
+            List<RectangularRoom> rooms = new List<RectangularRoom>();
+            List<List<(int, int)>> tunnels = new List<List<(int, int)>>();
 
-        foreach (List<(int, int)> tunnel in tunnels)
+            for (int i = 0; i < MaxRooms; ++i)
+            {
+                int roomWidth = UnityEngine.Random.Range(RoomMinSize, RoomMaxSize + 1);
+                int roomHeight = UnityEngine.Random.Range(RoomMinSize, RoomMaxSize + 1);
+
+                int x = UnityEngine.Random.Range(0, DungeonWidth - roomWidth);
+                int y = UnityEngine.Random.Range(0, DungeonHeight - roomHeight);
+
+                RectangularRoom newRoom = new RectangularRoom(x, y, roomWidth, roomHeight);
+
+                bool intersect = false;
+                foreach (RectangularRoom otherRoom in rooms)
+                {
+                    if (otherRoom.Intersects(newRoom))
+                    {
+                        intersect = true;
+                        break;
+                    }
+                }
+
+                if (intersect)
+                {
+                    continue;
+                }
+
+                SpawnEntities(newRoom);
+
+                if (rooms.Count == 0)
+                {
+                    (int, int) roomCenter = newRoom.GetCenter();
+                    m_Player.transform.position = new Vector3((float)roomCenter.Item1, (float)roomCenter.Item2, 0.0f);
+                    Tile playerTile = m_Player.GetComponent<Tile>();
+                    playerTile.X = roomCenter.Item1;
+                    playerTile.Y = roomCenter.Item2;
+                    Camera.main.transform.position = new Vector3(
+                        m_Player.transform.position.x,
+                        m_Player.transform.position.y,
+                        Camera.main.transform.position.z
+                    );
+                    playerX = roomCenter.Item1;
+                    playerY = roomCenter.Item2;
+
+                    Tile actor = GetActorAtLocation(roomCenter.Item1, roomCenter.Item2);
+                    if (actor != null)
+                    {
+                        RemoveActor(actor);
+                    }
+                }
+                else
+                {
+                    (int, int) newRoomCenter = newRoom.GetCenter();
+                    (int, int) lastRoomCenter = rooms[rooms.Count - 1].GetCenter();
+                    List<(int, int)> tunnel = TunnelBetween(newRoomCenter.Item1, newRoomCenter.Item2, lastRoomCenter.Item1, lastRoomCenter.Item2);
+                    SpawnTunnel(tunnel);
+                    tunnels.Add(tunnel);
+                }
+
+                rooms.Add(newRoom);
+            }
+
+            foreach (List<(int, int)> tunnel in tunnels)
+            {
+                SpawnTunnelWalls(tunnel);
+            }
+
+            SpawnStairs(rooms[rooms.Count - 1]);
+        }
+        else if (ProcGenAlgo == ProcGenAlgo.Brogue)
         {
-            SpawnTunnelWalls(tunnel);
-        }
+            List<List<char>> dungeon = BrogueGen.GenerateDungeon(DungeonWidth, DungeonHeight);
 
-        SpawnStairs(rooms[rooms.Count - 1]);
+            for (int i = 0; i < DungeonWidth; ++i)
+            {
+                for (int j = 0; j < DungeonHeight; ++j)
+                {
+                    switch (dungeon[i][j])
+                    {
+                        case '#':
+                            AddTile(Wall, i, j, false, false);
+                            break;
+                        case '.':
+                            AddTile(Floor, i, j, false, false);
+                            break;
+                        case 'd':
+                            AddTile(Door, i, j, false, false);
+                            break;
+                    }
+                }
+            }
+        }
 
         ComputeFOV(playerX, playerY);
     }
@@ -375,7 +410,7 @@ public class GameMap : MonoBehaviour
         return tunnel;
     }
 
-    private void SpawnEntities(Room room)
+    private void SpawnEntities(RectangularRoom room)
     {
         for (int i = room.X1 + 1; i < room.X2; ++i)
         {
@@ -451,7 +486,7 @@ public class GameMap : MonoBehaviour
         }
     }
 
-    private void SpawnStairs(Room room)
+    private void SpawnStairs(RectangularRoom room)
     {
         while (true)
         {

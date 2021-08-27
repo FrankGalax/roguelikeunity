@@ -97,3 +97,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BlocksMovement: 1
+  Transparent: 0
+  AlwaysVisible: 1

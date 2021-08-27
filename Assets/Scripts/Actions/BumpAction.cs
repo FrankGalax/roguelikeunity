@@ -14,7 +14,7 @@ public class BumpAction : GameAction
         int destX = gameObjectTile.X + Direction.Item1;
         int destY = gameObjectTile.Y + Direction.Item2;
 
-        if (GameObject.tag != "Player")
+        if (!GameObject.CompareTag("Player"))
         {
             Tile playerTile = GameObject.FindGameObjectWithTag("Player").GetComponent<Tile>();
             if (playerTile.X == destX && playerTile.Y == destY)

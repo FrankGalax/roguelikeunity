@@ -89,6 +89,9 @@ TextureImporter:
   - first:
       213: 2860006294275549116
     second: Full-no-bg_28
+  - first:
+      213: 4067162032150295616
+    second: Full-no-bg_29
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -774,7 +777,7 @@ TextureImporter:
         width: 10
         height: 10
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -782,6 +785,27 @@ TextureImporter:
       bones: []
       spriteID: cb7eca95298c0b720800000000000000
       internalID: 2860006294275549116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Full-no-bg_29
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 340
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 044364ac156717830800000000000000
+      internalID: 4067162032150295616
       vertices: []
       indices: 
       edges: []

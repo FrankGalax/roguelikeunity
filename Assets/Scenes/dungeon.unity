@@ -2327,11 +2327,13 @@ MonoBehaviour:
   ConfusionMedalion: {fileID: 765099499073486484, guid: b63220fe59461484084e6aa077743388, type: 3}
   FireMedalion: {fileID: 3442177546461130226, guid: 64a9f58a148782243af953af62f91645, type: 3}
   Stairs: {fileID: 2871246133465703278, guid: d0c8bd3c19fbbd94b98cc174db07e3ca, type: 3}
+  Door: {fileID: 18570457374335999, guid: 474196cf3beb707439671c713a7a0c26, type: 3}
   MaxRooms: 30
   RoomMinSize: 6
   RoomMaxSize: 10
   DungeonWidth: 60
   DungeonHeight: 40
+  ProcGenAlgo: 0
 --- !u!4 &2137187582
 Transform:
   m_ObjectHideFlags: 0

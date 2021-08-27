@@ -35,7 +35,7 @@ public class ActionQueue : MonoBehaviour
             first.Release(m_GameMap);
             m_GameActions.Dequeue();
 
-            if (gameObject.tag == "Player" && isSuccess)
+            if (gameObject.CompareTag("Player") && isSuccess)
             {
                 Tile playerTile = gameObject.GetComponent<Tile>();
                 Tile stairsTile = m_GameMap.GetStairs();
