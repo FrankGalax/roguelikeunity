@@ -2,6 +2,7 @@
 using UnityEngine;
 using System;
 using Random = UnityEngine.Random;
+using UnityEngine.Assertions;
 
 public class BrogueRoom
 {
@@ -10,6 +11,10 @@ public class BrogueRoom
     public (int, int) m_LeftDoor = (0, 0);
     public (int, int) m_BottomDoor = (0, 0);
     public (int, int) m_RightDoor = (0, 0);
+    public bool m_HasTopDoor = false;
+    public bool m_HasLeftDoor = false;
+    public bool m_HasBottomDoor = false;
+    public bool m_HasRightDoor = false;
 }
 
 public class BrogueGen
@@ -59,6 +64,12 @@ public class BrogueGen
             AddDoors(room);
         }
 
+        float tunnelChance = 0.15f;
+        if (Random.value < tunnelChance)
+        {
+            AddTunnel(room);
+        }
+
         return room;
     }
 
@@ -100,6 +111,8 @@ public class BrogueGen
             }
 
             room.m_Room[x][y + 1] = 'd';
+            room.m_HasTopDoor = true;
+            room.m_TopDoor = (x, y + 1);
             return true;
         });
 
@@ -137,6 +150,8 @@ public class BrogueGen
             }
 
             room.m_Room[x - 1][y] = 'd';
+            room.m_HasLeftDoor = true;
+            room.m_LeftDoor = (x - 1, y);
             return true;
         });
 
@@ -174,6 +189,8 @@ public class BrogueGen
             }
 
             room.m_Room[x][y - 1] = 'd';
+            room.m_HasBottomDoor = true;
+            room.m_BottomDoor = (x, y - 1);
             return true;
         });
 
@@ -213,8 +230,174 @@ public class BrogueGen
             }
 
             room.m_Room[x + 1][y] = 'd';
+            room.m_HasRightDoor = true;
+            room.m_RightDoor = (x + 1, y);
             return true;
         });
+    }
+
+    private static void AddTunnel(BrogueRoom room)
+    {
+        Action<int, int> changeTopDoor = (x, y) =>
+        {
+            room.m_TopDoor = (x, y);
+            room.m_Room[x][y] = 'd';
+        };
+
+        Action<int, int> changeLeftDoor = (x, y) =>
+        {
+            room.m_LeftDoor = (x, y);
+            room.m_Room[x][y] = 'd';
+        };
+
+        Action<int, int> changeBottomDoor = (x, y) =>
+        {
+            room.m_BottomDoor = (x, y);
+            room.m_Room[x][y] = 'd';
+        };
+
+        Action<int, int> changeRightDoor = (x, y) =>
+        {
+            room.m_RightDoor = (x, y);
+            room.m_Room[x][y] = 'd';
+        };
+
+        room.m_Room[room.m_TopDoor.Item1][room.m_TopDoor.Item2] = '#';
+        room.m_Room[room.m_LeftDoor.Item1][room.m_LeftDoor.Item2] = '#';
+        room.m_Room[room.m_BottomDoor.Item1][room.m_BottomDoor.Item2] = '#';
+        room.m_Room[room.m_RightDoor.Item1][room.m_RightDoor.Item2] = '#';
+
+        int r = Random.Range(0, 4);
+        int tunnelLength = Random.Range(5, 11);
+
+        if (r == 0)
+        {
+            Assert.IsTrue(room.m_HasTopDoor);
+            int topDoorX = room.m_TopDoor.Item1;
+            int topDoorY = room.m_TopDoor.Item2;
+            room.m_Room[topDoorX][topDoorY] = '.';
+
+            int roomWidth = room.m_Room.Count;
+
+            room.m_HasBottomDoor = false;
+
+            for (int i = 1; i < tunnelLength + 1; ++i)
+            {
+                if (room.m_Room[0].Count <= topDoorY + i)
+                {
+                    for (int j = 0; j < roomWidth; ++j)
+                    {
+                        char c = j == topDoorX ? '.' : '#';
+                        room.m_Room[j].Add(c);
+                    }
+                }
+                else
+                {
+                    room.m_Room[topDoorX][topDoorY + i] = '.';
+                }
+            }
+
+            changeTopDoor(topDoorX, topDoorY + tunnelLength);
+            changeLeftDoor(topDoorX - 1, topDoorY + tunnelLength - 1);
+            changeRightDoor(topDoorX + 1, topDoorY + tunnelLength - 1);
+        }
+        else if (r == 1)
+        {
+            Assert.IsTrue(room.m_HasLeftDoor);
+            int leftDoorX = room.m_LeftDoor.Item1;
+            int leftDoorY = room.m_LeftDoor.Item2;
+            room.m_Room[leftDoorX][leftDoorY] = '.';
+
+            int roomHeight = room.m_Room[0].Count;
+
+            room.m_HasRightDoor = false;
+
+            for (int i = 1; i < tunnelLength + 1; ++i)
+            {
+                if (leftDoorX - i < 0)
+                {
+                    List<char> column = new List<char>();
+                    for (int j = 0; j < roomHeight; ++j)
+                    {
+                        char c = j == leftDoorY ? '.' : '#';
+                        column.Add(c);
+                    }
+                    room.m_Room.Insert(0, column);
+                }
+                else
+                {
+                    room.m_Room[leftDoorX - i][leftDoorY] = '.';
+                }
+            }
+
+            changeLeftDoor(0, leftDoorY);
+            changeTopDoor(1, leftDoorY + 1);
+            changeBottomDoor(1, leftDoorY - 1);
+        }
+        else if (r == 2)
+        {
+            Assert.IsTrue(room.m_HasBottomDoor);
+            int bottomDoorX = room.m_BottomDoor.Item1;
+            int bottomDoorY = room.m_BottomDoor.Item2;
+            room.m_Room[bottomDoorX][bottomDoorY] = '.';
+
+            int roomWidth = room.m_Room.Count;
+
+            room.m_HasTopDoor = false;
+
+            for (int i = 1; i < tunnelLength + 1; ++i)
+            {
+                if (bottomDoorY - i < 0)
+                {
+                    for (int j = 0; j < roomWidth; ++j)
+                    {
+                        char c = j == bottomDoorX ? '.' : '#';
+                        room.m_Room[j].Insert(0, c);
+                    }
+                }
+                else
+                {
+                    room.m_Room[bottomDoorX][bottomDoorY - i] = '.';
+                }
+            }
+
+            changeBottomDoor(bottomDoorX, 0);
+            changeLeftDoor(bottomDoorX - 1, 1);
+            changeRightDoor(bottomDoorX + 1, 1);
+        }
+        else
+        {
+            Assert.IsTrue(room.m_HasRightDoor);
+            int rightDoorX = room.m_RightDoor.Item1;
+            int rightDoorY = room.m_RightDoor.Item2;
+            room.m_Room[rightDoorX][rightDoorY] = '.';
+
+            int roomHeight = room.m_Room[0].Count;
+
+            room.m_HasLeftDoor = false;
+
+            for (int i = 1; i < tunnelLength + 1; ++i)
+            {
+                if (room.m_Room.Count <= rightDoorX + i)
+                {
+                    List<char> column = new List<char>();
+                    for (int j = 0; j < roomHeight; ++j)
+                    {
+                        char c = j == rightDoorY ? '.' : '#';
+                        column.Add(c);
+                    }
+                    room.m_Room.Add(column);
+                }
+                else
+                {
+                    room.m_Room[rightDoorX + i][rightDoorY] = '.';
+                }
+            }
+
+            changeRightDoor(rightDoorX + tunnelLength, rightDoorY);
+            changeTopDoor(rightDoorX + tunnelLength - 1, rightDoorY + 1);
+            changeBottomDoor(rightDoorX + tunnelLength - 1, rightDoorY - 1);
+        }
     }
 
     private static List<List<char>> GenerateRoomOverlappingRectangles()

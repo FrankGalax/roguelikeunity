@@ -2333,7 +2333,7 @@ MonoBehaviour:
   RoomMaxSize: 10
   DungeonWidth: 60
   DungeonHeight: 40
-  ProcGenAlgo: 0
+  ProcGenAlgo: 1
 --- !u!4 &2137187582
 Transform:
   m_ObjectHideFlags: 0
