@@ -1,6 +1,7 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DamageComponent : MonoBehaviour
 {
@@ -10,11 +11,26 @@ public class DamageComponent : MonoBehaviour
 
     public int CurrentHP { get; private set; }
     public bool IsAlive { get; private set; }
+    public Signal UpdateHealthSignal { get; private set; }
 
     private void Awake()
     {
         IsAlive = true;
         CurrentHP = MaxHP;
+        UpdateHealthSignal = new Signal();
+    }
+
+    private void Start()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (UpdateHealthSignal != null)
+        {
+            UpdateHealthSignal.ClearSlots();
+        }
     }
 
     public void TakeDamage(GameObject instigator, int damage)
@@ -34,6 +50,8 @@ public class DamageComponent : MonoBehaviour
         if (damage > 0)
         {
             CurrentHP = Math.Max(CurrentHP - damage, 0);
+
+            UpdateHealthSignal.SendSignal();
 
             GameObject damagePopUp = Instantiate(Config.Instance.DamagePopup, 
                 transform.position + Config.Instance.DamagePopupOffset, 
@@ -56,6 +74,8 @@ public class DamageComponent : MonoBehaviour
         }
 
         CurrentHP += amount;
+
+        UpdateHealthSignal.SendSignal();
     }
 
     private void Die()

@@ -17,5 +17,6 @@ public class Config : GameSingleton<Config>
     public GameObject AreaSelectionBottomRight;
     public GameObject AreaSelectionRight;
     public GameObject AreaSelectionTopRight;
+    public GameObject DebugTile;
     public List<FloorDefinition> FloorDefinitions;
 }

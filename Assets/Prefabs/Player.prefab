@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 565852634}
   - component: {fileID: 280380598}
   - component: {fileID: 3614546598240790295}
+  - component: {fileID: -6443098226156466806}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -103,8 +104,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BlocksMovement: 1
-  Transparent: 0
-  AlwaysVisible: 0
+  Transparent: 1
+  AlwaysVisible: 1
 --- !u!114 &-9137516189563170094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -188,5 +189,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3121c43e634948c49862d30674ede6e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-6443098226156466806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5090740618954376232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7d7126acefd1a04e974aad6df84063a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

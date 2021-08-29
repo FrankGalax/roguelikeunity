@@ -40,8 +40,18 @@ public class BumpAction : GameAction
             Tile tile = gameMap.GetTileAtLocation(destX, destY);
             if (tile != null && tile.BlocksMovement)
             {
-                IsDone = true;
-                IsSuccess = false;
+                if (tile.GetComponent<DoorComponent>() != null && GameObject.GetComponent<OpenDoorComponent>() != null)
+                {
+                    m_SubAction = new OpenDoorAction { GameObject = GameObject, Door = tile.gameObject };
+                    m_SubAction.Apply(gameMap);
+                    IsDone = m_SubAction.IsDone;
+                    IsSuccess = m_SubAction.IsSuccess;
+                }
+                else
+                {
+                    IsDone = true;
+                    IsSuccess = false;
+                }
             }
             else
             {

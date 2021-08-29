@@ -6,21 +6,32 @@ using System.Collections.Generic;
 public class UI : MonoBehaviour
 {
     public GameObject InventoryPanel;
+    public GameObject HPPanel;
+    public Sprite FullHeart;
+    public Sprite EmptyHeart;
 
-    private TextMeshProUGUI m_PlayerHPText;
     private DamageComponent m_PlayerDamageComponent;
     private List<GameObject> m_InventorySlots;
+    private List<GameObject> m_HPSlots;
     private GameObject m_Player;
 
     private void Awake()
     {
-        m_PlayerHPText = transform.Find("PlayerHP").GetComponent<TextMeshProUGUI>();
         m_InventorySlots = new List<GameObject>();
         if (InventoryPanel != null)
         {
             for (int i = 0; i < InventoryPanel.transform.childCount; ++i)
             {
                 m_InventorySlots.Add(InventoryPanel.transform.GetChild(i).gameObject);
+            }
+        }
+
+        m_HPSlots = new List<GameObject>();
+        if (HPPanel != null)
+        {
+            for (int i = 0; i < HPPanel.transform.childCount; ++i)
+            {
+                m_HPSlots.Add(HPPanel.transform.GetChild(i).gameObject);
             }
         }
     }
@@ -31,16 +42,13 @@ public class UI : MonoBehaviour
         m_PlayerDamageComponent = m_Player.GetComponent<DamageComponent>();
 
         UpdateInventory();
+        UpdatePlayerHealth();
 
         if (m_Player != null)
         {
             m_Player.GetComponent<InventoryComponent>().UpdateInventorySignal.AddSlot(() => UpdateInventory());
+            m_Player.GetComponent<DamageComponent>().UpdateHealthSignal.AddSlot(() => UpdatePlayerHealth());
         }
-    }
-
-    private void Update()
-    {
-        m_PlayerHPText.text = m_PlayerDamageComponent.CurrentHP + "/" + m_PlayerDamageComponent.MaxHP;
     }
 
     public void UpdateInventory()
@@ -83,6 +91,23 @@ public class UI : MonoBehaviour
             if (inventoryComponent != null)
             {
                 inventoryComponent.UseItem(index);
+            }
+        }
+    }
+
+    public void UpdatePlayerHealth()
+    {
+        int health = m_PlayerDamageComponent.CurrentHP;
+        for (int i = 0; i < m_HPSlots.Count; ++i)
+        {
+            Image image = m_HPSlots[i].GetComponent<Image>();
+            if (i < health)
+            {
+                image.sprite = FullHeart;
+            }
+            else
+            {
+                image.sprite = EmptyHeart;
             }
         }
     }

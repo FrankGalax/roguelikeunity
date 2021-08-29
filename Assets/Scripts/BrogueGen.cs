@@ -7,6 +7,7 @@ using UnityEngine.Assertions;
 public class BrogueRoom
 {
     public List<List<char>> m_Room;
+    public List<(int, int)> m_Floors;
     public (int, int) m_TopDoor = (0, 0);
     public (int, int) m_LeftDoor = (0, 0);
     public (int, int) m_BottomDoor = (0, 0);
@@ -15,11 +16,22 @@ public class BrogueRoom
     public bool m_HasLeftDoor = false;
     public bool m_HasBottomDoor = false;
     public bool m_HasRightDoor = false;
+    public int m_XOffset = 0;
+    public int m_YOffset = 0;
+}
+
+public class RoomAlignment
+{
+    public int m_XOffset = 0;
+    public int m_YOffset = 0;
+    public int m_DoorX = 0;
+    public int m_DoorY = 0;
+    public int m_DoorDirection = 0;
 }
 
 public class BrogueGen
 {
-    public static List<List<char>> GenerateDungeon(int width, int height)
+    public static List<List<char>> GenerateDungeon(int width, int height, FloorDefinition floorDefinition)
     {
         List<List<char>> dungeon = new List<List<char>>();
 
@@ -35,13 +47,43 @@ public class BrogueGen
             dungeon.Add(column);
         }
 
-        BrogueRoom room = GenerateRoom(true);
+        BrogueRoom room = GenerateRoom(false, floorDefinition);
+
+        // place player
+        int playerFloorIndex = Random.Range(0, room.m_Floors.Count);
+        (int, int) playerFloor = room.m_Floors[playerFloorIndex];
+        room.m_Room[playerFloor.Item1][playerFloor.Item2] = 'p';
+
         MergeFirstRoom(dungeon, room);
+
+        int failures = 0;
+        BrogueRoom lastMergedRoom = null;
+        while (failures < 10)
+        {
+            BrogueRoom newRoom = GenerateRoom(true, floorDefinition);
+            bool isMerged = MergeRoom(dungeon, newRoom);
+
+            if (isMerged)
+            {
+                lastMergedRoom = newRoom;
+                failures = 0;
+            }
+            else
+            {
+                failures++;
+            }
+        }
+
+        // place stairs
+        Assert.IsNotNull(lastMergedRoom);
+        int stairsFloorIndex = Random.Range(0, lastMergedRoom.m_Floors.Count);
+        (int, int) stairsFloor = lastMergedRoom.m_Floors[stairsFloorIndex];
+        dungeon[lastMergedRoom.m_XOffset + stairsFloor.Item1][lastMergedRoom.m_YOffset + stairsFloor.Item2] = 's';
 
         return dungeon;
     }
 
-    private static BrogueRoom GenerateRoom(bool addDoors)
+    private static BrogueRoom GenerateRoom(bool addDoorsAndTunnels, FloorDefinition floorDefinition)
     {
         BrogueRoom room = new BrogueRoom();
         int r = Random.Range(0, 3);
@@ -59,15 +101,80 @@ public class BrogueGen
                 break;
         }
 
-        if (addDoors)
+        if (addDoorsAndTunnels)
         {
             AddDoors(room);
+
+            float tunnelChance = 0.15f;
+            if (Random.value < tunnelChance)
+            {
+                AddTunnel(room);
+            }
         }
 
-        float tunnelChance = 0.15f;
-        if (Random.value < tunnelChance)
+        Func<int, int, bool> isFloorNeighbor = (x, y) =>
         {
-            AddTunnel(room);
+            if (x < 0 || x >= room.m_Room.Count || y < 0 || y >= room.m_Room[0].Count)
+            {
+                return false;
+            }
+
+            return room.m_Room[x][y] == '.';
+        };
+
+        // Remove useless walls and find floors
+        room.m_Floors = new List<(int, int)>();
+        for (int i = 0; i < room.m_Room.Count; ++i)
+        {
+            for (int j = 0; j < room.m_Room[i].Count; ++j)
+            {
+                if (room.m_Room[i][j] == '#')
+                {
+                    bool hasFloorNeighbor = isFloorNeighbor(i, j + 1);
+                    hasFloorNeighbor |= isFloorNeighbor(i - 1, j + 1);
+                    hasFloorNeighbor |= isFloorNeighbor(i - 1, j);
+                    hasFloorNeighbor |= isFloorNeighbor(i - 1, j - 1);
+                    hasFloorNeighbor |= isFloorNeighbor(i, j - 1);
+                    hasFloorNeighbor |= isFloorNeighbor(i + 1, j - 1);
+                    hasFloorNeighbor |= isFloorNeighbor(i + 1, j);
+                    hasFloorNeighbor |= isFloorNeighbor(i + 1, j + 1);
+
+                    if (!hasFloorNeighbor)
+                    {
+                        room.m_Room[i][j] = ' ';
+                    }
+                }
+                else if (room.m_Room[i][j] == '.')
+                {
+                    room.m_Floors.Add((i, j));
+                }
+            }
+        }
+
+        if (floorDefinition != null)
+        {
+            int nbMobs = Random.Range(floorDefinition.MinMobsPerRoom, floorDefinition.MaxMobsPerRoom + 1);
+            int nbItems = Random.Range(floorDefinition.MinItemsPerRoom, floorDefinition.MaxItemsPerRoom + 1);
+
+            List<char> entities = new List<char>();
+            for (int i = 0; i < nbMobs; ++i)
+            {
+                entities.Add('m');
+            }
+            for (int i = 0; i < nbItems; ++i)
+            {
+                entities.Add('i');
+            }
+
+            foreach (char entity in entities)
+            {
+                int floorIndex = Random.Range(0, room.m_Floors.Count);
+                (int, int) floor = room.m_Floors[floorIndex];
+                if (room.m_Room[floor.Item1][floor.Item2] == '.')
+                {
+                    room.m_Room[floor.Item1][floor.Item2] = entity;
+                }
+            }
         }
 
         return room;
@@ -642,8 +749,6 @@ public class BrogueGen
 
         int size = radius * 2 + 3;
         float center = radius + 1;
-        Debug.Log("Radius " + radius);
-        Debug.Log("Center " + center);
         int radiusSq = radius * radius;
         
         for (int i = 0; i < size; ++i)
@@ -680,6 +785,242 @@ public class BrogueGen
                 dungeon[x + i][y + j] = room.m_Room[i][j];
             }
         }
+    }
+
+    private static bool MergeRoom(List<List<char>> dungeon, BrogueRoom room)
+    {
+        Action<BrogueRoom> deleteTopDoor = (room) =>
+        {
+            if (room.m_HasTopDoor)
+            {
+                room.m_Room[room.m_TopDoor.Item1][room.m_TopDoor.Item2] = '#';
+                room.m_HasTopDoor = false;
+                room.m_TopDoor = (0, 0);
+            }
+        };
+        Action<BrogueRoom> deleteLeftDoor = (room) =>
+        {
+            if (room.m_HasLeftDoor)
+            {
+                room.m_Room[room.m_LeftDoor.Item1][room.m_LeftDoor.Item2] = '#';
+                room.m_HasLeftDoor = false;
+                room.m_LeftDoor = (0, 0);
+            }
+        };
+        Action<BrogueRoom> deleteBottomDoor = (room) =>
+        {
+            if (room.m_HasBottomDoor)
+            {
+                room.m_Room[room.m_BottomDoor.Item1][room.m_BottomDoor.Item2] = '#';
+                room.m_HasBottomDoor = false;
+                room.m_BottomDoor = (0, 0);
+            }
+        };
+        Action<BrogueRoom> deleteRightDoor = (room) =>
+        {
+            if (room.m_HasRightDoor)
+            {
+                room.m_Room[room.m_RightDoor.Item1][room.m_RightDoor.Item2] = '#';
+                room.m_HasRightDoor = false;
+                room.m_RightDoor = (0, 0);
+            }
+        };
+
+        bool isMerged = false;
+
+        RandomAccess(dungeon, (x, y, c) =>
+        {
+            List<RoomAlignment> roomAlignments = AlignDoor(dungeon, x, y, room);
+            if (roomAlignments.Count == 0)
+            {
+                return false;
+            }
+
+            foreach (RoomAlignment roomAlignment in roomAlignments)
+            {
+                GameObject debugRoom = null;
+                bool debugRooms = false;
+                if (debugRooms)
+                {
+                    debugRoom = DebugRoom(room.m_Room, roomAlignment);
+                }
+
+                if (CollidesWithDungeon(dungeon, room, roomAlignment, debugRoom))
+                {
+                    return false;
+                }
+
+                if (roomAlignment.m_DoorDirection == 0)
+                {
+                    deleteLeftDoor(room);
+                    deleteBottomDoor(room);
+                    deleteRightDoor(room);
+                }
+                else if (roomAlignment.m_DoorDirection == 1)
+                {
+                    deleteTopDoor(room);
+                    deleteBottomDoor(room);
+                    deleteRightDoor(room);
+                }
+                else if (roomAlignment.m_DoorDirection == 2)
+                {
+                    deleteTopDoor(room);
+                    deleteLeftDoor(room);
+                    deleteRightDoor(room);
+                }
+                else
+                {
+                    deleteTopDoor(room);
+                    deleteLeftDoor(room);
+                    deleteBottomDoor(room);
+                }
+
+                for (int i = 0; i < room.m_Room.Count; ++i)
+                {
+                    for (int j = 0; j < room.m_Room[i].Count; ++j)
+                    {
+                        if (room.m_Room[i][j] != ' ')
+                        {
+                            dungeon[roomAlignment.m_XOffset + i][roomAlignment.m_YOffset + j] = room.m_Room[i][j];
+                        }
+                    }
+                }
+
+                isMerged = true;
+                room.m_XOffset = roomAlignment.m_XOffset;
+                room.m_YOffset = roomAlignment.m_YOffset;
+
+                return true;
+            }
+
+            return false;
+        });
+
+        return isMerged;
+    }
+
+    private static List<RoomAlignment> AlignDoor(List<List<char>> dungeon, int x, int y, BrogueRoom room)
+    {
+        List<RoomAlignment> roomAlignments = new List<RoomAlignment>();
+
+        if (dungeon[x][y] != '#')
+        {
+            return roomAlignments;
+        }
+
+        int dungeonWidth = dungeon.Count;
+        int dungeonHeight = dungeon[0].Count;
+
+        for (int i = 0; i < 4; ++i)
+        {
+            if (i == 0)
+            {
+                if (room.m_HasTopDoor)
+                {
+                    if (y - 1 >= 0 && y + 1 < dungeonHeight && dungeon[x][y + 1] == '.')
+                    {
+                        RoomAlignment roomAlignment = new RoomAlignment();
+                        roomAlignment.m_XOffset = x - room.m_TopDoor.Item1;
+                        roomAlignment.m_YOffset = y - room.m_TopDoor.Item2;
+                        roomAlignment.m_DoorX = room.m_TopDoor.Item1;
+                        roomAlignment.m_DoorY = room.m_TopDoor.Item2;
+                        roomAlignment.m_DoorDirection = 0;
+                        roomAlignments.Add(roomAlignment);
+                    }
+                }
+            }
+            else if (i == 1)
+            {
+                if (room.m_HasLeftDoor)
+                {
+                    if (x + 1 < dungeonWidth && x - 1 >= 0 && dungeon[x - 1][y] == '.')
+                    {
+                        RoomAlignment roomAlignment = new RoomAlignment();
+                        roomAlignment.m_XOffset = x - room.m_LeftDoor.Item1;
+                        roomAlignment.m_YOffset = y - room.m_LeftDoor.Item2;
+                        roomAlignment.m_DoorX = room.m_LeftDoor.Item1;
+                        roomAlignment.m_DoorY = room.m_LeftDoor.Item2;
+                        roomAlignment.m_DoorDirection = 1;
+                        roomAlignments.Add(roomAlignment);
+                    }
+                }
+            }
+            else if (i == 2)
+            {
+                if (room.m_HasBottomDoor)
+                {
+                    if (y + 1 < dungeonHeight && y - 1 >= 0 && dungeon[x][y - 1] == '.')
+                    {
+                        RoomAlignment roomAlignment = new RoomAlignment();
+                        roomAlignment.m_XOffset = x - room.m_BottomDoor.Item1;
+                        roomAlignment.m_YOffset = y - room.m_BottomDoor.Item2;
+                        roomAlignment.m_DoorX = room.m_BottomDoor.Item1;
+                        roomAlignment.m_DoorY = room.m_BottomDoor.Item2;
+                        roomAlignment.m_DoorDirection = 2;
+                        roomAlignments.Add(roomAlignment);
+                    }
+                }
+            }
+            else
+            {
+                if (room.m_HasRightDoor)
+                {
+                    if (x - 1 >= 0 && x + 1 < dungeonWidth && dungeon[x + 1][y] == '.')
+                    {
+                        RoomAlignment roomAlignment = new RoomAlignment();
+                        roomAlignment.m_XOffset = x - room.m_RightDoor.Item1;
+                        roomAlignment.m_YOffset = y - room.m_RightDoor.Item2;
+                        roomAlignment.m_DoorX = room.m_RightDoor.Item1;
+                        roomAlignment.m_DoorY = room.m_RightDoor.Item2;
+                        roomAlignment.m_DoorDirection = 3;
+                        roomAlignments.Add(roomAlignment);
+                    }
+                }
+            }
+        }
+
+        roomAlignments.Shuffle();
+        return roomAlignments;
+    }
+
+    private static bool CollidesWithDungeon(List<List<char>> dungeon, BrogueRoom room, RoomAlignment roomAlignment, GameObject debugRoom)
+    {
+        for (int i = 0; i < room.m_Room.Count; ++i)
+        {
+            int dungeonX = i + roomAlignment.m_XOffset;
+
+            for (int j = 0; j < room.m_Room[i].Count; ++j)
+            {
+                if (room.m_Room[i][j] == ' ')
+                {
+                    continue;
+                }
+
+                int dungeonY = j + roomAlignment.m_YOffset;
+
+                if (dungeonX < 0 || dungeonX >= dungeon.Count || dungeonY < 0 || dungeonY >= dungeon[dungeonX].Count)
+                {
+                    AddDebugTile(debugRoom, i, j, Color.red);
+                    return true;
+                }
+
+                if (room.m_Room[i][j] == 'd')
+                {
+                    if (dungeon[dungeonX][dungeonY] != '#' && dungeon[dungeonX][dungeonY] != ' ')
+                    {
+                        AddDebugTile(debugRoom, i, j, Color.cyan);
+                        return true;
+                    }
+                }
+                else if (dungeon[dungeonX][dungeonY] != ' ' && dungeon[dungeonX][dungeonY] != room.m_Room[i][j])
+                {
+                    AddDebugTile(debugRoom, i, j, Color.green);
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     private static void FloodFill(List<List<char>> dungeon, out List<List<char>> floodFill, out char biggestFlood)
@@ -799,5 +1140,54 @@ public class BrogueGen
         }
 
         return room[x][y];
+    }
+
+    private static GameObject DebugRoom(List<List<char>> room, RoomAlignment roomAlignment)
+    {
+        GameObject debugRoom = new GameObject("RoomDebug");
+        debugRoom.transform.position = new Vector3((float)roomAlignment.m_XOffset, (float)roomAlignment.m_YOffset, 0.0f);
+
+        Action<GameObject, int, int> addTile = (prefab, x, y) =>
+        {
+            GameObject tile = GameObject.Instantiate(prefab, Vector3.zero, Quaternion.identity, debugRoom.transform);
+            tile.transform.localPosition = new Vector3((float)x, (float)y, 0.0f);
+        };
+
+        GameMap gameMap = GameObject.FindObjectOfType<GameMap>();
+
+        for (int i = 0; i < room.Count; ++i)
+        {
+            for (int j = 0; j < room[i].Count; ++j)
+            {
+                switch (room[i][j])
+                {
+                    case '.':
+                        addTile(gameMap.Floor, i, j);
+                        break;
+                    case '#':
+                        addTile(gameMap.Wall, i, j);
+                        break;
+                    case 'd':
+                        addTile(gameMap.Door, i, j);
+                        break;
+                }
+            }
+        }
+
+        AddDebugTile(debugRoom, roomAlignment.m_DoorX, roomAlignment.m_DoorY, Color.magenta);
+
+        debugRoom.SetActive(false);
+        return debugRoom;
+    }
+
+    private static void AddDebugTile(GameObject debugRoom, int x, int y, Color color)
+    {
+        if (debugRoom == null)
+        {
+            return;
+        }
+        GameObject debugTile = GameObject.Instantiate(Config.Instance.DebugTile, Vector3.zero, Quaternion.identity, debugRoom.transform);
+        debugTile.transform.localPosition = new Vector3((float)x, (float)y, 0.0f);
+        debugTile.GetComponent<SpriteRenderer>().color = color;
     }
 }
