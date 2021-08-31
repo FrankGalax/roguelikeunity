@@ -4,10 +4,31 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 
-public class DebugCommand
+public abstract class DebugCommandBase
 {
     public string Name { get; set; }
+    public abstract void Invoke(List<string> commandParams);
+}
+
+public class DebugCommand : DebugCommandBase
+{
     public Action Action { get; set; }
+
+    public override void Invoke(List<string> commandParams)
+    {
+        Action();
+    }
+}
+
+public class DebugCommand<T> : DebugCommandBase
+{
+    public Action<T> Action { get; set; }
+
+    public override void Invoke(List<string> commandParams)
+    {
+        T commandParam = (T)Convert.ChangeType(commandParams[0], typeof(T));
+        Action(commandParam);
+    }
 }
 
 public class DebugConsole : MonoBehaviour
@@ -17,13 +38,13 @@ public class DebugConsole : MonoBehaviour
     public TMP_InputField InputField;
     public int MaxSuggestions = 5;
 
-    private List<DebugCommand> m_DebugCommands;
-    private List<DebugCommand> m_Suggestions;
+    private List<DebugCommandBase> m_DebugCommands;
+    private List<DebugCommandBase> m_Suggestions;
 
     private void Awake()
     {
-        m_DebugCommands = new List<DebugCommand>();
-        m_Suggestions = new List<DebugCommand>();
+        m_DebugCommands = new List<DebugCommandBase>();
+        m_Suggestions = new List<DebugCommandBase>();
 
         m_DebugCommands.Add(new DebugCommand
         {
@@ -42,6 +63,15 @@ public class DebugConsole : MonoBehaviour
                 GameObject player = GameObject.FindGameObjectWithTag("Player");
                 DamageComponent damageComponent = player.GetComponent<DamageComponent>();
                 damageComponent.Heal(damageComponent.MaxHP);
+            }
+        });
+        m_DebugCommands.Add(new DebugCommand<string>
+        {
+            Name = "spawn",
+            Action = (name) =>
+            {
+                GameMap gameMap = FindObjectOfType<GameMap>();
+                gameMap.CheatSpawn(name);
             }
         });
         m_DebugCommands.Sort((a, b) => a.Name.CompareTo(b.Name));
@@ -86,7 +116,7 @@ public class DebugConsole : MonoBehaviour
             bool isDebugActive = DebugPanel.activeSelf;
             if (isDebugActive)
             {
-                if (ApplyCommand())
+                if (InvokeCommand())
                 {
                     DebugPanel.SetActive(false);
                     GameManager.Instance.IsPaused = false;
@@ -97,10 +127,11 @@ public class DebugConsole : MonoBehaviour
 
     public void UpdateSuggestions()
     {
-        string value = InputField.text;
+        string[] values = InputField.text.Split(' ');
+        string value = values.Length > 0 ? values[0] : "";
 
         m_Suggestions.Clear();
-        foreach (DebugCommand debugCommand in m_DebugCommands)
+        foreach (DebugCommandBase debugCommand in m_DebugCommands)
         {
             if (string.IsNullOrWhiteSpace(value) || debugCommand.Name.Contains(value))
             {
@@ -123,13 +154,16 @@ public class DebugConsole : MonoBehaviour
         }
     }
 
-    private bool ApplyCommand()
+    private bool InvokeCommand()
     {
-        foreach (DebugCommand debugCommand in m_DebugCommands)
+        foreach (DebugCommandBase debugCommandBase in m_DebugCommands)
         {
-            if (debugCommand.Name == InputField.text)
+            string[] text = InputField.text.Split(' ');
+            string commandName = text[0];
+            List<string> commandParams = text.Length > 1 ? text.Skip(1).ToList() : new List<string>();
+            if (debugCommandBase.Name == commandName)
             {
-                debugCommand.Action();
+                debugCommandBase.Invoke(commandParams);
                 return true;
             }
         }

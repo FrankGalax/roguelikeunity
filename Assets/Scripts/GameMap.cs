@@ -426,4 +426,29 @@ public class GameMap : MonoBehaviour
             tile.AlwaysVisible = true;
         });
     }
+
+    public void CheatSpawn(string name)
+    {
+        Tile playerTile = m_Player.GetComponent<Tile>();
+        foreach (FloorDefinition floorDefinition in Config.Instance.FloorDefinitions)
+        {
+            foreach (Spawnable mob in floorDefinition.Mobs)
+            {
+                if (mob.GameObject.name.ToLower().Contains(name.ToLower()))
+                {
+                    AddActor(mob.GameObject, playerTile.X, playerTile.Y + 2);
+                    return;
+                }
+            }
+
+            foreach (Spawnable item in floorDefinition.Items)
+            {
+                if (item.GameObject.name.ToLower().Contains(name.ToLower()))
+                {
+                    AddActor(item.GameObject, playerTile.X + 1, playerTile.Y);
+                    return;
+                }
+            }
+        }
+    }
 }
