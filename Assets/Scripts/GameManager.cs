@@ -13,6 +13,7 @@ public enum GameStateRequest
 public class GameManager : GameSingleton<GameManager>
 {
     public int CurrentFloor { get; set; }
+    public bool IsPaused { get; set; }
 
     private StateMachine m_StateMachine;
 
@@ -38,6 +39,11 @@ public class GameManager : GameSingleton<GameManager>
 
     private void Update()
     {
+        if (IsPaused)
+        {
+            return;
+        }
+
         m_StateMachine.Update();
     }
 

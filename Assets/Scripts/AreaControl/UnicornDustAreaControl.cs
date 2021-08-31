@@ -8,10 +8,10 @@ public class UnicornDustAreaControl : AreaControl
     {
         base.OnEnter(gameObject);
 
-        AIComponent aiComponent = gameObject.GetComponent<AIComponent>();
-        if (aiComponent != null)
+        EffectComponent effectComponent = gameObject.GetComponent<EffectComponent>();
+        if (effectComponent != null)
         {
-            aiComponent.Sleep(SleepNbTurns);
+            effectComponent.AddEffect(EffectType.Sleep, SleepNbTurns);
         }
     }
 }

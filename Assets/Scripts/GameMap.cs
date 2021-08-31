@@ -339,6 +339,21 @@ public class GameMap : MonoBehaviour
             AreaControl areaControl = m_AreaControls[i];
             areaControl.OnEndTurn(this);
         }
+
+        foreach (Tile actor in m_Actors)
+        {
+            EffectComponent effectComponent = actor.GetComponent<EffectComponent>();
+            if (effectComponent != null)
+            {
+                effectComponent.EndTurn();
+            }
+        }
+
+        EffectComponent playerEffectComponent = m_Player.GetComponent<EffectComponent>();
+        if (playerEffectComponent != null)
+        {
+            playerEffectComponent.EndTurn();
+        }
     }
 
     public void AddTile(GameObject prefab, int x, int y)
@@ -399,5 +414,16 @@ public class GameMap : MonoBehaviour
         {
             action(actor);
         }
+    }
+
+    public void CheatShowAllTiles()
+    {
+        ForEachTile((tile) => 
+        { 
+            tile.IsVisible = true;
+            tile.IsDiscovered = true;
+            tile.UpdateVisibility();
+            tile.AlwaysVisible = true;
+        });
     }
 }

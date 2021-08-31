@@ -21,13 +21,13 @@ public class ConfusionSpellItemEffect : ItemEffect
             return false;
         }
 
-        AIComponent aiComponent = target.GetComponent<AIComponent>();
-        if (aiComponent == null)
+        EffectComponent effectComponent = target.GetComponent<EffectComponent>();
+        if (effectComponent == null)
         {
             return false;
         }
 
-        aiComponent.Confuse(NbTurns);
+        effectComponent.AddEffect(EffectType.Confusion, NbTurns);
 
         return true;
     }

@@ -19,6 +19,10 @@ MonoBehaviour:
   Mobs:
   - GameObject: {fileID: 8548977278361031755, guid: 50943f9ee307cd3479829d39be83edba, type: 3}
     weight: 1
+  - GameObject: {fileID: 8398144802756975928, guid: b08e3ccf2d3907549ae38a014b2dab5f, type: 3}
+    weight: 1
   Items:
   - GameObject: {fileID: 9161265329981988794, guid: 0fbca86a606fcfd4e8572a955bfe6cff, type: 3}
+    weight: 1
+  - GameObject: {fileID: 765099499073486484, guid: b63220fe59461484084e6aa077743388, type: 3}
     weight: 1

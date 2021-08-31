@@ -3,7 +3,7 @@
 public class OpenDoorAction : GameAction
 {
     public GameObject Door;
-    public float WaitTime = 0.5f;
+    public float WaitTime = 0.1f;
 
     private float m_Timer;
 
