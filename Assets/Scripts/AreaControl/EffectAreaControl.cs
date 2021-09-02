@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 
-public class UnicornDustAreaControl : AreaControl
+public class EffectAreaControl : AreaControl
 {
-    public int SleepNbTurns;
+    public int EffectNbTurns;
+    public Effect Effect;
 
     public override void OnEnter(GameObject gameObject)
     {
@@ -11,7 +12,7 @@ public class UnicornDustAreaControl : AreaControl
         EffectComponent effectComponent = gameObject.GetComponent<EffectComponent>();
         if (effectComponent != null)
         {
-            effectComponent.AddEffect(EffectType.Sleep, SleepNbTurns);
+            effectComponent.AddEffect(Effect, EffectNbTurns);
         }
     }
 }

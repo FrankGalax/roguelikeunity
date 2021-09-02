@@ -437,6 +437,7 @@ public class GameMap : MonoBehaviour
                 if (mob.GameObject.name.ToLower().Contains(name.ToLower()))
                 {
                     AddActor(mob.GameObject, playerTile.X, playerTile.Y + 2);
+                    ComputeFOV(playerTile.X, playerTile.Y);
                     return;
                 }
             }
@@ -446,6 +447,7 @@ public class GameMap : MonoBehaviour
                 if (item.GameObject.name.ToLower().Contains(name.ToLower()))
                 {
                     AddActor(item.GameObject, playerTile.X + 1, playerTile.Y);
+                    ComputeFOV(playerTile.X, playerTile.Y);
                     return;
                 }
             }

@@ -117,7 +117,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NbTurns: 6
-  SleepNbTurns: 5
+  EffectNbTurns: 5
+  Effect: {fileID: 11400000, guid: a6c5e2eb56a4b65428a722691b096b25, type: 2}
 --- !u!114 &4560759170253626319
 MonoBehaviour:
   m_ObjectHideFlags: 0

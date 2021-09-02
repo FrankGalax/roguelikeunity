@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-[CreateAssetMenu(fileName = "NewConfusionSpellItemEffect", menuName = "Items/ConfusionSpellItemEffect")]
-public class ConfusionSpellItemEffect : ItemEffect
+[CreateAssetMenu(fileName = "NewEffectSpellItemEffect", menuName = "Items/EffectSpellItemEffect")]
+public class EffectSpellItemEffect : ItemEffect
 {
     public int NbTurns = 5;
+    public Effect Effect;
 
     private GameObject m_GameObject;
 
@@ -27,7 +28,7 @@ public class ConfusionSpellItemEffect : ItemEffect
             return false;
         }
 
-        effectComponent.AddEffect(EffectType.Confusion, NbTurns);
+        effectComponent.AddEffect(Effect, NbTurns);
 
         return true;
     }

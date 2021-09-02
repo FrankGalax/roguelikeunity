@@ -1,39 +1,33 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public enum EffectType
+public class EffectInstance
 {
-    None,
-    Confusion,
-    Sleep
-}
-
-public class Effect
-{
-    public EffectType EffectType { get; set; }
+    public Effect Effect { get; set; }
     public int RemainingTurns { get; set; }
 }
 
 public class EffectComponent : MonoBehaviour
 {
-    private List<Effect> m_Effects;
+    private List<EffectInstance> m_EffectInstances;
 
     private void Awake()
     {
-        m_Effects = new List<Effect>();
+        m_EffectInstances = new List<EffectInstance>();
     }
 
-    public void AddEffect(EffectType effectType, int nbTurns)
+    public void AddEffect(Effect effect, int nbTurns)
     {
-        Effect effect = new Effect { EffectType = effectType, RemainingTurns = nbTurns };
-        m_Effects.Add(effect);
+        EffectInstance effectInstance = new EffectInstance { Effect = effect, RemainingTurns = nbTurns };
+        effectInstance.Effect.StartEffect(gameObject);
+        m_EffectInstances.Add(effectInstance);
     }
 
     public bool HasEffect(EffectType effectType)
     {
-        foreach (Effect effect in m_Effects)
+        foreach (EffectInstance effectInstance in m_EffectInstances)
         {
-            if (effect.EffectType == effectType)
+            if (effectInstance.Effect.EffectType == effectType)
             {
                 return true;
             }
@@ -44,12 +38,14 @@ public class EffectComponent : MonoBehaviour
 
     public void EndTurn()
     {
-        for (int i = m_Effects.Count - 1; i >= 0; --i)
+        for (int i = m_EffectInstances.Count - 1; i >= 0; --i)
         {
-            m_Effects[i].RemainingTurns--;
-            if (m_Effects[i].RemainingTurns == 0)
+            EffectInstance effectInstance = m_EffectInstances[i];
+            effectInstance.RemainingTurns--;
+            if (effectInstance.RemainingTurns == 0)
             {
-                m_Effects.RemoveAt(i);
+                effectInstance.Effect.StopEffect(gameObject);
+                m_EffectInstances.RemoveAt(i);
             }
         }
     }
