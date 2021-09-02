@@ -73,9 +73,20 @@ public class DamageComponent : MonoBehaviour
             amount = MaxHP - CurrentHP;
         }
 
+        if (amount == 0)
+        {
+            return;
+        }
+
         CurrentHP += amount;
 
         UpdateHealthSignal.SendSignal();
+
+        GameObject healPopUp = Instantiate(Config.Instance.HealPopup,
+                transform.position + Config.Instance.DamagePopupOffset,
+                Quaternion.identity);
+        TextMeshPro textMeshPro = healPopUp.GetComponent<TextMeshPro>();
+        textMeshPro.text = amount.ToString();
     }
 
     private void Die()

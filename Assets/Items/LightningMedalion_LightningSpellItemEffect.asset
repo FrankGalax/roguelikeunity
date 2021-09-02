@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: LightningMedalion_LightningSpellItemEffect
   m_EditorClassIdentifier: 
   Damage: 5
+  Lightning: {fileID: 3812346663730048903, guid: 6ee044900a4418242bb2b20601b520f4, type: 3}

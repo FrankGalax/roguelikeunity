@@ -40,7 +40,7 @@ public class PathFinding
                 }
 
                 Tile actorTile = gameMap.GetActorAtLocation(neighbour.Item1, neighbour.Item2);
-                if (actorTile != null && actorTile.BlocksMovement)
+                if (actorTile != null)
                 {
                     continue;
                 }

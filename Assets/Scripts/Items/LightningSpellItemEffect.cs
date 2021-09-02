@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class LightningSpellItemEffect : ItemEffect
 {
     public int Damage;
+    public GameObject Lightning;
     private GameObject m_GameObject;
 
     public override void Apply(GameObject gameObject, GameMap gameMap)
@@ -26,6 +27,7 @@ public class LightningSpellItemEffect : ItemEffect
         Tile visibleEnemy = visibleEnemies[r];
 
         visibleEnemy.GetComponent<DamageComponent>().TakeDamage(m_GameObject, Damage);
+        Instantiate(Lightning, new Vector3((float)visibleEnemy.X, (float)visibleEnemy.Y, 0.0f), Quaternion.identity);
 
         return true;
     }

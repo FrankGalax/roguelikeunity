@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Damage: 10
   Radius: 2
+  Fire: {fileID: 1730042582462943088, guid: 977f2c9323ae0ae4ba8ce85bb14c71cd, type: 3}

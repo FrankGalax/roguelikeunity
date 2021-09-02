@@ -5,6 +5,7 @@ using UnityEngine;
 public class Config : GameSingleton<Config>
 {
     public GameObject DamagePopup;
+    public GameObject HealPopup;
     public Vector3 DamagePopupOffset;
     public float MoveSpeed = 4.0f;
     public GameObject SingleTarget;
