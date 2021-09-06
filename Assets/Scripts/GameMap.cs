@@ -4,35 +4,6 @@ using UnityEngine;
 using System;
 using UnityEngine.Assertions;
 
-public class RectangularRoom
-{
-    public RectangularRoom(int x, int y, int width, int height)
-    {
-        X1 = x;
-        Y1 = y;
-        X2 = x + width;
-        Y2 = y + height;
-    }
-
-    public bool Intersects(RectangularRoom otherRoom)
-    {
-        return X1 <= otherRoom.X2 &&
-            X2 >= otherRoom.X1 &&
-            Y1 <= otherRoom.Y2 &&
-            Y2 >= otherRoom.Y1;
-    }
-
-    public (int, int) GetCenter()
-    {
-        return ((X1 + X2) / 2, (Y1 + Y2) / 2);
-    }
-
-    public int X1 { get; private set; }
-    public int Y1 { get; private set; }
-    public int X2 { get; private set; }
-    public int Y2 { get; private set; }
-}
-
 public class GameMap : MonoBehaviour
 {
     public GameObject Floor;

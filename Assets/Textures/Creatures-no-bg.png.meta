@@ -7,7 +7,31 @@ TextureImporter:
     second: Creatures-no-bg_0
   - first:
       213: 4050136242720361937
-    second: Creatures-no-bg_1
+    second: troll idle
+  - first:
+      213: -5837680354083445429
+    second: wizard idle
+  - first:
+      213: -2402459173107560507
+    second: Creatures-no-bg_3
+  - first:
+      213: -6384293838907292577
+    second: Creatures-no-bg_4
+  - first:
+      213: -8362773485599804414
+    second: Creatures-no-bg_5
+  - first:
+      213: 3457796191666379993
+    second: troll idle 2
+  - first:
+      213: 8896000963713868760
+    second: troll move
+  - first:
+      213: -3432646667661991768
+    second: wizard idle 2
+  - first:
+      213: -5563959356916001519
+    second: wizard move
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -118,7 +142,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Creatures-no-bg_1
+      name: troll idle
       rect:
         serializedVersion: 2
         x: 110
@@ -126,7 +150,7 @@ TextureImporter:
         width: 10
         height: 10
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -134,6 +158,174 @@ TextureImporter:
       bones: []
       spriteID: 1dd48474479f43830800000000000000
       internalID: 4050136242720361937
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wizard idle
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 120
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b456496b5a46cfea0800000000000000
+      internalID: -5837680354083445429
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Creatures-no-bg_3
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 130
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5cf8b8f5c10c8aed0800000000000000
+      internalID: -2402459173107560507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Creatures-no-bg_4
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 120
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f544736349e6667a0800000000000000
+      internalID: -6384293838907292577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Creatures-no-bg_5
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 120
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 204b4cd92d571fb80800000000000000
+      internalID: -8362773485599804414
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: troll idle 2
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 50
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9dc19fde05f8cff20800000000000000
+      internalID: 3457796191666379993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: troll move
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 50
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d3a2b35eb1f47b70800000000000000
+      internalID: 8896000963713868760
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wizard idle 2
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 120
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8a0249eea0acc50d0800000000000000
+      internalID: -3432646667661991768
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wizard move
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 110
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1159f4aa178d8c2b0800000000000000
+      internalID: -5563959356916001519
       vertices: []
       indices: 
       edges: []

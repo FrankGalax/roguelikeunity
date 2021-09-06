@@ -40,7 +40,7 @@ public class MoveAction : GameAction
         m_Target = startPosition + m_DirectionVector;
         m_Speed = Config.Instance.MoveSpeed;
 
-        AnimationComponent animationComponent = GameObject.GetComponent<AnimationComponent>();
+        AnimationComponent animationComponent = GetAnimationComponent();
         if (animationComponent != null)
         {
             animationComponent.StartMoving(Direction);
@@ -83,7 +83,7 @@ public class MoveAction : GameAction
     {
         base.Release(gameMap);
 
-        AnimationComponent animationComponent = GameObject.GetComponent<AnimationComponent>();
+        AnimationComponent animationComponent = GetAnimationComponent();
         if (animationComponent != null)
         {
             animationComponent.StopMoving();
@@ -100,5 +100,16 @@ public class MoveAction : GameAction
     public override string GetDebugString()
     {
         return "MoveAction with Direction (" + Direction.Item1 + ", " + Direction.Item2 + ")";
+    }
+
+    private AnimationComponent GetAnimationComponent()
+    {
+        AnimationComponent animationComponent = GameObject.GetComponent<AnimationComponent>();
+        if (animationComponent == null)
+        {
+            animationComponent = GameObject.GetComponentInChildren<AnimationComponent>();
+        }
+
+        return animationComponent;
     }
 }

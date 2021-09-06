@@ -3,6 +3,14 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+public enum DamageType
+{
+    Physical,
+    Cold,
+    Lightning,
+    Fire
+}
+
 public class DamageComponent : MonoBehaviour
 {
     public int MaxHP;
@@ -33,14 +41,17 @@ public class DamageComponent : MonoBehaviour
         }
     }
 
-    public void TakeDamage(GameObject instigator, int damage)
+    public void TakeDamage(GameObject instigator, int damage, DamageType damageType)
     {
         if (!IsAlive)
         {
             return;
         }
 
-        damage -= Armor;
+        if (damageType == DamageType.Physical)
+        {
+            damage -= Armor;
+        }
 
         if (damage < 0)
         {

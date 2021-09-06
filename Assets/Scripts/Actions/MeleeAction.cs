@@ -27,7 +27,7 @@ public class MeleeAction : GameAction
             return;
         }
 
-        damageComponent.TakeDamage(GameObject, meleeComponent.Attack);
+        damageComponent.TakeDamage(GameObject, meleeComponent.Attack, DamageType.Physical);
         m_Timer = WaitTime;
     }
 

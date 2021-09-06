@@ -33,6 +33,11 @@ public class PathFinding
 
             foreach ((int, int) neighbour in neighbours)
             {
+                if (!gameMap.IsInBounds(neighbour.Item1, neighbour.Item2))
+                {
+                    continue;
+                }
+
                 Tile tile = gameMap.GetTileAtLocation(neighbour.Item1, neighbour.Item2);
                 if (tile != null && tile.BlocksMovement)
                 {

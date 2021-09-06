@@ -90,4 +90,9 @@ public class ActionQueue : MonoBehaviour
         GameManager.Instance.CurrentFloor = GameManager.Instance.CurrentFloor + 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+
+    public void CheatChangeFloor()
+    {
+        ChangeFloor();
+    }
 }

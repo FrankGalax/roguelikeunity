@@ -39,7 +39,7 @@ public class PickupAction : GameAction
             return;
         }
 
-        if (inventoryComponent.Items.Count > inventoryComponent.MaxItems)
+        if (inventoryComponent.Items.Count >= inventoryComponent.MaxItems)
         {
             IsDone = true;
             IsSuccess = false;

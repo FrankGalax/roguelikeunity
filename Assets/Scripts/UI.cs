@@ -7,6 +7,7 @@ public class UI : MonoBehaviour
 {
     public GameObject InventoryPanel;
     public GameObject HPPanel;
+    public TextMeshProUGUI FloorText;
     public Sprite FullHeart;
     public Sprite EmptyHeart;
 
@@ -43,6 +44,7 @@ public class UI : MonoBehaviour
 
         UpdateInventory();
         UpdatePlayerHealth();
+        UpdateFloorLevel();
 
         if (m_Player != null)
         {
@@ -51,7 +53,12 @@ public class UI : MonoBehaviour
         }
     }
 
-    public void UpdateInventory()
+    private void UpdateFloorLevel()
+    {
+        FloorText.text = "Floor " + GameManager.Instance.CurrentFloor;
+    }
+
+    private void UpdateInventory()
     {
         InventoryComponent inventoryComponent = m_Player.GetComponent<InventoryComponent>();
         for (int i = 0; i < m_InventorySlots.Count; ++i)
@@ -95,7 +102,7 @@ public class UI : MonoBehaviour
         }
     }
 
-    public void UpdatePlayerHealth()
+    private void UpdatePlayerHealth()
     {
         int health = m_PlayerDamageComponent.CurrentHP;
         for (int i = 0; i < m_HPSlots.Count; ++i)

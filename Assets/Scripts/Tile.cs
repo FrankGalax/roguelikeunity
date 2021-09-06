@@ -19,6 +19,11 @@ public class Tile : MonoBehaviour
     private void Awake()
     {
         m_SpriteRenderer = GetComponent<SpriteRenderer>();
+        if (m_SpriteRenderer == null)
+        {
+            m_SpriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        }
+
         IsVisible = AlwaysVisible;
         IsDiscovered = AlwaysVisible;
         IsDiscovered = false;

@@ -26,7 +26,7 @@ public class LightningSpellItemEffect : ItemEffect
         int r = UnityEngine.Random.Range(0, visibleEnemies.Count);
         Tile visibleEnemy = visibleEnemies[r];
 
-        visibleEnemy.GetComponent<DamageComponent>().TakeDamage(m_GameObject, Damage);
+        visibleEnemy.GetComponent<DamageComponent>().TakeDamage(m_GameObject, Damage, DamageType.Lightning);
         Instantiate(Lightning, new Vector3((float)visibleEnemy.X, (float)visibleEnemy.Y, 0.0f), Quaternion.identity);
 
         return true;

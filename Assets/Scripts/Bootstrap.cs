@@ -9,7 +9,10 @@ public class Bootstrap : MonoBehaviour
 
     private void Awake()
     {
-        GameManager.Instance.CurrentFloor = InitialFloor;
+        if (GameManager.Instance.CurrentFloor == 0)
+        {
+            GameManager.Instance.CurrentFloor = InitialFloor;
+        }
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player == null)
         {

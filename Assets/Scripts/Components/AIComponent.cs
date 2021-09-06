@@ -5,17 +5,28 @@ using System;
 
 public class AIComponent : MonoBehaviour
 {
-    public AIBehavior AIBehavior;
+    public int AttackTurns = 1;
+    public int PassTurns = 0;
+    public bool SetPlayerDistance = false;
+
+    public Func<GameObject, GameObject, GameMap, GameAction> GetActionFunc { get; set; }
 
     private DamageComponent m_DamageComponent;
-    private int m_Index;
-    private int m_NbTurns;
+    private Animator m_Animator;
+    private bool m_IsAttacking;
+    private int m_Turns;
 
     private void Awake()
     {
         m_DamageComponent = GetComponent<DamageComponent>();
-        m_Index = 0;
-        m_NbTurns = 0;
+        m_Animator = GetComponent<Animator>();
+        m_IsAttacking = true;
+        m_Turns = 0;
+    }
+
+    private void Start()
+    {
+        UpdateAnimator(GameObject.FindGameObjectWithTag("Player"), true);
     }
 
     public GameAction GetAction(GameMap gameMap, GameObject player)
@@ -25,21 +36,53 @@ public class AIComponent : MonoBehaviour
             return null;
         }
 
-        AIStateTurn aiStateTurn = AIBehavior.AIStateTurns[m_Index];
-        AIState aiState = aiStateTurn.AIState;
-
-        GameAction gameAction = aiState.GetAction(gameObject, player, gameMap);
-        m_NbTurns++;
-        if (m_NbTurns >= aiStateTurn.NbTurns)
+        GameAction gameAction = null;
+        if (GetActionFunc != null)
         {
-            m_Index++;
-            if (m_Index >= AIBehavior.AIStateTurns.Count)
-            {
-                m_Index = 0;
-            }
-            m_NbTurns = 0;
+            gameAction = GetActionFunc(gameObject, player, gameMap);
         }
 
+        UpdateAnimator(player, false);
+
         return gameAction;
+    }
+
+    private void UpdateAnimator(GameObject player, bool isFirstUpdate)
+    {
+        if (PassTurns > 0)
+        {
+            if (!isFirstUpdate)
+            {
+                m_Turns++;
+            }
+
+            if (m_IsAttacking)
+            {
+                if (m_Turns >= AttackTurns)
+                {
+                    m_IsAttacking = false;
+                    m_Turns = 0;
+                }
+            }
+            else
+            {
+                if (m_Turns >= PassTurns)
+                {
+                    m_IsAttacking = true;
+                    m_Turns = 0;
+                }
+            }
+
+            m_Animator.SetBool("IsAttacking", m_IsAttacking);
+        }
+
+        if (SetPlayerDistance)
+        {
+            Tile playerTile = player.GetComponent<Tile>();
+            Tile tile = GetComponent<Tile>();
+
+            int distance = tile.GetDistance(playerTile);
+            m_Animator.SetInteger("PlayerDistance", distance);
+        }
     }
 }

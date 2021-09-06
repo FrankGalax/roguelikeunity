@@ -28,7 +28,7 @@ public class FireballSpellItemEffect : ItemEffect
 
         foreach (Tile enemy in enemies)
         {
-            enemy.GetComponent<DamageComponent>().TakeDamage(m_GameObject, Damage);
+            enemy.GetComponent<DamageComponent>().TakeDamage(m_GameObject, Damage, DamageType.Fire);
         }
 
         foreach (Tile floor in floors)

@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 
-public class PassAIState : AIState
+public class RangeAttackAIState : AIState
 {
     public override GameAction GetAction(GameObject gameObject, GameObject player, GameMap gameMap)
     {
-        return new PassAction { GameObject = gameObject };
+        return new RangeAttackAction { GameObject = gameObject, Target = player };
     }
 }

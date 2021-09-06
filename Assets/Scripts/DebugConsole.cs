@@ -74,6 +74,15 @@ public class DebugConsole : MonoBehaviour
                 gameMap.CheatSpawn(name);
             }
         });
+        m_DebugCommands.Add(new DebugCommand
+        {
+            Name = "changefloor",
+            Action = () =>
+            {
+                ActionQueue actionQueue = FindObjectOfType<ActionQueue>();
+                actionQueue.CheatChangeFloor();
+            }
+        });
         m_DebugCommands.Sort((a, b) => a.Name.CompareTo(b.Name));
     }
 
