@@ -20,12 +20,16 @@ public class DamageComponent : MonoBehaviour
     public int CurrentHP { get; private set; }
     public bool IsAlive { get; private set; }
     public Signal UpdateHealthSignal { get; private set; }
+    public Signal DiedSignal { get; private set; }
+    public bool IsInvulnerable { get; set; }
 
     private void Awake()
     {
         IsAlive = true;
         CurrentHP = MaxHP;
         UpdateHealthSignal = new Signal();
+        DiedSignal = new Signal();
+        IsInvulnerable = false;
     }
 
     private void Start()
@@ -39,11 +43,16 @@ public class DamageComponent : MonoBehaviour
         {
             UpdateHealthSignal.ClearSlots();
         }
+
+        if (DiedSignal != null)
+        {
+            DiedSignal.ClearSlots();
+        }
     }
 
     public void TakeDamage(GameObject instigator, int damage, DamageType damageType)
     {
-        if (!IsAlive)
+        if (!IsAlive || IsInvulnerable)
         {
             return;
         }
@@ -109,6 +118,9 @@ public class DamageComponent : MonoBehaviour
         {
             Instantiate(Corpse, new Vector3((float)tile.X, (float)tile.Y, 0.0f), Quaternion.identity);
         }
+
+        DiedSignal.SendSignal();
+
         FindObjectOfType<GameMap>().RemoveActor(tile);
     }
 }

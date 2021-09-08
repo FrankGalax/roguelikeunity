@@ -39,10 +39,14 @@ public class ActionQueue : MonoBehaviour
             {
                 Tile playerTile = gameObject.GetComponent<Tile>();
                 Tile stairsTile = m_GameMap.GetStairs();
-                if (playerTile.X == stairsTile.X && playerTile.Y == stairsTile.Y)
+                if (stairsTile != null && playerTile.X == stairsTile.X && playerTile.Y == stairsTile.Y)
                 {
-                    ChangeFloor();
-                    return;
+                    Stair stair = stairsTile.GetComponent<Stair>();
+                    if (!stair.IsBlocked)
+                    {
+                        ChangeFloor();
+                        return;
+                    }
                 }
 
                 List<GameAction> enemyActions = m_GameMap.HandleEnemyTurns();
@@ -88,7 +92,15 @@ public class ActionQueue : MonoBehaviour
     private void ChangeFloor()
     {
         GameManager.Instance.CurrentFloor = GameManager.Instance.CurrentFloor + 1;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+        if (GameManager.Instance.CurrentFloor == Config.Instance.FloorDefinitions.Count)
+        {
+            SceneManager.LoadScene("mainmenu");
+        }
+        else
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
     }
 
     public void CheatChangeFloor()

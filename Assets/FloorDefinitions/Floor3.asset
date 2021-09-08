@@ -10,19 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4729a2258a62c79469872a9d517c5da7, type: 3}
-  m_Name: Test
+  m_Name: Floor3
   m_EditorClassIdentifier: 
   MaxMobsPerRoom: 2
   MinMobsPerRoom: 1
   MaxItemsPerRoom: 2
-  MinItemsPerRoom: 2
+  MinItemsPerRoom: 1
   Mobs:
   - GameObject: {fileID: 8548977278361031755, guid: 50943f9ee307cd3479829d39be83edba, type: 3}
-    weight: 1
+    weight: 2
   - GameObject: {fileID: 8398144802756975928, guid: b08e3ccf2d3907549ae38a014b2dab5f, type: 3}
     weight: 1
-  Items:
-  - GameObject: {fileID: 9161265329981988794, guid: 0fbca86a606fcfd4e8572a955bfe6cff, type: 3}
+  - GameObject: {fileID: 145431198492629139, guid: f3788b252bad8b947b746be8591adc7e, type: 3}
     weight: 1
-  - GameObject: {fileID: 765099499073486484, guid: b63220fe59461484084e6aa077743388, type: 3}
-    weight: 1
+  Items: []
+  TemplateFileName: 

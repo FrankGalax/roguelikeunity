@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.Assertions;
+using System.IO;
 
 public class GameMap : MonoBehaviour
 {
@@ -59,7 +60,15 @@ public class GameMap : MonoBehaviour
             m_FloorDefinition = Config.Instance.FloorDefinitions[currentFloor];
         }
 
-        List<List<char>> dungeon = BrogueGen.GenerateDungeon(DungeonWidth, DungeonHeight, m_FloorDefinition);
+        List<List<char>> dungeon = null;
+        if (string.IsNullOrEmpty(m_FloorDefinition.TemplateFileName))
+        {
+            dungeon = BrogueGen.GenerateDungeon(DungeonWidth, DungeonHeight, m_FloorDefinition);
+        }
+        else
+        {
+            dungeon = GetDungeonFromFile(m_FloorDefinition.TemplateFileName);
+        }
 
         for (int i = 0; i < DungeonWidth; ++i)
         {
@@ -112,6 +121,12 @@ public class GameMap : MonoBehaviour
                             AddActor(m_FloorDefinition.GetItem(), i, j);
                             break;
                         }
+                    case 'b':
+                        {
+                            AddTile(Floor, i, j);
+                            AddActor(m_FloorDefinition.Boss, i, j);
+                            break;
+                        }
                 }
             }
         }
@@ -132,7 +147,7 @@ public class GameMap : MonoBehaviour
     {
         foreach (Tile actor in m_Actors)
         {
-            if (actor.X == x && actor.Y == y)
+            if (actor.GetRadius(x, y) <= actor.Radius)
             {
                 return actor;
             }
@@ -385,6 +400,40 @@ public class GameMap : MonoBehaviour
         {
             action(actor);
         }
+    }
+
+    private List<List<char>> GetDungeonFromFile(string fileName)
+    {
+        string[] fileLines = File.ReadAllLines(Application.dataPath + "/SpecialFloors/" + fileName);
+        Assert.IsNotNull(fileLines);
+
+        int rowSize = fileLines[0].Length;
+        foreach (string fileLine in fileLines)
+        {
+            Assert.AreEqual(rowSize, fileLine.Length);
+        }
+
+        List<List<char>> dungeon = new List<List<char>>();
+        for (int i = 0; i < DungeonWidth; ++i)
+        {
+            List<char> column = new List<char>();
+            for (int j = 0; j < DungeonHeight; ++j)
+            {
+                column.Add(' ');
+            }
+            dungeon.Add(column);
+        }
+
+        for (int i = 0; i < rowSize; ++i)
+        {
+            List<char> column = new List<char>();
+            for (int j = 0; j < fileLines.Length; ++j)
+            {
+                dungeon[i][j] = fileLines[fileLines.Length - j - 1][i];
+            }
+        }
+
+        return dungeon;
     }
 
     public void CheatShowAllTiles()

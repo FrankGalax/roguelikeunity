@@ -8,6 +8,7 @@ public class Tile : MonoBehaviour
     public bool BlocksMovement;
     public bool Transparent;
     public bool AlwaysVisible;
+    public int Radius = 0;
 
     public int X { get; set; }
     public int Y { get; set; }
@@ -26,7 +27,6 @@ public class Tile : MonoBehaviour
 
         IsVisible = AlwaysVisible;
         IsDiscovered = AlwaysVisible;
-        IsDiscovered = false;
         X = (int)transform.position.x;
         Y = (int)transform.position.y;
     }

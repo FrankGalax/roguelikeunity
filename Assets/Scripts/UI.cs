@@ -7,6 +7,7 @@ public class UI : MonoBehaviour
 {
     public GameObject InventoryPanel;
     public GameObject HPPanel;
+    public GameObject DiedPanel;
     public TextMeshProUGUI FloorText;
     public Sprite FullHeart;
     public Sprite EmptyHeart;
@@ -49,7 +50,9 @@ public class UI : MonoBehaviour
         if (m_Player != null)
         {
             m_Player.GetComponent<InventoryComponent>().UpdateInventorySignal.AddSlot(() => UpdateInventory());
-            m_Player.GetComponent<DamageComponent>().UpdateHealthSignal.AddSlot(() => UpdatePlayerHealth());
+            DamageComponent damageComponent = m_Player.GetComponent<DamageComponent>();
+            damageComponent.UpdateHealthSignal.AddSlot(() => UpdatePlayerHealth());
+            damageComponent.DiedSignal.AddSlot(() => OnPlayerDied());
         }
     }
 
@@ -117,5 +120,10 @@ public class UI : MonoBehaviour
                 image.sprite = EmptyHeart;
             }
         }
+    }
+
+    private void OnPlayerDied()
+    {
+        DiedPanel.SetActive(true);
     }
 }

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5651753480997348654}
   - component: {fileID: 2517304974731587625}
   - component: {fileID: 4365394832272975889}
+  - component: {fileID: 5800262491041037247}
   m_Layer: 0
   m_Name: Stairs
   m_TagString: Untagged
@@ -99,3 +100,17 @@ MonoBehaviour:
   BlocksMovement: 0
   Transparent: 1
   AlwaysVisible: 1
+  Radius: 0
+--- !u!114 &5800262491041037247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2871246133465703278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01562dfab1c5e4b43b83f8634f1356f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FloorSprite: {fileID: 702684692498662846, guid: 34ef94231b8e9224aa57c1d5cc699a01, type: 3}

@@ -26,7 +26,10 @@ public class AIComponent : MonoBehaviour
 
     private void Start()
     {
-        UpdateAnimator(GameObject.FindGameObjectWithTag("Player"), true);
+        if (m_Animator != null)
+        {
+            UpdateAnimator(GameObject.FindGameObjectWithTag("Player"), true);
+        }
     }
 
     public GameAction GetAction(GameMap gameMap, GameObject player)
@@ -42,7 +45,10 @@ public class AIComponent : MonoBehaviour
             gameAction = GetActionFunc(gameObject, player, gameMap);
         }
 
-        UpdateAnimator(player, false);
+        if (m_Animator != null)
+        {
+            UpdateAnimator(player, false);
+        }
 
         return gameAction;
     }

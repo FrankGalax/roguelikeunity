@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4729a2258a62c79469872a9d517c5da7, type: 3}
+  m_Name: Floor4
+  m_EditorClassIdentifier: 
+  MaxMobsPerRoom: 0
+  MinMobsPerRoom: 0
+  MaxItemsPerRoom: 0
+  MinItemsPerRoom: 0
+  Mobs: []
+  Items: []
+  Boss: {fileID: 5749867851926632503, guid: f79aace17e2312445973977fd1b4a07b, type: 3}
+  TemplateFileName: floor4.txt

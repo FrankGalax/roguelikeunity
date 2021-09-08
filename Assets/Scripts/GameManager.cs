@@ -15,7 +15,10 @@ public class GameManager : GameSingleton<GameManager>
     public int CurrentFloor { get; set; }
     public bool IsPaused { get; set; }
 
+    public float DiedWaitTime = 5.0f;
+
     private StateMachine m_StateMachine;
+    private float m_DiedWaitTimer = -1.0f;
 
     private void Awake()
     {
@@ -27,6 +30,9 @@ public class GameManager : GameSingleton<GameManager>
     {
         m_StateMachine = new StateMachine(new DungeonState());
         SceneManager.sceneLoaded += OnSceneLoaded;
+
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        player.GetComponent<DamageComponent>().DiedSignal.AddSlot(OnPlayerDied);
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -45,6 +51,15 @@ public class GameManager : GameSingleton<GameManager>
         }
 
         m_StateMachine.Update();
+
+        if (m_DiedWaitTimer > 0.0f)
+        {
+            m_DiedWaitTimer -= Time.deltaTime;
+            if (m_DiedWaitTimer <= 0.0f)
+            {
+                SceneManager.LoadScene("mainmenu");
+            }
+        }
     }
 
     public void RequestGameState(GameStateRequest request)
@@ -61,6 +76,11 @@ public class GameManager : GameSingleton<GameManager>
                 m_StateMachine.Transition(new AreaTargetState());
                 break;
         }
+    }
+
+    private void OnPlayerDied()
+    {
+        m_DiedWaitTimer = DiedWaitTime;
     }
 }
 

@@ -11,6 +11,8 @@ public class FloorDefinition : ScriptableObject
     public int MinItemsPerRoom;
     public List<Spawnable> Mobs;
     public List<Spawnable> Items;
+    public GameObject Boss;
+    public string TemplateFileName;
 
     public GameObject GetMob()
     {

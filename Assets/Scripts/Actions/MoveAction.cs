@@ -3,10 +3,16 @@ using UnityEngine;
 public class MoveAction : GameAction
 {
     public (int, int) Direction { get; set; }
+    public Signal ReleaseSignal { get; private set; }
 
     private Vector3 m_DirectionVector;
     private Vector3 m_Target;
     private float m_Speed;
+
+    public MoveAction()
+    {
+        ReleaseSignal = new Signal();
+    }
 
     public override void Apply(GameMap gameMap)
     {
@@ -95,6 +101,8 @@ public class MoveAction : GameAction
         {
             areaControl.OnEnter(GameObject);
         }
+
+        ReleaseSignal.SendSignal();
     }
 
     public override string GetDebugString()
