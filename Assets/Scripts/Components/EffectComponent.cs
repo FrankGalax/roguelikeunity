@@ -3,8 +3,25 @@ using System.Collections.Generic;
 
 public class EffectInstance
 {
+    public EffectInstance(Effect effect, int remainingTurns)
+    {
+        Effect = effect;
+        RemainingTurns = remainingTurns;
+        HasDuration = remainingTurns >= 0;
+        GameplayActionInstances = new List<GameplayActionInstance>();
+
+        foreach (GameplayAction gameplayAction in effect.GameplayActions)
+        {
+            GameplayActionInstance instance = gameplayAction.CreateInstance();
+            instance.GameplayAction = gameplayAction;
+            GameplayActionInstances.Add(instance);
+        }
+    }
+
     public Effect Effect { get; set; }
     public int RemainingTurns { get; set; }
+    public bool HasDuration { get; set; }
+    public List<GameplayActionInstance> GameplayActionInstances { get; set; }
 }
 
 public class EffectComponent : MonoBehaviour
@@ -18,9 +35,22 @@ public class EffectComponent : MonoBehaviour
 
     public void AddEffect(Effect effect, int nbTurns)
     {
-        EffectInstance effectInstance = new EffectInstance { Effect = effect, RemainingTurns = nbTurns };
-        effectInstance.Effect.StartEffect(gameObject);
+        EffectInstance effectInstance = new EffectInstance(effect, nbTurns);
+        StartEffect(effectInstance);
         m_EffectInstances.Add(effectInstance);
+    }
+
+    public void RemoveEffect(Effect effect)
+    {
+        for (int i = 0; i < m_EffectInstances.Count; ++i)
+        {
+            if (m_EffectInstances[i].Effect == effect)
+            {
+                StopEffect(m_EffectInstances[i]);
+                m_EffectInstances.RemoveAt(i);
+                return;
+            }
+        }
     }
 
     public bool HasEffect(EffectType effectType)
@@ -41,12 +71,34 @@ public class EffectComponent : MonoBehaviour
         for (int i = m_EffectInstances.Count - 1; i >= 0; --i)
         {
             EffectInstance effectInstance = m_EffectInstances[i];
+            if (!effectInstance.HasDuration)
+            {
+                continue;
+            }
+
             effectInstance.RemainingTurns--;
             if (effectInstance.RemainingTurns == 0)
             {
-                effectInstance.Effect.StopEffect(gameObject);
+                StopEffect(m_EffectInstances[i]);
                 m_EffectInstances.RemoveAt(i);
             }
+        }
+    }
+
+    private void StartEffect(EffectInstance effectInstance)
+    {
+        foreach (GameplayActionInstance instance in effectInstance.GameplayActionInstances)
+        {
+            instance.InitAction(gameObject);
+            instance.StartAction(gameObject);
+        }
+    }
+
+    private void StopEffect(EffectInstance effectInstance)
+    {
+        foreach (GameplayActionInstance instance in effectInstance.GameplayActionInstances)
+        {
+            instance.StopAction(gameObject);
         }
     }
 }

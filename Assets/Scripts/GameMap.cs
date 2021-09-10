@@ -456,7 +456,7 @@ public class GameMap : MonoBehaviour
             {
                 if (mob.GameObject.name.ToLower().Contains(name.ToLower()))
                 {
-                    AddActor(mob.GameObject, playerTile.X, playerTile.Y + 2);
+                    AddActor(mob.GameObject, playerTile.X, playerTile.Y + 4);
                     ComputeFOV(playerTile.X, playerTile.Y);
                     return;
                 }
@@ -469,6 +469,22 @@ public class GameMap : MonoBehaviour
                     AddActor(item.GameObject, playerTile.X + 1, playerTile.Y);
                     ComputeFOV(playerTile.X, playerTile.Y);
                     return;
+                }
+            }
+        }
+    }
+
+    public void CheatKillInvisibles()
+    {
+        for (int i = m_Actors.Count - 1; i >= 0; --i)
+        {
+            Tile actor = m_Actors[i];
+            if (actor != null && !actor.IsVisible)
+            {
+                DamageComponent damageComponent = actor.GetComponent<DamageComponent>();
+                if (damageComponent != null)
+                {
+                    damageComponent.TakeDamage(m_Player, 1000, DamageType.Physical);
                 }
             }
         }

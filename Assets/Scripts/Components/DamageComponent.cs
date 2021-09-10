@@ -69,7 +69,12 @@ public class DamageComponent : MonoBehaviour
 
         if (damage > 0)
         {
-            CurrentHP = Math.Max(CurrentHP - damage, 0);
+            if (damage > CurrentHP)
+            {
+                damage = CurrentHP;
+            }
+
+            CurrentHP = CurrentHP - damage;
 
             UpdateHealthSignal.SendSignal();
 

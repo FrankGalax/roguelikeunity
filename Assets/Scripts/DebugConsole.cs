@@ -83,6 +83,15 @@ public class DebugConsole : MonoBehaviour
                 actionQueue.CheatChangeFloor();
             }
         });
+        m_DebugCommands.Add(new DebugCommand
+        {
+            Name = "killinvisibles",
+            Action = () =>
+            {
+                GameMap gameMap = FindObjectOfType<GameMap>();
+                gameMap.CheatKillInvisibles();
+            }
+        });
         m_DebugCommands.Sort((a, b) => a.Name.CompareTo(b.Name));
     }
 
