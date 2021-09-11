@@ -20,10 +20,6 @@ public class Tile : MonoBehaviour
     private void Awake()
     {
         m_SpriteRenderer = GetComponent<SpriteRenderer>();
-        if (m_SpriteRenderer == null)
-        {
-            m_SpriteRenderer = GetComponentInChildren<SpriteRenderer>();
-        }
 
         IsVisible = AlwaysVisible;
         IsDiscovered = AlwaysVisible;
@@ -40,17 +36,15 @@ public class Tile : MonoBehaviour
 
         if (IsVisible)
         {
-            m_SpriteRenderer.enabled = true;
-            m_SpriteRenderer.color = Color.white;
+            UpdateVisibility(transform, true, Color.white);
         }
         else if (IsDiscovered)
         {
-            m_SpriteRenderer.enabled = true;
-            m_SpriteRenderer.color = new Color(0.2f, 0.2f, 0.2f);
+            UpdateVisibility(transform, true, new Color(0.2f, 0.2f, 0.2f));
         }
         else
         {
-            m_SpriteRenderer.enabled = false;
+            UpdateVisibility(transform, false, Color.white);
         }
     }
 
@@ -62,5 +56,24 @@ public class Tile : MonoBehaviour
     public int GetRadius(int x, int y)
     {
         return Math.Max(Math.Abs(X - x), Math.Abs(Y - y));
+    }
+
+    private void UpdateVisibility(Transform transform, bool visible, Color color)
+    {
+        SpriteRenderer spriteRenderer = transform.gameObject == gameObject ? m_SpriteRenderer : transform.GetComponent<SpriteRenderer>();
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.enabled = visible;
+            if (visible)
+            {
+                spriteRenderer.color = color;
+            }
+        }
+
+        for (int i = 0; i < transform.childCount; ++i)
+        {
+            Transform child = transform.GetChild(i);
+            UpdateVisibility(child, visible, color);
+        }
     }
 }

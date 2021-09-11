@@ -18,6 +18,12 @@ public class InstantiateGameObjectGameplayActionInstance : GameplayActionInstanc
 
         m_GameObject = GameObject.Instantiate(m_InstantiateGameObjectGameplayAction.Prefab, Vector3.zero, Quaternion.identity, gameObject.transform);
         m_GameObject.transform.localPosition = m_InstantiateGameObjectGameplayAction.Offset;
+
+        Tile tile = gameObject.GetComponent<Tile>();
+        if (tile != null)
+        {
+            tile.UpdateVisibility();
+        }
     }
 
     public override void StopAction(GameObject gameObject)
