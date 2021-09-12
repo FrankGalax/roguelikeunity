@@ -26,12 +26,14 @@ public class GameMap : MonoBehaviour
     private Tile m_Stairs;
     private GameObject m_Player;
     private FloorDefinition m_FloorDefinition;
+    private Minimap m_Minimap;
 
     private void Awake()
     {
         m_Tiles = new List<List<Tile>>();
         m_Actors = new List<Tile>();
         m_AreaControls = new List<AreaControl>();
+        m_Minimap = FindObjectOfType<Minimap>();
         for (int i = 0; i < DungeonWidth; ++i)
         {
             List<Tile> column = new List<Tile>();
@@ -68,6 +70,11 @@ public class GameMap : MonoBehaviour
         else
         {
             dungeon = GetDungeonFromFile(m_FloorDefinition.TemplateFileName);
+        }
+
+        if (m_Minimap != null)
+        {
+            m_Minimap.OnDungeonCreated(dungeon);
         }
 
         for (int i = 0; i < DungeonWidth; ++i)
@@ -244,6 +251,11 @@ public class GameMap : MonoBehaviour
             actorTile.IsVisible = tile != null && tile.IsVisible;
             actorTile.UpdateVisibility();
         });
+
+        if (m_Minimap != null)
+        {
+            m_Minimap.UpdateVisibility(m_Tiles);
+        }
     }
 
     public List<GameAction> HandleEnemyTurns()
