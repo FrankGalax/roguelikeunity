@@ -92,6 +92,28 @@ public class DebugConsole : MonoBehaviour
                 gameMap.CheatKillInvisibles();
             }
         });
+        m_DebugCommands.Add(new DebugCommand
+        {
+            Name = "suicide",
+            Action = () =>
+            {
+                GameObject player = GameObject.FindGameObjectWithTag("Player");
+                if (player != null)
+                {
+                    DamageComponent damageComponent = player.GetComponent<DamageComponent>();
+                    damageComponent.TakeDamage(player, 1000, DamageType.Physical);
+                }
+            }
+        });
+        m_DebugCommands.Add(new DebugCommand<int>
+        {
+            Name = "setfloor",
+            Action = (floorIndex) =>
+            {
+                ActionQueue actionQueue = FindObjectOfType<ActionQueue>();
+                actionQueue.CheatSetFloor(floorIndex);
+            }
+        });
         m_DebugCommands.Sort((a, b) => a.Name.CompareTo(b.Name));
     }
 

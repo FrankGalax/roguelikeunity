@@ -8,6 +8,7 @@ public abstract class GameAction
     {
         IsDone = false;
         IsSuccess = true;
+        IsPausing = false;
     }
 
     public virtual void Update(GameMap gameMap) { }
@@ -17,6 +18,8 @@ public abstract class GameAction
     public bool IsDone { get; protected set; }
 
     public bool IsSuccess { get; protected set; }
+
+    public bool IsPausing { get; protected set; }
 
     public virtual string GetDebugString() { return null; }
 }

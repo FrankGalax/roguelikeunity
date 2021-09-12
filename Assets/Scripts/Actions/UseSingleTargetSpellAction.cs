@@ -18,6 +18,7 @@ public class UseSingleTargetSpellAction : GameAction
         m_TargetComponent = GameObject.GetComponent<TargetComponent>();
         m_Timer = 0;
         m_SpellCallbackCalled = false;
+        IsPausing = true;
     }
 
     public override void Update(GameMap gameMap)

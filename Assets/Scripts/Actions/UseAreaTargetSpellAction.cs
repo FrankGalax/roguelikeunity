@@ -20,6 +20,7 @@ public class UseAreaTargetSpellAction : GameAction
         GameManager.Instance.RequestGameState(GameStateRequest.AreaTarget);
         m_Timer = 0;
         m_SpellCallbackCalled = false;
+        IsPausing = true;
     }
 
     public override void Update(GameMap gameMap)

@@ -168,6 +168,7 @@ MonoBehaviour:
   BlocksMovement: 1
   Transparent: 0
   AlwaysVisible: 0
+  Radius: 0
 --- !u!114 &-8308481876796569783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -181,7 +182,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHP: 4
-  Armor: 0
   Corpse: {fileID: 0}
 --- !u!114 &-5528509201153843280
 MonoBehaviour:
@@ -195,7 +195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54c09ba5dc5de2544a44ab0c88f93fcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Attack: 2
+  Attack: 1
 --- !u!114 &-5238866294760699358
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -6,6 +6,7 @@ public class Minimap : MonoBehaviour
 {
     public GameObject Wall;
     public GameObject Player;
+    public GameObject Door;
 
     private RectTransform m_RectTransform;
     private int m_DungeonWidth;
@@ -53,6 +54,10 @@ public class Minimap : MonoBehaviour
                         column[j] = AddTile(Wall, i, j);
                         column[j].SetActive(false);
                         break;
+                    case 'd':
+                        column[j] = AddTile(Door, i, j);
+                        column[j].SetActive(false);
+                        break;
                 }
             }
 
@@ -73,6 +78,15 @@ public class Minimap : MonoBehaviour
                     m_MinimapTiles[i][j].SetActive(tiles[i][j].IsDiscovered);
                 }
             }
+        }
+    }
+
+    public void RemoveTile(Tile tile, int x, int y)
+    {
+        if (tile.GetComponent<DoorComponent>() != null)
+        {
+            Destroy(m_MinimapTiles[x][y]);
+            m_MinimapTiles[x][y] = null;
         }
     }
 

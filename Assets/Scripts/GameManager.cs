@@ -19,6 +19,7 @@ public class GameManager : GameSingleton<GameManager>
 
     private StateMachine m_StateMachine;
     private float m_DiedWaitTimer = -1.0f;
+    private GameObject m_Player;
 
     private void Awake()
     {
@@ -31,8 +32,8 @@ public class GameManager : GameSingleton<GameManager>
         m_StateMachine = new StateMachine(new DungeonState());
         SceneManager.sceneLoaded += OnSceneLoaded;
 
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        player.GetComponent<DamageComponent>().DiedSignal.AddSlot(OnPlayerDied);
+        m_Player = GameObject.FindGameObjectWithTag("Player");
+        m_Player.GetComponent<DamageComponent>().DiedSignal.AddSlot(OnPlayerDied);
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -40,6 +41,13 @@ public class GameManager : GameSingleton<GameManager>
         if (m_StateMachine != null)
         {
             m_StateMachine.Transition(new DungeonState());
+        }
+
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null && player != m_Player)
+        {
+            m_Player = player;
+            m_Player.GetComponent<DamageComponent>().DiedSignal.AddSlot(OnPlayerDied);
         }
     }
 

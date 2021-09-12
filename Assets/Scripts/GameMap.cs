@@ -260,7 +260,6 @@ public class GameMap : MonoBehaviour
 
     public List<GameAction> HandleEnemyTurns()
     {
-        Debug.Log("Handle Enemy Turns");
         List<GameAction> gameActions = new List<GameAction>();
 
         foreach (Tile tile in m_Actors)
@@ -370,6 +369,12 @@ public class GameMap : MonoBehaviour
     public void RemoveTile(int x, int y)
     {
         Tile tile = GetTileAtLocation(x, y);
+
+        if (m_Minimap != null)
+        {
+            m_Minimap.RemoveTile(tile, x, y);
+        }
+
         if (tile != null)
         {
             Destroy(tile.gameObject);

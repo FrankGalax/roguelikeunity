@@ -74,7 +74,6 @@ public class BumpAction : GameAction
         {
             m_SubAction.Update(gameMap);
             IsDone = m_SubAction.IsDone;
-            IsSuccess = m_SubAction.IsSuccess;
         }
     }
 

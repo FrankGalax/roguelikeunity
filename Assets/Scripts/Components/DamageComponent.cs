@@ -14,7 +14,6 @@ public enum DamageType
 public class DamageComponent : MonoBehaviour
 {
     public int MaxHP;
-    public int Armor;
     public GameObject Corpse;
 
     public int CurrentHP { get; private set; }
@@ -55,11 +54,6 @@ public class DamageComponent : MonoBehaviour
         if (!IsAlive || IsInvulnerable)
         {
             return;
-        }
-
-        if (damageType == DamageType.Physical)
-        {
-            damage -= Armor;
         }
 
         if (damage < 0)

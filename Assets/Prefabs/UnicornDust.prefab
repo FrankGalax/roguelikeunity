@@ -116,7 +116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d6932c1164fcab4fb6672180328689d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NbTurns: 6
+  NbTurns: 5
   EffectNbTurns: 5
   Effect: {fileID: 11400000, guid: a6c5e2eb56a4b65428a722691b096b25, type: 2}
 --- !u!114 &4560759170253626319
@@ -134,3 +134,4 @@ MonoBehaviour:
   BlocksMovement: 0
   Transparent: 1
   AlwaysVisible: 1
+  Radius: 0
