@@ -15,5 +15,5 @@ MonoBehaviour:
   ItemName: Lightning Medalion
   Sprite: {fileID: -9157869975800143526, guid: 843e6437e08c241489fd5a7a841147fb, type: 3}
   ItemEffects:
-  - {fileID: 11400000, guid: 68e4b21474d01db40abdde43acc1aa75, type: 2}
+  - {fileID: 11400000, guid: 8ef642514c19e114fbd9bdfab038a19a, type: 2}
   IsCastingSpell: 1

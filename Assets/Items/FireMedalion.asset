@@ -15,5 +15,5 @@ MonoBehaviour:
   ItemName: Fire Medalion
   Sprite: {fileID: 3034550429799673827, guid: 843e6437e08c241489fd5a7a841147fb, type: 3}
   ItemEffects:
-  - {fileID: 11400000, guid: b3a4cde9fb317b540bbd2896c00ce890, type: 2}
+  - {fileID: 11400000, guid: 724b89360932d1f44954051bff0e6571, type: 2}
   IsCastingSpell: 1

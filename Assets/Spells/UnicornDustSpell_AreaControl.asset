@@ -9,8 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e688b79b7fce3604fa294e5adfae8b7e, type: 3}
-  m_Name: UnicornMedalion_AreaControlSpellItemEffect
+  m_Script: {fileID: 11500000, guid: b4123b3dcf4e30a47ba9ad23bcd595f5, type: 3}
+  m_Name: UnicornDustSpell_AreaControl
   m_EditorClassIdentifier: 
   AreaControl: {fileID: 5512549878303782664, guid: 7b0c625b433499c418559b487c342766, type: 3}
-  Radius: 1

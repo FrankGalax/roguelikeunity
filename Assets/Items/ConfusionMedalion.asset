@@ -15,5 +15,5 @@ MonoBehaviour:
   ItemName: Confusion Medalion
   Sprite: {fileID: 2144099614872516725, guid: 843e6437e08c241489fd5a7a841147fb, type: 3}
   ItemEffects:
-  - {fileID: 11400000, guid: 6b950eb577e96b14684b3eae349ec06f, type: 2}
+  - {fileID: 11400000, guid: 67913fd253386734ba9b7c58512d965a, type: 2}
   IsCastingSpell: 1

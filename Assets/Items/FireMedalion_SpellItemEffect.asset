@@ -9,9 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a95b421460925ab4a8cac0db0ac37fd4, type: 3}
-  m_Name: FireMedalion_FireballSpellItemEffect
+  m_Script: {fileID: 11500000, guid: e4f7d16e1cae3d042b8d1b5d2d22921e, type: 3}
+  m_Name: FireMedalion_SpellItemEffect
   m_EditorClassIdentifier: 
-  Damage: 10
-  Radius: 2
-  Fire: {fileID: 1730042582462943088, guid: 977f2c9323ae0ae4ba8ce85bb14c71cd, type: 3}
+  Spell: {fileID: 11400000, guid: 5ce33af8d6d979c43bcfa91d2acbdd8b, type: 2}

@@ -15,5 +15,5 @@ MonoBehaviour:
   ItemName: Unicorn Medalion
   Sprite: {fileID: 6405483156500446941, guid: 843e6437e08c241489fd5a7a841147fb, type: 3}
   ItemEffects:
-  - {fileID: 11400000, guid: 2d95918d4b247ec4abea59a1c8c32004, type: 2}
+  - {fileID: 11400000, guid: 51d41977ce7da7742ba8876d05a1002d, type: 2}
   IsCastingSpell: 1
