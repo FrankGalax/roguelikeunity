@@ -4,7 +4,7 @@ using UnityEngine;
 public class UseNoTargetSpellAction : GameAction
 {
     public float WaitTime = 0.5f;
-    public Func<GameMap, bool> SpellCallback { get; set; }
+    public Func<GameObject, GameMap, bool> SpellCallback { get; set; }
 
     private float m_Timer;
 
@@ -12,7 +12,7 @@ public class UseNoTargetSpellAction : GameAction
     {
         base.Apply(gameMap);
 
-        IsSuccess = SpellCallback(gameMap);
+        IsSuccess = SpellCallback(GameObject, gameMap);
 
         m_Timer = WaitTime;
     }

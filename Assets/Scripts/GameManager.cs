@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,7 +5,8 @@ public enum GameStateRequest
 {
     Dungeon,
     SingleTarget,
-    AreaTarget
+    AreaTarget,
+    DirectionalTarget
 }
 
 public class GameManager : GameSingleton<GameManager>
@@ -82,6 +81,9 @@ public class GameManager : GameSingleton<GameManager>
                 break;
             case GameStateRequest.AreaTarget:
                 m_StateMachine.Transition(new AreaTargetState());
+                break;
+            case GameStateRequest.DirectionalTarget:
+                m_StateMachine.Transition(new DirectionalTargetState());
                 break;
         }
     }
@@ -197,6 +199,110 @@ public class AreaTargetState : State
             if (m_InputHandler.MouseDown)
             {
                 m_TargetComponent.TargetTile = m_InputHandler.MouseTile;
+            }
+        }
+    }
+}
+
+public class DirectionalTargetState : State
+{
+    private TargetInputHandler m_InputHandler;
+    private GameObject m_DirectionalSelection;
+    private GameObject m_DiagonalDirectionalSelection;
+    private TargetComponent m_TargetComponent;
+    private Tile m_PlayerTile;
+
+    public override void Enter()
+    {
+        m_InputHandler = new TargetInputHandler();
+        m_TargetComponent = GameObject.FindGameObjectWithTag("Player").GetComponent<TargetComponent>();
+
+        m_DirectionalSelection = GameObject.Instantiate(Config.Instance.DirectionalSelection);
+        m_DiagonalDirectionalSelection = GameObject.Instantiate(Config.Instance.DiagonalDirectionalSelection);
+        m_DirectionalSelection.SetActive(false);
+        m_DiagonalDirectionalSelection.SetActive(false);
+
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        m_PlayerTile = player.GetComponent<Tile>();
+    }
+
+    public override void Exit()
+    {
+        GameObject.Destroy(m_DirectionalSelection);
+        GameObject.Destroy(m_DiagonalDirectionalSelection);
+        m_TargetComponent.Direction = null;
+    }
+
+    public override void Update()
+    {
+        m_InputHandler.Update();
+
+        if (m_InputHandler.MouseTile != null)
+        {
+            (int, int) direction = (m_InputHandler.MouseTile.X - m_PlayerTile.X, m_InputHandler.MouseTile.Y - m_PlayerTile.Y);
+            direction.Item1 = direction.Item1 > 0 ? 1 : (direction.Item1 < 0 ? -1 : 0);
+            direction.Item2 = direction.Item2 > 0 ? 1 : (direction.Item2 < 0 ? -1 : 0);
+
+            if (direction != (0, 0))
+            {
+                float x = (float)(m_PlayerTile.X + direction.Item1);
+                float y = (float)(m_PlayerTile.Y + direction.Item2);
+                m_DirectionalSelection.transform.position = new Vector3(x, y, 0.0f);
+                m_DiagonalDirectionalSelection.transform.position = new Vector3(x, y, 0.0f);
+
+                if (direction == (0, 1))
+                {
+                    m_DirectionalSelection.transform.rotation = Quaternion.identity;
+                    m_DirectionalSelection.SetActive(true);
+                    m_DiagonalDirectionalSelection.SetActive(false);
+                }
+                else if (direction == (-1, 1))
+                {
+                    m_DiagonalDirectionalSelection.transform.rotation = Quaternion.identity;
+                    m_DirectionalSelection.SetActive(false);
+                    m_DiagonalDirectionalSelection.SetActive(true);
+                }
+                else if (direction == (-1, 0))
+                {
+                    m_DirectionalSelection.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 90.0f);
+                    m_DirectionalSelection.SetActive(true);
+                    m_DiagonalDirectionalSelection.SetActive(false);
+                }
+                else if (direction == (-1, -1))
+                {
+                    m_DiagonalDirectionalSelection.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 90.0f);
+                    m_DirectionalSelection.SetActive(false);
+                    m_DiagonalDirectionalSelection.SetActive(true);
+                }
+                else if (direction == (0, -1))
+                {
+                    m_DirectionalSelection.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 180.0f);
+                    m_DirectionalSelection.SetActive(true);
+                    m_DiagonalDirectionalSelection.SetActive(false);
+                }
+                else if (direction == (1, -1))
+                {
+                    m_DiagonalDirectionalSelection.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 180.0f);
+                    m_DirectionalSelection.SetActive(false);
+                    m_DiagonalDirectionalSelection.SetActive(true);
+                }
+                else if (direction == (1, 0))
+                {
+                    m_DirectionalSelection.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 270.0f);
+                    m_DirectionalSelection.SetActive(true);
+                    m_DiagonalDirectionalSelection.SetActive(false);
+                }
+                else if (direction == (1, 1))
+                {
+                    m_DiagonalDirectionalSelection.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 270.0f);
+                    m_DirectionalSelection.SetActive(false);
+                    m_DiagonalDirectionalSelection.SetActive(true);
+                }
+
+                if (m_InputHandler.MouseDown)
+                {
+                    m_TargetComponent.Direction = direction;
+                }
             }
         }
     }

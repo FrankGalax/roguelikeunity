@@ -1,10 +1,10 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
+using System;
 
-public class UseSingleTargetSpellAction : GameAction
+public class UseDirectionalTargetSpellAction : GameAction
 {
     public float WaitTime = 0.5f;
-    public Func<GameObject, GameMap, Tile, bool> SpellCallback { get; set; }
+    public Func<GameObject, GameMap, (int, int), bool> SpellCallback { get; set; }
 
     private float m_Timer;
     private TargetComponent m_TargetComponent;
@@ -14,7 +14,7 @@ public class UseSingleTargetSpellAction : GameAction
     {
         base.Apply(gameMap);
 
-        GameManager.Instance.RequestGameState(GameStateRequest.SingleTarget);
+        GameManager.Instance.RequestGameState(GameStateRequest.DirectionalTarget);
         m_TargetComponent = GameObject.GetComponent<TargetComponent>();
         m_Timer = 0;
         m_SpellCallbackCalled = false;
@@ -33,10 +33,10 @@ public class UseSingleTargetSpellAction : GameAction
                 IsDone = true;
             }
         }
-        else if (m_TargetComponent.TargetTile != null)
+        else if (m_TargetComponent.Direction != null)
         {
             m_Timer = WaitTime;
-            IsSuccess = SpellCallback(GameObject, gameMap, m_TargetComponent.TargetTile);
+            IsSuccess = SpellCallback(GameObject, gameMap, m_TargetComponent.Direction.Value);
             GameManager.Instance.RequestGameState(GameStateRequest.Dungeon);
             m_SpellCallbackCalled = true;
         }
@@ -44,6 +44,6 @@ public class UseSingleTargetSpellAction : GameAction
 
     public override string GetDebugString()
     {
-        return "UseSingleTargetSpellAction";
+        return "UseDirectionalTargetSpellAction";
     }
 }

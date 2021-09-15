@@ -47,6 +47,24 @@ TextureImporter:
   - first:
       213: 4567757141605265034
     second: Misc-no-bg_14
+  - first:
+      213: 3684039699573790432
+    second: icebeam1
+  - first:
+      213: 3258448212986499758
+    second: icebeam2
+  - first:
+      213: 5809238402963692086
+    second: icebeam3
+  - first:
+      213: -2796671600752974989
+    second: icebeam4
+  - first:
+      213: 6592444195431614190
+    second: icebeam5
+  - first:
+      213: -1507513237016936333
+    second: icebeam6
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -417,7 +435,7 @@ TextureImporter:
         width: 10
         height: 10
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -438,7 +456,7 @@ TextureImporter:
         width: 10
         height: 10
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -446,6 +464,132 @@ TextureImporter:
       bones: []
       spriteID: a8ea2a55beee36f30800000000000000
       internalID: 4567757141605265034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: icebeam1
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 100
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e6588f7696502330800000000000000
+      internalID: 3684039699573790432
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: icebeam2
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 110
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea2111eb265583d20800000000000000
+      internalID: 3258448212986499758
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: icebeam3
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 120
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 63a55308c8f8e9050800000000000000
+      internalID: 5809238402963692086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: icebeam4
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 130
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37322bb1ff93039d0800000000000000
+      internalID: -2796671600752974989
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: icebeam5
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 140
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee6894641111d7b50800000000000000
+      internalID: 6592444195431614190
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: icebeam6
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 150
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3700865b2bc341be0800000000000000
+      internalID: -1507513237016936333
       vertices: []
       indices: 
       edges: []

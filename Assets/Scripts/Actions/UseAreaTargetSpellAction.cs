@@ -4,7 +4,7 @@ using UnityEngine;
 public class UseAreaTargetSpellAction : GameAction
 {
     public float WaitTime = 0.5f;
-    public Func<GameMap, Tile, bool> SpellCallback { get; set; }
+    public Func<GameObject, GameMap, Tile, bool> SpellCallback { get; set; }
     public int Radius { get; set; }
 
     private float m_Timer;
@@ -38,7 +38,7 @@ public class UseAreaTargetSpellAction : GameAction
         else if (m_TargetComponent.TargetTile != null)
         {
             m_Timer = WaitTime;
-            IsSuccess = SpellCallback(gameMap, m_TargetComponent.TargetTile);
+            IsSuccess = SpellCallback(GameObject, gameMap, m_TargetComponent.TargetTile);
             GameManager.Instance.RequestGameState(GameStateRequest.Dungeon);
             m_SpellCallbackCalled = true;
         }

@@ -92,6 +92,12 @@ TextureImporter:
   - first:
       213: 4067162032150295616
     second: Full-no-bg_29
+  - first:
+      213: 8069103220074776387
+    second: arrow
+  - first:
+      213: -2996541940193255693
+    second: diagonalarrow
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -798,7 +804,7 @@ TextureImporter:
         width: 10
         height: 10
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -806,6 +812,48 @@ TextureImporter:
       bones: []
       spriteID: 044364ac156717830800000000000000
       internalID: 4067162032150295616
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arrow
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 320
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 347848070a63bff60800000000000000
+      internalID: 8069103220074776387
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: diagonalarrow
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 330
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3fe98345bf42a66d0800000000000000
+      internalID: -2996541940193255693
       vertices: []
       indices: 
       edges: []
