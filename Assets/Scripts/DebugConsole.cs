@@ -114,6 +114,23 @@ public class DebugConsole : MonoBehaviour
                 actionQueue.CheatSetFloor(floorIndex);
             }
         });
+        m_DebugCommands.Add(new DebugCommand<string>
+        {
+            Name = "learnspell",
+            Action = (spellName) =>
+            {
+                foreach (Spell spell in Config.Instance.Spells)
+                {
+                    if (spell.name.ToLower().Contains(spellName.ToLower()))
+                    {
+                        GameObject player = GameObject.FindGameObjectWithTag("Player");
+                        SpellComponent spellComponent = player.GetComponent<SpellComponent>();
+                        spellComponent.LearnSpell(spell);
+                        return;
+                    }
+                }
+            }
+        });
         m_DebugCommands.Sort((a, b) => a.Name.CompareTo(b.Name));
     }
 

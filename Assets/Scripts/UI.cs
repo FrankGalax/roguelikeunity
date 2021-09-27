@@ -8,11 +8,14 @@ public class UI : MonoBehaviour
     public GameObject InventoryPanel;
     public GameObject HPPanel;
     public GameObject DiedPanel;
+    public GameObject SpellPanel;
     public TextMeshProUGUI FloorText;
     public Sprite FullHeart;
     public Sprite EmptyHeart;
 
     private DamageComponent m_PlayerDamageComponent;
+    private InventoryComponent m_PlayerInventoryComponent;
+    private SpellComponent m_PlayerSpellComponent;
     private List<GameObject> m_InventorySlots;
     private List<GameObject> m_HPSlots;
     private GameObject m_Player;
@@ -42,17 +45,20 @@ public class UI : MonoBehaviour
     {
         m_Player = GameObject.FindGameObjectWithTag("Player");
         m_PlayerDamageComponent = m_Player.GetComponent<DamageComponent>();
+        m_PlayerInventoryComponent = m_Player.GetComponent<InventoryComponent>();
+        m_PlayerSpellComponent = m_Player.GetComponent<SpellComponent>();
 
         UpdateInventory();
         UpdatePlayerHealth();
         UpdateFloorLevel();
+        UpdateSpells();
 
         if (m_Player != null)
         {
-            m_Player.GetComponent<InventoryComponent>().UpdateInventorySignal.AddSlot(() => UpdateInventory());
-            DamageComponent damageComponent = m_Player.GetComponent<DamageComponent>();
-            damageComponent.UpdateHealthSignal.AddSlot(() => UpdatePlayerHealth());
-            damageComponent.DiedSignal.AddSlot(() => OnPlayerDied());
+            m_PlayerInventoryComponent.UpdateInventorySignal.AddSlot(UpdateInventory);
+            m_PlayerDamageComponent.UpdateHealthSignal.AddSlot(UpdatePlayerHealth);
+            m_PlayerDamageComponent.DiedSignal.AddSlot(OnPlayerDied);
+            m_PlayerSpellComponent.SpellsUpdatedSignal.AddSlot(UpdateSpells);
         }
     }
 
@@ -63,7 +69,6 @@ public class UI : MonoBehaviour
 
     private void UpdateInventory()
     {
-        InventoryComponent inventoryComponent = m_Player.GetComponent<InventoryComponent>();
         for (int i = 0; i < m_InventorySlots.Count; ++i)
         {
             GameObject inventorySlot = m_InventorySlots[i];
@@ -71,7 +76,7 @@ public class UI : MonoBehaviour
             Image inventorySlotImage = inventorySlot.GetComponent<Image>();
             Image image = inventorySlot.transform.Find("Image").GetComponent<Image>();
             TextMeshProUGUI text = inventorySlot.transform.Find("Text").GetComponent<TextMeshProUGUI>();
-            Item item = inventoryComponent.Items.Count > i ? inventoryComponent.Items[i] : null;
+            Item item = m_PlayerInventoryComponent.Items.Count > i ? m_PlayerInventoryComponent.Items[i] : null;
             if (item != null)
             {
                 inventorySlotImage.color = new Color(inventorySlotImage.color.r, inventorySlotImage.color.g, inventorySlotImage.color.b, 1.0f);
@@ -97,10 +102,9 @@ public class UI : MonoBehaviour
     {
         if (m_Player != null)
         {
-            InventoryComponent inventoryComponent = m_Player.GetComponent<InventoryComponent>();
-            if (inventoryComponent != null)
+            if (m_PlayerInventoryComponent != null)
             {
-                inventoryComponent.UseItem(index);
+                m_PlayerInventoryComponent.UseItem(index);
             }
         }
     }
@@ -125,5 +129,16 @@ public class UI : MonoBehaviour
     private void OnPlayerDied()
     {
         DiedPanel.SetActive(true);
+    }
+
+    private void UpdateSpells()
+    {
+        for (int i = 0; i < SpellPanel.transform.childCount; ++i)
+        {
+            GameObject spellIcon = SpellPanel.transform.GetChild(i).gameObject;
+            SpellInstance spellInstance = m_PlayerSpellComponent.GetSpellInstance(i);
+
+            spellIcon.SetActive(spellInstance != null);
+        }
     }
 }

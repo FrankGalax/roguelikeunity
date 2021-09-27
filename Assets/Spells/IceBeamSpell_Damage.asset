@@ -9,11 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1896658a878ef454ea8619848840f47b, type: 3}
-  m_Name: IceBeamSpell
+  m_Script: {fileID: 11500000, guid: 73fe5be2bedbc2748bef940b07be5344, type: 3}
+  m_Name: IceBeamSpell_Damage
   m_EditorClassIdentifier: 
-  SpellTargetType: 3
-  SpellEffects:
-  - {fileID: 11400000, guid: 33c0bb44253a5384fa67d8c0ce933b70, type: 2}
-  - {fileID: 11400000, guid: 1a63c09d17f88084a8e53aa0b75a9ef4, type: 2}
-  Radius: 5
+  Damage: 1
+  DamageType: 1

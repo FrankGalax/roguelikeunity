@@ -7,6 +7,7 @@ public class SpellItemEffect : ItemEffect
 
     public override void Apply(GameObject gameObject, GameMap gameMap)
     {
-        Spell.Cast(gameObject, gameMap);
+        SpellInstance spellInstance = Spell.CreateInstance();
+        spellInstance.Cast(gameObject, gameMap);
     }
 }

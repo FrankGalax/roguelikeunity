@@ -47,6 +47,22 @@ public class DungeonInputHandler : InputHandler
         {
             m_ActionQueue.AddAction(new PickupAction { GameObject = m_Player });
         }
+        else if (Input.GetKey(KeyCode.Alpha1))
+        {
+            m_ActionQueue.AddAction(new CastSpellAction { GameObject = m_Player, SpellIndex = 0 });
+        }
+        else if (Input.GetKey(KeyCode.Alpha2))
+        {
+            m_ActionQueue.AddAction(new CastSpellAction { GameObject = m_Player, SpellIndex = 1 });
+        }
+        else if (Input.GetKey(KeyCode.Alpha3))
+        {
+            m_ActionQueue.AddAction(new CastSpellAction { GameObject = m_Player, SpellIndex = 2 });
+        }
+        else if (Input.GetKey(KeyCode.Alpha4))
+        {
+            m_ActionQueue.AddAction(new CastSpellAction { GameObject = m_Player, SpellIndex = 3 });
+        }
     }
 }
 

@@ -22,4 +22,5 @@ public class Config : GameSingleton<Config>
     public GameObject DiagonalDirectionalSelection;
     public GameObject DebugTile;
     public List<FloorDefinition> FloorDefinitions;
+    public List<Spell> Spells;
 }
