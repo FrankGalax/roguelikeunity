@@ -131,6 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40123c8c7ebd9144a8efcdbd32ab93f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsLerping: 1
 --- !u!1 &5749867851926632503
 GameObject:
   m_ObjectHideFlags: 0
@@ -196,7 +197,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHP: 10
-  Armor: 0
   Corpse: {fileID: 0}
 --- !u!114 &1534875173
 MonoBehaviour:

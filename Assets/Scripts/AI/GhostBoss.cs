@@ -18,14 +18,14 @@ public class GhostBoss : MonoBehaviour
     private (int, int) m_Direction;
     private bool m_IsVisible;
     private int m_TurnCount;
-    private ColorChange m_ColorChange;
+    private ColorComponent m_ColorComponent;
     private DamageComponent m_DamageComponent;
     private List<GameObject> m_Minions;
     private GameObject m_Player;
 
     private void Start()
     {
-        m_ColorChange = GetComponentInChildren<ColorChange>();
+        m_ColorComponent = GetComponentInChildren<ColorComponent>();
         m_DamageComponent = GetComponent<DamageComponent>();
         AIComponent aiComponent = GetComponent<AIComponent>();
         aiComponent.GetActionFunc = GetAction;
@@ -97,10 +97,10 @@ public class GhostBoss : MonoBehaviour
                 m_TurnCount = 0;
                 m_IsVisible = false;
                 m_DamageComponent.IsInvulnerable = true;
-                m_ColorChange.Target = InvisibleColor;
+                m_ColorComponent.SetBaseColor(InvisibleColor);
                 foreach (GameObject minion in m_Minions)
                 {
-                    minion.GetComponentInChildren<ColorChange>().Target = MinionVisibleColor;
+                    minion.GetComponentInChildren<ColorComponent>().SetBaseColor(MinionVisibleColor);
                 }
             }
         }
@@ -111,10 +111,10 @@ public class GhostBoss : MonoBehaviour
                 m_TurnCount = 0;
                 m_IsVisible = true;
                 m_DamageComponent.IsInvulnerable = false;
-                m_ColorChange.Target = VisibleColor;
+                m_ColorComponent.SetBaseColor(VisibleColor);
                 foreach (GameObject minion in m_Minions)
                 {
-                    minion.GetComponentInChildren<ColorChange>().Target = MinionInvisibleColor;
+                    minion.GetComponentInChildren<ColorComponent>().SetBaseColor(MinionInvisibleColor);
                 }
             }
         }

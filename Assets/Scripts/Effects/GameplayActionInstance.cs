@@ -7,4 +7,5 @@ public abstract class GameplayActionInstance
     public virtual void InitAction(GameObject gameObject) { }
     public virtual void StartAction(GameObject gameObject) { }
     public virtual void StopAction(GameObject gameObject) { }
+    public virtual void EndTurn(GameObject gameObject, int turnCount) { }
 }

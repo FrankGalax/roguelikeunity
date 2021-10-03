@@ -3,6 +3,13 @@ using System.Collections.Generic;
 
 public class EffectInstance
 {
+    public Effect Effect { get; set; }
+    public int RemainingTurns { get; set; }
+    public bool HasDuration { get; set; }
+    public List<GameplayActionInstance> GameplayActionInstances { get; set; }
+
+    private int m_TurnCount;
+
     public EffectInstance(Effect effect, int remainingTurns)
     {
         Effect = effect;
@@ -16,12 +23,19 @@ public class EffectInstance
             instance.GameplayAction = gameplayAction;
             GameplayActionInstances.Add(instance);
         }
+
+        m_TurnCount = 0;
     }
 
-    public Effect Effect { get; set; }
-    public int RemainingTurns { get; set; }
-    public bool HasDuration { get; set; }
-    public List<GameplayActionInstance> GameplayActionInstances { get; set; }
+    public void EndTurn(GameObject gameObject)
+    {
+        m_TurnCount++;
+
+        foreach (GameplayActionInstance instance in GameplayActionInstances)
+        {
+            instance.EndTurn(gameObject, m_TurnCount);
+        }
+    }
 }
 
 public class EffectComponent : MonoBehaviour
@@ -71,6 +85,8 @@ public class EffectComponent : MonoBehaviour
         for (int i = m_EffectInstances.Count - 1; i >= 0; --i)
         {
             EffectInstance effectInstance = m_EffectInstances[i];
+            effectInstance.EndTurn(gameObject);
+
             if (!effectInstance.HasDuration)
             {
                 continue;

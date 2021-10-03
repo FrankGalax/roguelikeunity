@@ -2,5 +2,6 @@
 {
     None,
     Confusion,
-    Sleep
+    Sleep,
+    Frozen
 }

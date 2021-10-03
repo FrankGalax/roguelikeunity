@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91a4ba1d030e03c40918bfe42d2a65f5, type: 3}
-  m_Name: ConfusionEffect_InstantiateGameObjectGameplayAction
+  m_Script: {fileID: 11500000, guid: 0a3ff8fd8af6bbe44b01b96571fe2479, type: 3}
+  m_Name: IceBeamSpell_Effect
   m_EditorClassIdentifier: 
-  Prefab: {fileID: 1246558382394609264, guid: d0ecd634a07460a4b80119f84cf50cf9, type: 3}
-  Offset: {x: 0, y: 0.75, z: 0}
+  Effect: {fileID: 11400000, guid: f9a9213d24677914d83225afe917273b, type: 2}
+  NbTurns: 5

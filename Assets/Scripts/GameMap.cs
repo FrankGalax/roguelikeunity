@@ -275,6 +275,17 @@ public class GameMap : MonoBehaviour
                 continue;
             }
 
+            if (aiComponent.SkipTurns > 0)
+            {
+                aiComponent.SkipTurns--;
+                continue;
+            }
+
+            if (!aiComponent.enabled)
+            {
+                continue;
+            }
+
             GameAction action = aiComponent.GetAction(this, m_Player);
             if (action != null)
             {

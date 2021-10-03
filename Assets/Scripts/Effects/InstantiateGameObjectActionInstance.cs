@@ -1,23 +1,23 @@
 ﻿using UnityEngine;
 
-public class InstantiateGameObjectGameplayActionInstance : GameplayActionInstance
+public class InstantiateGameObjectActionInstance : GameplayActionInstance
 {
     private GameObject m_GameObject;
-    private InstantiateGameObjectGameplayAction m_InstantiateGameObjectGameplayAction;
+    private InstantiateGameObjectAction m_InstantiateGameObjectAction;
 
     public override void InitAction(GameObject gameObject)
     {
         base.InitAction(gameObject);
 
-        m_InstantiateGameObjectGameplayAction = (InstantiateGameObjectGameplayAction)GameplayAction;
+        m_InstantiateGameObjectAction = (InstantiateGameObjectAction)GameplayAction;
     }
 
     public override void StartAction(GameObject gameObject)
     {
         base.StartAction(gameObject);
 
-        m_GameObject = GameObject.Instantiate(m_InstantiateGameObjectGameplayAction.Prefab, Vector3.zero, Quaternion.identity, gameObject.transform);
-        m_GameObject.transform.localPosition = m_InstantiateGameObjectGameplayAction.Offset;
+        m_GameObject = GameObject.Instantiate(m_InstantiateGameObjectAction.Prefab, Vector3.zero, Quaternion.identity, gameObject.transform);
+        m_GameObject.transform.localPosition = m_InstantiateGameObjectAction.Offset;
 
         Tile tile = gameObject.GetComponent<Tile>();
         if (tile != null)

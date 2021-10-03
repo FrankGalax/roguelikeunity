@@ -16,10 +16,12 @@ public class Tile : MonoBehaviour
     public bool IsDiscovered { get; set; }
 
     private SpriteRenderer m_SpriteRenderer;
+    private ColorComponent m_ColorComponent;
 
     private void Awake()
     {
         m_SpriteRenderer = GetComponent<SpriteRenderer>();
+        m_ColorComponent = GetComponent<ColorComponent>();
 
         IsVisible = AlwaysVisible;
         IsDiscovered = AlwaysVisible;
@@ -66,7 +68,15 @@ public class Tile : MonoBehaviour
             spriteRenderer.enabled = visible;
             if (visible)
             {
-                spriteRenderer.color = color;
+                ColorComponent colorComponent = transform.gameObject == gameObject ? m_ColorComponent : transform.GetComponent<ColorComponent>();
+                if (colorComponent != null)
+                {
+                    colorComponent.SetBaseColor(color);
+                }
+                else
+                {
+                    spriteRenderer.color = color;
+                }
             }
         }
 

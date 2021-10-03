@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1244972061}
   - component: {fileID: 1244972060}
   - component: {fileID: 1244972059}
+  - component: {fileID: 8523049450220415375}
   m_Layer: 0
   m_Name: Graphics
   m_TagString: Untagged
@@ -116,6 +117,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3121c43e634948c49862d30674ede6e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8523049450220415375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1244972057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40123c8c7ebd9144a8efcdbd32ab93f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsLerping: 0
 --- !u!1 &8398144802756975928
 GameObject:
   m_ObjectHideFlags: 0
@@ -182,7 +196,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHP: 6
-  Armor: 1
   Corpse: {fileID: 0}
 --- !u!114 &8103541599469234875
 MonoBehaviour:

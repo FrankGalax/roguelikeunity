@@ -16,4 +16,5 @@ MonoBehaviour:
   SpellEffects:
   - {fileID: 11400000, guid: 33c0bb44253a5384fa67d8c0ce933b70, type: 2}
   - {fileID: 11400000, guid: 1a63c09d17f88084a8e53aa0b75a9ef4, type: 2}
+  - {fileID: 11400000, guid: edac4431bb149ea4b82ff9d342475428, type: 2}
   Radius: 5

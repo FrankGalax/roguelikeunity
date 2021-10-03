@@ -52,6 +52,7 @@ MonoBehaviour:
   BlocksMovement: 1
   Transparent: 0
   AlwaysVisible: 0
+  Radius: 0
 --- !u!114 &8652235863254944657
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65,7 +66,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHP: 6
-  Armor: 0
   Corpse: {fileID: 0}
 --- !u!114 &4894132625523099386
 MonoBehaviour:
@@ -138,6 +138,7 @@ GameObject:
   - component: {fileID: 1453619124629029117}
   - component: {fileID: 6223344113784479913}
   - component: {fileID: 5163771714620684963}
+  - component: {fileID: 3382912475515689546}
   m_Layer: 0
   m_Name: Graphics
   m_TagString: Untagged
@@ -242,3 +243,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3121c43e634948c49862d30674ede6e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3382912475515689546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8984272988327874668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40123c8c7ebd9144a8efcdbd32ab93f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsLerping: 0

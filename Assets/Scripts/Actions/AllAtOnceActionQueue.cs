@@ -51,6 +51,11 @@ public class AllAtOnceActionQueue : ActionQueue
                     if (gameAction.IsPausing)
                     {
                         AddEnemyActions();
+                        if (m_GameActions.Count == 0 && m_Player != null)
+                        {
+                            m_GameMap.ComputeFOV(playerTile.X, playerTile.Y);
+                            m_GameMap.EndTurn();
+                        }
                         return;
                     }
                 }

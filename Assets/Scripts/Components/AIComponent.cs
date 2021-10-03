@@ -10,6 +10,7 @@ public class AIComponent : MonoBehaviour
     public bool SetPlayerDistance = false;
 
     public Func<GameObject, GameObject, GameMap, GameAction> GetActionFunc { get; set; }
+    public int SkipTurns { get; set; }
 
     private DamageComponent m_DamageComponent;
     private Animator m_Animator;
@@ -22,6 +23,7 @@ public class AIComponent : MonoBehaviour
         m_Animator = GetComponent<Animator>();
         m_IsAttacking = true;
         m_Turns = 0;
+        SkipTurns = 0;
     }
 
     private void Start()

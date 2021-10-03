@@ -1,0 +1,88 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ColorModifier
+{
+    public int Id { get; set; }
+    public Color Color { get; set; }
+}
+
+public class ColorComponent : MonoBehaviour
+{
+    public bool IsLerping;
+
+    private Color m_BaseColor;
+    private SpriteRenderer m_SpriteRenderer;
+    private int m_NextColorModifierId;
+    private List<ColorModifier> m_ColorModifiers;
+
+    private void Awake()
+    {
+        m_SpriteRenderer = GetComponent<SpriteRenderer>();
+        m_BaseColor = m_SpriteRenderer.color;
+        m_NextColorModifierId = 0;
+        m_ColorModifiers = new List<ColorModifier>();
+    }
+
+    private void Update()
+    {
+        if (!IsLerping)
+        {
+            return;
+        }
+
+        m_SpriteRenderer.color = Color.Lerp(m_SpriteRenderer.color, GetTargetColor(), Time.deltaTime * 6.0f);   
+    }
+
+    public void SetBaseColor(Color color)
+    {
+        m_BaseColor = color;
+        ApplyColor();
+    }
+
+    public int AddColorModifier(Color color)
+    {
+        int colorModifierId = m_NextColorModifierId;
+        m_NextColorModifierId++;
+
+        m_ColorModifiers.Add(new ColorModifier { Id = colorModifierId, Color = color });
+        ApplyColor();
+        return colorModifierId;
+    }
+
+    public void RemoveColorModifier(int id)
+    {
+        for (int i = 0; i < m_ColorModifiers.Count; ++i)
+        {
+            if (m_ColorModifiers[i].Id == id)
+            {
+                m_ColorModifiers.RemoveAt(i);
+                ApplyColor();
+                return;
+            }
+        }
+    }
+
+    private Color GetTargetColor()
+    {
+        Color color = new Color(m_BaseColor.r, m_BaseColor.g, m_BaseColor.b, m_BaseColor.a);
+
+        foreach (ColorModifier colorModifier in m_ColorModifiers)
+        {
+            color *= colorModifier.Color;
+        }
+
+        return color;
+    }
+
+    private void ApplyColor()
+    {
+        if (IsLerping)
+        {
+            return;
+        }
+
+        m_SpriteRenderer.color = GetTargetColor();
+    }
+}
