@@ -3,6 +3,13 @@ using TMPro;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
+public class RewardUI
+{
+    public Image Image { get; set; }
+    public TextMeshProUGUI Text { get; set; }
+    public Button Button { get; set; }
+}
+
 public class UI : MonoBehaviour
 {
     public GameObject InventoryPanel;
@@ -12,6 +19,8 @@ public class UI : MonoBehaviour
     public TextMeshProUGUI FloorText;
     public Sprite FullHeart;
     public Sprite EmptyHeart;
+    public GameObject RewardPanel;
+    public List<GameObject> RewardPanels;
 
     private DamageComponent m_PlayerDamageComponent;
     private InventoryComponent m_PlayerInventoryComponent;
@@ -19,6 +28,7 @@ public class UI : MonoBehaviour
     private List<GameObject> m_InventorySlots;
     private List<GameObject> m_HPSlots;
     private GameObject m_Player;
+    private List<RewardUI> m_RewardUIs;
 
     private void Awake()
     {
@@ -38,6 +48,16 @@ public class UI : MonoBehaviour
             {
                 m_HPSlots.Add(HPPanel.transform.GetChild(i).gameObject);
             }
+        }
+
+        m_RewardUIs = new List<RewardUI>();
+        foreach (GameObject rewardPanel in RewardPanels)
+        {
+            RewardUI reward = new RewardUI();
+            reward.Image = rewardPanel.transform.GetChild(0).GetComponent<Image>();
+            reward.Text = rewardPanel.transform.GetComponentInChildren<TextMeshProUGUI>();
+            reward.Button = rewardPanel.GetComponent<Button>();
+            m_RewardUIs.Add(reward);
         }
     }
 
@@ -60,6 +80,48 @@ public class UI : MonoBehaviour
             m_PlayerDamageComponent.DiedSignal.AddSlot(OnPlayerDied);
             m_PlayerSpellComponent.SpellsUpdatedSignal.AddSlot(UpdateSpells);
         }
+    }
+
+    public void OnInventoryItemClick(int index)
+    {
+        if (m_Player != null)
+        {
+            if (m_PlayerInventoryComponent != null)
+            {
+                m_PlayerInventoryComponent.UseItem(index);
+            }
+        }
+    }
+
+    public void ShowRewards()
+    {
+        List<Reward> floorRewards = GameManager.Instance.FloorRewards;
+
+        RewardPanel.SetActive(true);
+
+        for (int i = 0; i < m_RewardUIs.Count; ++i)
+        {
+            RewardUI rewardUI = m_RewardUIs[i];
+            if (i < floorRewards.Count)
+            {
+                rewardUI.Image.enabled = true;
+                rewardUI.Image.sprite = floorRewards[i].Icon;
+                rewardUI.Text.enabled = true;
+                rewardUI.Text.text = floorRewards[i].Name;
+                rewardUI.Button.interactable = true;
+            }
+            else
+            {
+                rewardUI.Image.enabled = false;
+                rewardUI.Text.enabled = false;
+                rewardUI.Button.interactable = false;
+            }
+        }
+    }
+
+    public void SelectReward(int rewardIndex)
+    {
+        GameManager.Instance.SelectReward(rewardIndex);
     }
 
     private void UpdateFloorLevel()
@@ -98,17 +160,6 @@ public class UI : MonoBehaviour
         }
     }
 
-    public void OnInventoryItemClick(int index)
-    {
-        if (m_Player != null)
-        {
-            if (m_PlayerInventoryComponent != null)
-            {
-                m_PlayerInventoryComponent.UseItem(index);
-            }
-        }
-    }
-
     private void UpdatePlayerHealth()
     {
         int health = m_PlayerDamageComponent.CurrentHP;
@@ -139,6 +190,10 @@ public class UI : MonoBehaviour
             SpellInstance spellInstance = m_PlayerSpellComponent.GetSpellInstance(i);
 
             spellIcon.SetActive(spellInstance != null);
+            if (spellInstance != null)
+            {
+                spellIcon.GetComponent<Image>().sprite = spellInstance.Spell.Icon;
+            }
         }
     }
 }

@@ -56,4 +56,17 @@ public class SpellComponent : MonoBehaviour
 
         return m_SpellInstances[index];
     }
+
+    public bool KnowsSpell(Spell spell)
+    {
+        foreach (SpellInstance spellInstance in m_SpellInstances)
+        {
+            if (spellInstance != null && spellInstance.Spell == spell)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

@@ -7,7 +7,7 @@ public abstract class ActionQueue : MonoBehaviour
 
     public abstract bool IsBusy();
 
-    protected void ChangeFloor()
+    public void ChangeFloor()
     {
         GameManager.Instance.CurrentFloor = GameManager.Instance.CurrentFloor + 1;
 
@@ -19,11 +19,6 @@ public abstract class ActionQueue : MonoBehaviour
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
-    }
-
-    public void CheatChangeFloor()
-    {
-        ChangeFloor();
     }
 
     public void CheatSetFloor(int floorIndex)

@@ -18,3 +18,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1a63c09d17f88084a8e53aa0b75a9ef4, type: 2}
   - {fileID: 11400000, guid: edac4431bb149ea4b82ff9d342475428, type: 2}
   Radius: 5
+  Icon: {fileID: -7092911198986408507, guid: 8f74fb75c38e4df44998361173566ae0, type: 3}
+  Name: Ice Beam

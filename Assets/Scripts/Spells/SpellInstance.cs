@@ -6,6 +6,7 @@ public class SpellInstance
     public SpellTargetType SpellTargetType { get; set; }
     public List<SpellEffect> SpellEffects { get; set; }
     public int Radius { get; set; }
+    public Spell Spell { get; set; }
 
     public void Cast(GameObject gameObject, GameMap gameMap)
     {

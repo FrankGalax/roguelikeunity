@@ -83,7 +83,15 @@ public class DebugConsole : MonoBehaviour
             Action = () =>
             {
                 ActionQueue actionQueue = FindObjectOfType<ActionQueue>();
-                actionQueue.CheatChangeFloor();
+                actionQueue.ChangeFloor();
+            }
+        });
+        m_DebugCommands.Add(new DebugCommand
+        {
+            Name = "requestfloorrewards",
+            Action = () =>
+            {
+                GameManager.Instance.RequestFloorRewards();
             }
         });
         m_DebugCommands.Add(new DebugCommand

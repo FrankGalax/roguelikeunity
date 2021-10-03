@@ -15,6 +15,8 @@ public class Spell : ScriptableObject
     public SpellTargetType SpellTargetType = SpellTargetType.SingleTarget;
     public List<SpellEffect> SpellEffects;
     public int Radius;
+    public Sprite Icon;
+    public string Name;
 
     public SpellInstance CreateInstance()
     {
@@ -22,7 +24,8 @@ public class Spell : ScriptableObject
         {
             SpellTargetType = SpellTargetType,
             SpellEffects = SpellEffects,
-            Radius = Radius
+            Radius = Radius,
+            Spell = this
         };
 
         return instance;

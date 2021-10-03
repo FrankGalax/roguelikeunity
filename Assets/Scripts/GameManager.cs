@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
+using UnityEngine.Assertions;
 
 public enum GameStateRequest
 {
@@ -13,16 +15,20 @@ public class GameManager : GameSingleton<GameManager>
 {
     public int CurrentFloor { get; set; }
     public bool IsPaused { get; set; }
+    public List<Reward> FloorRewards { get; private set; }
 
     public float DiedWaitTime = 5.0f;
 
     private StateMachine m_StateMachine;
     private float m_DiedWaitTimer = -1.0f;
     private GameObject m_Player;
+    private UI m_UI;
+    private ActionQueue m_ActionQueue;
 
     private void Awake()
     {
         CurrentFloor = 0;
+        FloorRewards = new List<Reward>();
         DontDestroyOnLoad(gameObject);
     }
 
@@ -33,6 +39,8 @@ public class GameManager : GameSingleton<GameManager>
 
         m_Player = GameObject.FindGameObjectWithTag("Player");
         m_Player.GetComponent<DamageComponent>().DiedSignal.AddSlot(OnPlayerDied);
+        m_UI = FindObjectOfType<UI>();
+        m_ActionQueue = FindObjectOfType<ActionQueue>();
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -48,6 +56,8 @@ public class GameManager : GameSingleton<GameManager>
             m_Player = player;
             m_Player.GetComponent<DamageComponent>().DiedSignal.AddSlot(OnPlayerDied);
         }
+        m_UI = FindObjectOfType<UI>();
+        m_ActionQueue = FindObjectOfType<ActionQueue>();
     }
 
     private void Update()
@@ -86,6 +96,48 @@ public class GameManager : GameSingleton<GameManager>
                 m_StateMachine.Transition(new DirectionalTargetState());
                 break;
         }
+    }
+
+    public void RequestFloorRewards()
+    {
+        Assert.IsNotNull(m_Player);
+
+        FloorRewards.Clear();
+
+        SpellComponent spellComponent = m_Player.GetComponent<SpellComponent>();
+
+        foreach (Spell spell in Config.Instance.Spells)
+        {
+            if (spellComponent.KnowsSpell(spell))
+            {
+                continue;
+            }
+
+            FloorRewards.Add(new LearnSpellReward { Spell = spell });
+        }
+
+        if (FloorRewards.Count == 0)
+        {
+            m_ActionQueue.ChangeFloor();
+            return;
+        }
+
+        FloorRewards.Shuffle();
+
+        m_UI.ShowRewards();
+        m_StateMachine.Transition(new NullState());
+    }
+
+    public void SelectReward(int rewardIndex)
+    {
+        if (rewardIndex < FloorRewards.Count)
+        {
+            FloorRewards[rewardIndex].Apply(m_Player);
+        }
+        FloorRewards.Clear();
+
+        m_ActionQueue.ChangeFloor();
+        m_StateMachine.Transition(new DungeonState());
     }
 
     private void OnPlayerDied()
@@ -306,4 +358,8 @@ public class DirectionalTargetState : State
             }
         }
     }
+}
+
+public class NullState : State
+{
 }

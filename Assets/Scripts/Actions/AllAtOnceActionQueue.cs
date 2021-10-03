@@ -43,7 +43,7 @@ public class AllAtOnceActionQueue : ActionQueue
                         Stair stair = stairsTile.GetComponent<Stair>();
                         if (!stair.IsBlocked)
                         {
-                            ChangeFloor();
+                            GameManager.Instance.RequestFloorRewards();
                             return;
                         }
                     }
