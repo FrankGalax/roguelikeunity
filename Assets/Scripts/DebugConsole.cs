@@ -26,8 +26,11 @@ public class DebugCommand<T> : DebugCommandBase
 
     public override void Invoke(List<string> commandParams)
     {
-        T commandParam = (T)Convert.ChangeType(commandParams[0], typeof(T));
-        Action(commandParam);
+        if (commandParams.Count > 0)
+        {
+            T commandParam = (T)Convert.ChangeType(commandParams[0], typeof(T));
+            Action(commandParam);
+        }
     }
 }
 

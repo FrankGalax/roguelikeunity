@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TurnsEnabled: 1
   TurnsDisabled: 1
+  StartEnabled: 0

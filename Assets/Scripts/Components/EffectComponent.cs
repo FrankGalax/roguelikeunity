@@ -49,9 +49,18 @@ public class EffectComponent : MonoBehaviour
 
     public void AddEffect(Effect effect, int nbTurns)
     {
-        EffectInstance effectInstance = new EffectInstance(effect, nbTurns);
-        StartEffect(effectInstance);
-        m_EffectInstances.Add(effectInstance);
+        foreach (EffectInstance effectInstance in m_EffectInstances)
+        {
+            if (effectInstance.Effect.EffectType == effect.EffectType)
+            {
+                effectInstance.RemainingTurns = nbTurns;
+                return;
+            }
+        }
+
+        EffectInstance newEffectInstance = new EffectInstance(effect, nbTurns);
+        StartEffect(newEffectInstance);
+        m_EffectInstances.Add(newEffectInstance);
     }
 
     public void RemoveEffect(Effect effect)
