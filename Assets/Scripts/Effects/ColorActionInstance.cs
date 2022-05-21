@@ -2,7 +2,6 @@
 
 public class ColorActionInstance : GameplayActionInstance
 {
-    private int m_ColorModifierId;
     private ColorAction m_ColorAction;
 
     public override void InitAction(GameObject gameObject)
@@ -24,7 +23,7 @@ public class ColorActionInstance : GameplayActionInstance
 
         if (colorComponent != null)
         {
-            m_ColorModifierId = colorComponent.AddColorModifier(m_ColorAction.Color);
+            colorComponent.AddReplaceColor(m_ColorAction.Color);
         }
     }
 
@@ -40,7 +39,7 @@ public class ColorActionInstance : GameplayActionInstance
 
         if (colorComponent != null)
         {
-            colorComponent.RemoveColorModifier(m_ColorModifierId);
+            colorComponent.RemoveReplaceColor();
         }
     }
 }

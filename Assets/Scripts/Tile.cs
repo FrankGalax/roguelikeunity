@@ -71,7 +71,7 @@ public class Tile : MonoBehaviour
                 ColorComponent colorComponent = transform.gameObject == gameObject ? m_ColorComponent : transform.GetComponent<ColorComponent>();
                 if (colorComponent != null)
                 {
-                    colorComponent.SetBaseColor(color);
+                    colorComponent.SetBaseColor(color == Color.white ? colorComponent.InitialColor : color);
                 }
                 else
                 {

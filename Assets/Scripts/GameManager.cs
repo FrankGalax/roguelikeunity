@@ -177,7 +177,7 @@ public class SingleTargetState : State
     public override void Exit()
     {
         GameObject.Destroy(m_SingleTarget);
-        m_TargetComponent.TargetTile = null;
+        m_TargetComponent.Reset();
     }
 
     public override void Update()
@@ -191,6 +191,10 @@ public class SingleTargetState : State
             if (m_InputHandler.MouseDown)
             {
                 m_TargetComponent.TargetTile = m_InputHandler.MouseTile;
+            }
+            else if (m_InputHandler.RightMouseDown)
+            {
+                m_TargetComponent.IsCanceled = true;
             }
         }
     }
@@ -236,8 +240,7 @@ public class AreaTargetState : State
     public override void Exit()
     {
         GameObject.Destroy(m_AreaSelection);
-        m_TargetComponent.TargetTile = null;
-        m_TargetComponent.Radius = 0;
+        m_TargetComponent.Reset();
     }
 
     public override void Update()
@@ -251,6 +254,10 @@ public class AreaTargetState : State
             if (m_InputHandler.MouseDown)
             {
                 m_TargetComponent.TargetTile = m_InputHandler.MouseTile;
+            }
+            else if (m_InputHandler.RightMouseDown)
+            {
+                m_TargetComponent.IsCanceled = true;
             }
         }
     }
@@ -282,7 +289,7 @@ public class DirectionalTargetState : State
     {
         GameObject.Destroy(m_DirectionalSelection);
         GameObject.Destroy(m_DiagonalDirectionalSelection);
-        m_TargetComponent.Direction = null;
+        m_TargetComponent.Reset();
     }
 
     public override void Update()
@@ -354,6 +361,10 @@ public class DirectionalTargetState : State
                 if (m_InputHandler.MouseDown)
                 {
                     m_TargetComponent.Direction = direction;
+                }
+                else if (m_InputHandler.RightMouseDown)
+                {
+                    m_TargetComponent.IsCanceled = true;
                 }
             }
         }

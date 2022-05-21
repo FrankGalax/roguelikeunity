@@ -70,6 +70,7 @@ public class TargetInputHandler : InputHandler
 {
     public Tile MouseTile { get; private set; }
     public bool MouseDown { get; private set; }
+    public bool RightMouseDown { get; private set; }
     private GameMap m_GameMap;
 
     public TargetInputHandler()
@@ -98,5 +99,6 @@ public class TargetInputHandler : InputHandler
         }
 
         MouseDown = Input.GetMouseButtonDown(0);
+        RightMouseDown = Input.GetMouseButtonDown(1);
     }
 }

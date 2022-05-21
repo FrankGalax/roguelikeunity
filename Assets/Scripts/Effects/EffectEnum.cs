@@ -3,5 +3,6 @@
     None,
     Confusion,
     Sleep,
-    Frozen
+    Frozen,
+    Burned
 }

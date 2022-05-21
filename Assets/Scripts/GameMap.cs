@@ -9,12 +9,6 @@ public class GameMap : MonoBehaviour
 {
     public GameObject Floor;
     public GameObject Wall;
-    public GameObject Rat;
-    public GameObject Troll;
-    public GameObject HealthPotion;
-    public GameObject LightningMedalion;
-    public GameObject ConfusionMedalion;
-    public GameObject FireMedalion;
     public GameObject Stairs;
     public GameObject Door;
     public int DungeonWidth;

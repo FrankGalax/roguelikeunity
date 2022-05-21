@@ -12,17 +12,23 @@ public class ColorComponent : MonoBehaviour
 {
     public bool IsLerping;
 
-    private Color m_BaseColor;
+    public Color InitialColor { get; private set; }
+
     private SpriteRenderer m_SpriteRenderer;
     private int m_NextColorModifierId;
     private List<ColorModifier> m_ColorModifiers;
+    private Color m_BaseColor;
+    private Color m_ReplaceColor;
+    private bool m_HasColorReplacement;
 
     private void Awake()
     {
         m_SpriteRenderer = GetComponent<SpriteRenderer>();
         m_BaseColor = m_SpriteRenderer.color;
+        InitialColor = m_SpriteRenderer.color;
         m_NextColorModifierId = 0;
         m_ColorModifiers = new List<ColorModifier>();
+        m_HasColorReplacement = false;
     }
 
     private void Update()
@@ -38,6 +44,19 @@ public class ColorComponent : MonoBehaviour
     public void SetBaseColor(Color color)
     {
         m_BaseColor = color;
+        ApplyColor();
+    }
+
+    public void AddReplaceColor(Color color)
+    {
+        m_ReplaceColor = color;
+        m_HasColorReplacement = true;
+        ApplyColor();
+    }
+
+    public void RemoveReplaceColor()
+    {
+        m_HasColorReplacement = false;
         ApplyColor();
     }
 
@@ -66,7 +85,15 @@ public class ColorComponent : MonoBehaviour
 
     private Color GetTargetColor()
     {
-        Color color = new Color(m_BaseColor.r, m_BaseColor.g, m_BaseColor.b, m_BaseColor.a);
+        Color color = Color.white;
+        if (m_HasColorReplacement)
+        {
+            color = new Color(m_ReplaceColor.r, m_ReplaceColor.g, m_ReplaceColor.b, m_ReplaceColor.a);
+        }
+        else
+        {
+            color = new Color(m_BaseColor.r, m_BaseColor.g, m_BaseColor.b, m_BaseColor.a);
+        }
 
         foreach (ColorModifier colorModifier in m_ColorModifiers)
         {
