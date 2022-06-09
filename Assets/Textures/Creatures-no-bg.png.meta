@@ -66,6 +66,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -421,7 +422,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 50f45c2bd1a680780800000000000000
-      internalID: -8716600402989723899
+      internalID: -7794888065326903337
       vertices: []
       indices: 
       edges: []
@@ -436,6 +437,21 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      ghostboss2: 347310355547294690
+      Creatures-no-bg_5: -8362773485599804414
+      ghostboss1: 5919545307406174096
+      wizard idle 2: -3432646667661991768
+      wizard move: -5563959356916001519
+      ghost: 1008401231775370741
+      Creatures-no-bg_4: -6384293838907292577
+      wizard idle: -5837680354083445429
+      troll idle: 4050136242720361937
+      Creatures-no-bg_3: -2402459173107560507
+      troll move: 8896000963713868760
+      ghost2: -7794888065326903337
+      Creatures-no-bg_0: -7281882703827672767
+      troll idle 2: 3457796191666379993
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

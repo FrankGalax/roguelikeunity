@@ -120,6 +120,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -868,6 +869,39 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      Full-no-bg_7: -7364807522446955836
+      Full-no-bg_2: -6597244631403725032
+      arrow: 8069103220074776387
+      Full-no-bg_18: -2872768443178019032
+      Full-no-bg_25: -8834212491055993462
+      Full-no-bg_5: 3174711223768753215
+      Full-no-bg_15: 4961744901273064554
+      Full-no-bg_17: -2763098246933712338
+      Full-no-bg_9: -3308872431470043876
+      Full-no-bg_29: 4067162032150295616
+      Full-no-bg_28: 2860006294275549116
+      Full-no-bg_13: 2522337011122586240
+      Full-no-bg_10: 5434428071281022532
+      Full-no-bg_14: 8105297058724700594
+      Full-no-bg_4: 645958378719664970
+      Full-no-bg_12: -3429154553109238383
+      diagonalarrow: -2996541940193255693
+      Full-no-bg_6: 5331660394646677638
+      Full-no-bg_3: 6990774136374804993
+      Full-no-bg_16: 2516169186745515999
+      Full-no-bg_22: 7438558701905460382
+      Full-no-bg_0: -2617307478658526433
+      Full-no-bg_19: -8202310248711462021
+      Full-no-bg_24: -7811150946702375296
+      Full-no-bg_23: -1708791238264108547
+      Full-no-bg_20: 2441368896953627755
+      Full-no-bg_21: 1652772229526796050
+      Full-no-bg_26: -4967071574187919762
+      Full-no-bg_11: -382657139871888557
+      Full-no-bg_1: 1571563142387116481
+      Full-no-bg_27: -5078655685493680246
+      Full-no-bg_8: 702684692498662846
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

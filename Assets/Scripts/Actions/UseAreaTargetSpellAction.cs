@@ -42,6 +42,12 @@ public class UseAreaTargetSpellAction : GameAction
             GameManager.Instance.RequestGameState(GameStateRequest.Dungeon);
             m_SpellCallbackCalled = true;
         }
+        else if (m_TargetComponent.IsCanceled)
+        {
+            IsDone = true;
+            IsSuccess = false;
+            GameManager.Instance.RequestGameState(GameStateRequest.Dungeon);
+        }
     }
 
     public override string GetDebugString()
