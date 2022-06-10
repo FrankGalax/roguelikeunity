@@ -5,6 +5,7 @@ public class UseDirectionalTargetSpellAction : GameAction
 {
     public float WaitTime = 0.5f;
     public Func<GameObject, GameMap, (int, int), bool> SpellCallback { get; set; }
+    public Action<GameObject> SpellCanceledCallback { get; set; }
 
     private float m_Timer;
     private TargetComponent m_TargetComponent;
@@ -45,6 +46,7 @@ public class UseDirectionalTargetSpellAction : GameAction
             IsDone = true;
             IsSuccess = false;
             GameManager.Instance.RequestGameState(GameStateRequest.Dungeon);
+            SpellCanceledCallback(GameObject);
         }
     }
 

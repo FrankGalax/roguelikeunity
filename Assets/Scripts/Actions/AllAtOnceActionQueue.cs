@@ -70,6 +70,17 @@ public class AllAtOnceActionQueue : ActionQueue
         }
     }
 
+    private void OnGUI()
+    {
+        for (int i = 0; i < m_GameActions.Count; ++i)
+        {
+            Rect rect = new Rect(0, i * 15, 500, 200);
+            GameAction gameAction = m_GameActions[i];
+            string name = gameAction.GameObject != null ? gameAction.GameObject.name : "null";
+            GUI.Label(rect, gameAction.GetDebugString() + " - " + name);
+        }
+    }
+
     public override void AddAction(GameAction gameAction)
     {
         m_GameActions.Add(gameAction);

@@ -142,7 +142,7 @@ public class UI : MonoBehaviour
             if (item != null)
             {
                 inventorySlotImage.color = new Color(inventorySlotImage.color.r, inventorySlotImage.color.g, inventorySlotImage.color.b, 1.0f);
-                button.interactable = true;
+                button.interactable = !m_PlayerInventoryComponent.IsUsingItem;
                 image.gameObject.SetActive(true);
                 text.gameObject.SetActive(true);
                 image.sprite = item.Sprite;

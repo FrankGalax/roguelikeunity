@@ -7,6 +7,7 @@ public class InventoryComponent : MonoBehaviour
 {
     public List<Item> Items;
     public int MaxItems;
+    public bool IsUsingItem { get; set; }
 
     public Signal UpdateInventorySignal { get; private set; }
 
@@ -17,6 +18,7 @@ public class InventoryComponent : MonoBehaviour
         Items = new List<Item>();
         UpdateInventorySignal = new Signal();
         m_ActionQueue = FindObjectOfType<ActionQueue>();
+        IsUsingItem = false;
     }
 
     private void Start()
@@ -52,9 +54,37 @@ public class InventoryComponent : MonoBehaviour
             Item item = Items[index];
             if (item != null)
             {
-                RemoveItem(item);
+                if (item.IsCastingSpell)
+                {
+                    StartUsingItem();
+                }
+                else
+                {
+                    RemoveItem(item);
+                }
+
                 m_ActionQueue.AddAction(new UseItemAction { GameObject = gameObject, Item = item });
             }
+        }
+    }
+
+    private void StartUsingItem()
+    {
+        IsUsingItem = true;
+        UpdateInventorySignal.SendSignal();
+    }
+
+    public void StopUsingItem(Item item, bool isCanceled)
+    {
+        IsUsingItem = false;
+
+        if (isCanceled)
+        {
+            UpdateInventorySignal.SendSignal();
+        }
+        else
+        {
+            RemoveItem(item);
         }
     }
 }

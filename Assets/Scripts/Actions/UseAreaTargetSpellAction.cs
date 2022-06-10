@@ -5,6 +5,7 @@ public class UseAreaTargetSpellAction : GameAction
 {
     public float WaitTime = 0.5f;
     public Func<GameObject, GameMap, Tile, bool> SpellCallback { get; set; }
+    public Action<GameObject> SpellCanceledCallback { get; set; }
     public int Radius { get; set; }
 
     private float m_Timer;
@@ -47,6 +48,7 @@ public class UseAreaTargetSpellAction : GameAction
             IsDone = true;
             IsSuccess = false;
             GameManager.Instance.RequestGameState(GameStateRequest.Dungeon);
+            SpellCanceledCallback(GameObject);
         }
     }
 

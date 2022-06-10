@@ -13,7 +13,7 @@ public class Item : ScriptableObject
     {
         foreach (ItemEffect itemEffect in ItemEffects)
         {
-            itemEffect.Apply(gameObject, gameMap);
+            itemEffect.Apply(gameObject, gameMap, this);
         }
     }
 }

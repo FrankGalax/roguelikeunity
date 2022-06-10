@@ -7,6 +7,7 @@ public class SpellInstance
     public List<SpellEffect> SpellEffects { get; set; }
     public int Radius { get; set; }
     public Spell Spell { get; set; }
+    public Item Item { get; set; }
 
     public void Cast(GameObject gameObject, GameMap gameMap)
     {
@@ -41,7 +42,8 @@ public class SpellInstance
         gameMap.GetComponent<ActionQueue>().AddAction(new UseSingleTargetSpellAction
         {
             GameObject = gameObject,
-            SpellCallback = SingleTargetUseSpell
+            SpellCallback = SingleTargetUseSpell,
+            SpellCanceledCallback = CancelSpell
         });
     }
 
@@ -51,7 +53,8 @@ public class SpellInstance
         {
             GameObject = gameObject,
             Radius = Radius,
-            SpellCallback = AreaTargetUseSpell
+            SpellCallback = AreaTargetUseSpell,
+            SpellCanceledCallback = CancelSpell
         });
     }
 
@@ -60,7 +63,8 @@ public class SpellInstance
         gameMap.GetComponent<ActionQueue>().AddAction(new UseDirectionalTargetSpellAction
         {
             GameObject = gameObject,
-            SpellCallback = DirectionalTargetUseSpell
+            SpellCallback = DirectionalTargetUseSpell,
+            SpellCanceledCallback = CancelSpell
         });
     }
 
@@ -68,8 +72,10 @@ public class SpellInstance
     {
         List<Tile> visibleEnemies = gameMap.GetVisibleEnemies();
 
+        bool isCanceled = false;
         if (visibleEnemies.Count == 0)
         {
+            ReleaseSpell(gameObject, isCanceled);
             return false;
         }
 
@@ -84,12 +90,16 @@ public class SpellInstance
             TargetTile(gameObject, tile);
         }
 
+        ReleaseSpell(gameObject, isCanceled);
         return true;
     }
+
     private bool SingleTargetUseSpell(GameObject gameObject, GameMap gameMap, Tile target)
     {
+        bool isCanceled = false;
         if (target == null)
         {
+            ReleaseSpell(gameObject, isCanceled);
             return false;
         }
 
@@ -101,6 +111,7 @@ public class SpellInstance
             TargetTile(gameObject, tile);
         }
 
+        ReleaseSpell(gameObject, isCanceled);
         return true;
     }
 
@@ -119,6 +130,8 @@ public class SpellInstance
             TargetTile(gameObject, floor);
         }
 
+        bool isCanceled = false;
+        ReleaseSpell(gameObject, isCanceled);
         return true;
     }
 
@@ -150,7 +163,15 @@ public class SpellInstance
             TargetTile(gameObject, gameMapTile);
         }
 
+        bool isCanceled = false;
+        ReleaseSpell(gameObject, isCanceled);
         return true;
+    }
+
+    private void CancelSpell(GameObject gameObject)
+    {
+        bool isCanceled = true;
+        ReleaseSpell(gameObject, isCanceled);
     }
 
     private void TargetActor(GameObject gameObject, Tile actor)
@@ -166,6 +187,18 @@ public class SpellInstance
         foreach (SpellEffect spellEffect in SpellEffects)
         {
             spellEffect.TargetTile(gameObject, tile, Radius);
+        }
+    }
+
+    private void ReleaseSpell(GameObject gameObject, bool isCanceled)
+    {
+        if (Item != null)
+        {
+            InventoryComponent inventoryComponent = gameObject.GetComponent<InventoryComponent>();
+            if (inventoryComponent != null)
+            {
+                inventoryComponent.StopUsingItem(Item, isCanceled);
+            }
         }
     }
 }
