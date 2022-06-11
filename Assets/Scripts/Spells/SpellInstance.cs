@@ -25,6 +25,9 @@ public class SpellInstance
             case SpellTargetType.DirectionalTarget:
                 CastDirectionalTarget(gameObject, gameMap);
                 break;
+            case SpellTargetType.Self:
+                CastSelf(gameObject, gameMap);
+                break;
         }
     }
 
@@ -65,6 +68,15 @@ public class SpellInstance
             GameObject = gameObject,
             SpellCallback = DirectionalTargetUseSpell,
             SpellCanceledCallback = CancelSpell
+        });
+    }
+
+    private void CastSelf(GameObject gameObject, GameMap gameMap)
+    {
+        gameMap.GetComponent<ActionQueue>().AddAction(new UseNoTargetSpellAction
+        {
+            GameObject = gameObject,
+            SpellCallback = SelfUseSpell
         });
     }
 
@@ -162,6 +174,14 @@ public class SpellInstance
 
             TargetTile(gameObject, gameMapTile);
         }
+
+        bool isCanceled = false;
+        ReleaseSpell(gameObject, isCanceled);
+        return true;
+    }
+    private bool SelfUseSpell(GameObject gameObject, GameMap gameMap)
+    {
+        TargetActor(gameObject, gameObject.GetComponent<Tile>());
 
         bool isCanceled = false;
         ReleaseSpell(gameObject, isCanceled);

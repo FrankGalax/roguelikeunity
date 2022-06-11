@@ -6,7 +6,8 @@ public enum SpellTargetType
     RandomEnemy,
     SingleTarget,
     AreaTarget,
-    DirectionalTarget
+    DirectionalTarget,
+    Self
 }
 
 [CreateAssetMenu(fileName = "NewSpell", menuName = "Spells/Spell")]
