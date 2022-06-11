@@ -18,6 +18,7 @@ public class Spell : ScriptableObject
     public int Radius;
     public Sprite Icon;
     public string Name;
+    public int ManaCost;
 
     public SpellInstance CreateInstance()
     {
@@ -26,6 +27,7 @@ public class Spell : ScriptableObject
             SpellTargetType = SpellTargetType,
             SpellEffects = SpellEffects,
             Radius = Radius,
+            ManaCost = ManaCost,
             Spell = this
         };
 

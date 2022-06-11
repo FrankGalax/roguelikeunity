@@ -17,3 +17,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: edb2ad86c372b3741a600dcb6485d15b, type: 2}
   - {fileID: 11400000, guid: 8e1c1a820ee0fec4db5d182038153705, type: 2}
   Radius: 0
+  Icon: {fileID: 0}
+  Name: 
+  ManaCost: 0

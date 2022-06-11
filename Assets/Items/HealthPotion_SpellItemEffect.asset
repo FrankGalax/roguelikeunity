@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4f7d16e1cae3d042b8d1b5d2d22921e, type: 3}
   m_Name: HealthPotion_SpellItemEffect
   m_EditorClassIdentifier: 
-  Spell: {fileID: 0}
+  Spell: {fileID: 11400000, guid: 3ddc451346e128e47a8a328a69291696, type: 2}

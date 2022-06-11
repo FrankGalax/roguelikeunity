@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1896658a878ef454ea8619848840f47b, type: 3}
   m_Name: HealSpell
   m_EditorClassIdentifier: 
-  SpellTargetType: 1
-  SpellEffects: []
+  SpellTargetType: 4
+  SpellEffects:
+  - {fileID: 11400000, guid: 9d295ee69c1498d408737ac3862780d2, type: 2}
   Radius: 0
   Icon: {fileID: 0}
   Name: 
+  ManaCost: 0

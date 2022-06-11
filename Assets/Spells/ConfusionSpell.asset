@@ -16,3 +16,6 @@ MonoBehaviour:
   SpellEffects:
   - {fileID: 11400000, guid: c44c58b70fe51f747bde05e88758a864, type: 2}
   Radius: 0
+  Icon: {fileID: 0}
+  Name: 
+  ManaCost: 0

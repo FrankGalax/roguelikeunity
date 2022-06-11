@@ -14,6 +14,8 @@ public class UI : MonoBehaviour
 {
     public GameObject InventoryPanel;
     public GameObject HPPanel;
+    public RectTransform WhiteMana;
+    public RectTransform BlueMana;
     public GameObject DiedPanel;
     public GameObject SpellPanel;
     public TextMeshProUGUI FloorText;
@@ -29,6 +31,8 @@ public class UI : MonoBehaviour
     private List<GameObject> m_HPSlots;
     private GameObject m_Player;
     private List<RewardUI> m_RewardUIs;
+    private float m_CurrentManaWidth;
+    private float m_TargetManaWidth;
 
     private void Awake()
     {
@@ -72,6 +76,7 @@ public class UI : MonoBehaviour
         UpdatePlayerHealth();
         UpdateFloorLevel();
         UpdateSpells();
+        InitMana();
 
         if (m_Player != null)
         {
@@ -79,7 +84,13 @@ public class UI : MonoBehaviour
             m_PlayerDamageComponent.UpdateHealthSignal.AddSlot(UpdatePlayerHealth);
             m_PlayerDamageComponent.DiedSignal.AddSlot(OnPlayerDied);
             m_PlayerSpellComponent.SpellsUpdatedSignal.AddSlot(UpdateSpells);
+            m_PlayerSpellComponent.ManaUpdatedSignal.AddSlot(UpdateMana);
         }
+    }
+
+    private void Update()
+    {
+        LerpMana();
     }
 
     public void OnInventoryItemClick(int index)
@@ -195,5 +206,24 @@ public class UI : MonoBehaviour
                 spellIcon.GetComponent<Image>().sprite = spellInstance.Spell.Icon;
             }
         }
+    }
+
+    private void InitMana()
+    {
+        float manaRatio = m_PlayerSpellComponent.GetManaRatio();
+        m_CurrentManaWidth = WhiteMana.rect.width * manaRatio;
+        m_TargetManaWidth = m_CurrentManaWidth;
+    }
+
+    private void UpdateMana()
+    {
+        float manaRatio = m_PlayerSpellComponent.GetManaRatio();
+        m_TargetManaWidth = WhiteMana.rect.width * manaRatio;
+    }
+
+    private void LerpMana()
+    {
+        m_CurrentManaWidth = Mathf.Lerp(m_CurrentManaWidth, m_TargetManaWidth, 6.0f * Time.deltaTime);
+        BlueMana.sizeDelta = new Vector2(m_CurrentManaWidth, BlueMana.rect.height);
     }
 }

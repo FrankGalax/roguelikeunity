@@ -6,6 +6,7 @@ public class SpellInstance
     public SpellTargetType SpellTargetType { get; set; }
     public List<SpellEffect> SpellEffects { get; set; }
     public int Radius { get; set; }
+    public int ManaCost { get; set; }
     public Spell Spell { get; set; }
     public Item Item { get; set; }
 
@@ -218,6 +219,15 @@ public class SpellInstance
             if (inventoryComponent != null)
             {
                 inventoryComponent.StopUsingItem(Item, isCanceled);
+            }
+        }
+
+        if (!isCanceled)
+        {
+            SpellComponent spellComponent = gameObject.GetComponent<SpellComponent>();
+            if (spellComponent != null)
+            {
+                spellComponent.ConsumeMana(ManaCost);
             }
         }
     }

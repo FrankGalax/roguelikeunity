@@ -20,3 +20,4 @@ MonoBehaviour:
   Radius: 5
   Icon: {fileID: -7092911198986408507, guid: 8f74fb75c38e4df44998361173566ae0, type: 3}
   Name: Ice Beam
+  ManaCost: 3

@@ -1,13 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using UnityEngine.Assertions;
 
 public class SpellComponent : MonoBehaviour
 {
     public int SpellCount = 4;
+    public int MaxMana = 10;
 
     private List<SpellInstance> m_SpellInstances;
+    private int m_CurrentMana = 0;
+
     public Signal SpellsUpdatedSignal { get; private set; }
+    public Signal ManaUpdatedSignal { get; private set; }
 
     private void Awake()
     {
@@ -18,7 +23,10 @@ public class SpellComponent : MonoBehaviour
             m_SpellInstances.Add(null);
         }
 
+        m_CurrentMana = MaxMana;
+
         SpellsUpdatedSignal = new Signal();
+        ManaUpdatedSignal = new Signal();
     }
 
     private void Start()
@@ -31,6 +39,11 @@ public class SpellComponent : MonoBehaviour
         if (SpellsUpdatedSignal != null)
         {
             SpellsUpdatedSignal.ClearSlots();
+        }
+
+        if (ManaUpdatedSignal != null)
+        {
+            ManaUpdatedSignal.ClearSlots();
         }
     }
 
@@ -68,5 +81,22 @@ public class SpellComponent : MonoBehaviour
         }
 
         return false;
+    }
+
+    public void ConsumeMana(int mana)
+    {
+        m_CurrentMana -= mana;
+        Assert.IsTrue(m_CurrentMana >= 0);
+        if (m_CurrentMana < 0)
+        {
+            m_CurrentMana = 0;
+        }
+
+        ManaUpdatedSignal.SendSignal();
+    }
+
+    public float GetManaRatio()
+    {
+        return m_CurrentMana / (float)MaxMana;
     }
 }
