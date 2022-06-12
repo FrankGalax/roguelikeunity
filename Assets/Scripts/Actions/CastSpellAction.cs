@@ -15,13 +15,12 @@
             return;
         }
 
-        SpellInstance spellInstance = spellComponent.GetSpellInstance(SpellIndex);
-        if (spellInstance == null)
+        if (!spellComponent.CanCastSpell(SpellIndex))
         {
             return;
         }
 
-        spellInstance.Cast(GameObject, gameMap);
+        spellComponent.Cast(SpellIndex, GameObject, gameMap);
     }
 
     public override string GetDebugString()

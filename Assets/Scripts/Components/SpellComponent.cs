@@ -60,6 +60,16 @@ public class SpellComponent : MonoBehaviour
         }
     }
 
+    public bool CanCastSpell(int index)
+    {
+        if (index < 0 || index >= SpellCount)
+        {
+            return false;
+        }
+
+        return m_SpellInstances[index].ManaCost <= m_CurrentMana;
+    }
+
     public SpellInstance GetSpellInstance(int index)
     {
         if (index < 0 || index >= SpellCount)
@@ -68,6 +78,12 @@ public class SpellComponent : MonoBehaviour
         }
 
         return m_SpellInstances[index];
+    }
+
+    public void Cast(int index, GameObject gameObject, GameMap gameMap)
+    {
+        Assert.IsTrue(CanCastSpell(index));
+        m_SpellInstances[index].Cast(gameObject, gameMap);
     }
 
     public bool KnowsSpell(Spell spell)
