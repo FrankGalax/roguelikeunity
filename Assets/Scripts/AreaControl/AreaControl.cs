@@ -3,6 +3,7 @@
 public abstract class AreaControl : MonoBehaviour
 {
     public int NbTurns;
+    public GameObject Instigator { get; set; }
 
     private int m_RemainingTurns;
 

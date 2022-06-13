@@ -13,6 +13,7 @@ public abstract class ActionQueue : MonoBehaviour
 
         if (GameManager.Instance.CurrentFloor == Config.Instance.FloorDefinitions.Count)
         {
+            GameManager.Instance.ResetGame();
             SceneManager.LoadScene("mainmenu");
         }
         else

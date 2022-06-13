@@ -7,9 +7,9 @@ public class ToggleAnimatorActionInstance : GameplayActionInstance
     private Animator m_Animator;
     private bool m_IsEnabled;
 
-    public override void InitAction(GameObject gameObject)
+    public override void InitAction(GameObject gameObject, GameObject instigator)
     {
-        base.InitAction(gameObject);
+        base.InitAction(gameObject, instigator);
 
         m_ToggleAnimatorAction = (ToggleAnimatorAction)GameplayAction;
         AnimationComponent animationComponent = gameObject.GetComponent<AnimationComponent>();

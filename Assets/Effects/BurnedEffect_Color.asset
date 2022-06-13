@@ -9,8 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a3ff8fd8af6bbe44b01b96571fe2479, type: 3}
-  m_Name: ConfusionSpell_Effect
+  m_Script: {fileID: 11500000, guid: 7aad3d98b09516044b2c19549ac029cc, type: 3}
+  m_Name: BurnedEffect_Color
   m_EditorClassIdentifier: 
-  Effect: {fileID: 11400000, guid: 02c823c0804dbba449352a96013ea24f, type: 2}
-  NbTurns: 8
+  Color: {r: 1, g: 0, b: 0, a: 1}

@@ -3536,6 +3536,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 618ba4a51f53db04fb96494a57823755, type: 2}
   Spells:
   - {fileID: 11400000, guid: 6ceab17fe3601eb45979ddbe13c7599a, type: 2}
+  - {fileID: 11400000, guid: 43a2c51775fee244ca9f5651e1269f6b, type: 2}
 --- !u!4 &1039061577
 Transform:
   m_ObjectHideFlags: 0

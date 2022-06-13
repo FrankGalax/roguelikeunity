@@ -11,6 +11,6 @@ public class AreaControlSpellEffect : SpellEffect
 
         GameObject areaControlGameObject = Instantiate(AreaControl, new Vector3((float)tile.X, (float)tile.Y, 0.0f), Quaternion.identity);
         AreaControl areaControl = areaControlGameObject.GetComponent<AreaControl>();
-        FindObjectOfType<GameMap>().AddAreaControl(areaControl);
+        FindObjectOfType<GameMap>().AddAreaControl(areaControl, gameObject);
     }
 }

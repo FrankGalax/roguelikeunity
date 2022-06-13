@@ -5,9 +5,9 @@ public class InstantiateGameObjectActionInstance : GameplayActionInstance
     private GameObject m_GameObject;
     private InstantiateGameObjectAction m_InstantiateGameObjectAction;
 
-    public override void InitAction(GameObject gameObject)
+    public override void InitAction(GameObject gameObject, GameObject instigator)
     {
-        base.InitAction(gameObject);
+        base.InitAction(gameObject, instigator);
 
         m_InstantiateGameObjectAction = (InstantiateGameObjectAction)GameplayAction;
     }

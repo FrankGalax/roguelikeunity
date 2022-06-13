@@ -13,7 +13,7 @@ public class EffectSpellEffect : SpellEffect
         EffectComponent effectComponent = actor.GetComponent<EffectComponent>();
         if (effectComponent != null)
         {
-            effectComponent.AddEffect(Effect, NbTurns);
+            effectComponent.AddEffect(Effect, NbTurns, gameObject);
         }
     }
 }

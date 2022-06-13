@@ -119,7 +119,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spells_1
+      name: burnspellicon
       rect:
         serializedVersion: 2
         x: 60
@@ -127,7 +127,7 @@ TextureImporter:
         width: 10
         height: 10
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -150,7 +150,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      spells_1: -4288870982852407420
+      burnspellicon: -4288870982852407420
       spellicon_icebeam: -7092911198986408507
   spritePackingTag: 
   pSDRemoveMatte: 0

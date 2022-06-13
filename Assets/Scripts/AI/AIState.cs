@@ -16,7 +16,7 @@ public abstract class AIState : StateMachineBehaviour
             EffectComponent effectComponent = animator.GetComponent<EffectComponent>();
             if (effectComponent != null)
             {
-                effectComponent.AddEffect(Effect, -1);
+                effectComponent.AddEffect(Effect, -1, animator.gameObject);
             }
         }
     }

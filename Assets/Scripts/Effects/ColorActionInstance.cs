@@ -4,9 +4,9 @@ public class ColorActionInstance : GameplayActionInstance
 {
     private ColorAction m_ColorAction;
 
-    public override void InitAction(GameObject gameObject)
+    public override void InitAction(GameObject gameObject, GameObject instigator)
     {
-        base.InitAction(gameObject);
+        base.InitAction(gameObject, instigator);
 
         m_ColorAction = (ColorAction)GameplayAction;
     }

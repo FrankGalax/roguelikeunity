@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: BurnedEffect
   m_EditorClassIdentifier: 
   EffectType: 4
-  GameplayActions: []
+  GameplayActions:
+  - {fileID: 11400000, guid: ffcf40892b0911e4d88247080b3671d7, type: 2}
+  - {fileID: 11400000, guid: 851fd6e1f30ad5744a273f37c4c799c5, type: 2}

@@ -140,6 +140,13 @@ public class GameManager : GameSingleton<GameManager>
         m_StateMachine.Transition(new DungeonState());
     }
 
+    public void ResetGame()
+    {
+        CurrentFloor = 0;
+
+        Destroy(m_Player);
+    }
+
     private void OnPlayerDied()
     {
         m_DiedWaitTimer = DiedWaitTime;

@@ -431,7 +431,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Misc-no-bg_13
+      name: fire
       rect:
         serializedVersion: 2
         x: 10
@@ -660,10 +660,10 @@ TextureImporter:
       icebeam2: 3258448212986499758
       Misc-no-bg_1: -9157869975800143526
       icebeam7: -6408853982469469366
-      Misc-no-bg_13: -1450335868753005432
       Misc-no-bg_14: 4567757141605265034
       Misc-no-bg_3: 2144099614872516725
       Misc-no-bg_6: -4881209050616561657
+      fire: -1450335868753005432
       icebeam5: 6592444195431614190
       Misc-no-bg_12: 6607275102743343105
       icebeam4: -2796671600752974989

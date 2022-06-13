@@ -47,7 +47,7 @@ public class EffectComponent : MonoBehaviour
         m_EffectInstances = new List<EffectInstance>();
     }
 
-    public void AddEffect(Effect effect, int nbTurns)
+    public void AddEffect(Effect effect, int nbTurns, GameObject instigator)
     {
         foreach (EffectInstance effectInstance in m_EffectInstances)
         {
@@ -59,7 +59,7 @@ public class EffectComponent : MonoBehaviour
         }
 
         EffectInstance newEffectInstance = new EffectInstance(effect, nbTurns);
-        StartEffect(newEffectInstance);
+        StartEffect(newEffectInstance, instigator);
         m_EffectInstances.Add(newEffectInstance);
     }
 
@@ -110,11 +110,11 @@ public class EffectComponent : MonoBehaviour
         }
     }
 
-    private void StartEffect(EffectInstance effectInstance)
+    private void StartEffect(EffectInstance effectInstance, GameObject instigator)
     {
         foreach (GameplayActionInstance instance in effectInstance.GameplayActionInstances)
         {
-            instance.InitAction(gameObject);
+            instance.InitAction(gameObject, instigator);
             instance.StartAction(gameObject);
         }
     }

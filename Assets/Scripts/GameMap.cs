@@ -296,9 +296,12 @@ public class GameMap : MonoBehaviour
         Destroy(tile.gameObject);
     }
 
-    public void AddAreaControl(AreaControl areaControl)
+    public void AddAreaControl(AreaControl areaControl, GameObject instigator)
     {
+        areaControl.Instigator = instigator;
+
         m_AreaControls.Add(areaControl);
+
         Tile areaControlTile = areaControl.GetComponent<Tile>();
         foreach (Tile actor in m_Actors)
         {
@@ -342,8 +345,9 @@ public class GameMap : MonoBehaviour
             areaControl.OnEndTurn(this);
         }
 
-        foreach (Tile actor in m_Actors)
+        for (int i = m_Actors.Count - 1; i >= 0; --i)
         {
+            Tile actor = m_Actors[i];
             EffectComponent effectComponent = actor.GetComponent<EffectComponent>();
             if (effectComponent != null)
             {

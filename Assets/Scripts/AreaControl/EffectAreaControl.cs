@@ -12,7 +12,7 @@ public class EffectAreaControl : AreaControl
         EffectComponent effectComponent = gameObject.GetComponent<EffectComponent>();
         if (effectComponent != null)
         {
-            effectComponent.AddEffect(Effect, EffectNbTurns);
+            effectComponent.AddEffect(Effect, EffectNbTurns, Instigator);
         }
     }
 }

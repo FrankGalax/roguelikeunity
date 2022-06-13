@@ -7,9 +7,9 @@ public class ToggleAIActionInstance : GameplayActionInstance
     private AIComponent m_AIComponent;
     private bool m_IsEnabled;
 
-    public override void InitAction(GameObject gameObject)
+    public override void InitAction(GameObject gameObject, GameObject instigator)
     {
-        base.InitAction(gameObject);
+        base.InitAction(gameObject, instigator);
 
         m_ToggleAIAction = (ToggleAIAction)GameplayAction;
         m_AIComponent = gameObject.GetComponent<AIComponent>();
