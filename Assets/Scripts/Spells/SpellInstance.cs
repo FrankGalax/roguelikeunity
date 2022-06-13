@@ -131,7 +131,7 @@ public class SpellInstance
     private bool AreaTargetUseSpell(GameObject gameObject, GameMap gameMap, Tile target)
     {
         List<Tile> enemies = gameMap.GetEnemiesInRange(target.X, target.Y, Radius);
-        List<Tile> floors = gameMap.GetFloorsInRange(target.X, target.Y, Radius);
+        List<Tile> floors = gameMap.GetFloorsInRange(target.X, target.Y, Radius, gameObject);
 
         foreach (Tile enemy in enemies)
         {
@@ -162,7 +162,7 @@ public class SpellInstance
                 break;
             }
 
-            if (gameMapTile.BlocksMovement)
+            if (gameMapTile.IsBlockingMovement(gameObject))
             {
                 break;
             }

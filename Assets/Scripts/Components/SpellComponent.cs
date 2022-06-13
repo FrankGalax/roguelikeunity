@@ -101,11 +101,25 @@ public class SpellComponent : MonoBehaviour
 
     public void ConsumeMana(int mana)
     {
+        Assert.IsTrue(mana >= 0);
+
         m_CurrentMana -= mana;
         Assert.IsTrue(m_CurrentMana >= 0);
         if (m_CurrentMana < 0)
         {
             m_CurrentMana = 0;
+        }
+
+        ManaUpdatedSignal.SendSignal();
+    }
+
+    public void GainMana(int mana)
+    {
+        Assert.IsTrue(mana >= 0);
+        m_CurrentMana += mana;
+        if (m_CurrentMana > MaxMana)
+        {
+            m_CurrentMana = MaxMana;
         }
 
         ManaUpdatedSignal.SendSignal();

@@ -32,7 +32,7 @@ public class MoveAction : GameAction
 
         Tile targetTile = gameMap.GetTileAtLocation(destX, destY);
 
-        if (targetTile != null && targetTile.BlocksMovement)
+        if (targetTile != null && targetTile.IsBlockingMovement(GameObject))
         {
             IsDone = true;
             IsSuccess = false;

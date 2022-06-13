@@ -9,7 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4f7d16e1cae3d042b8d1b5d2d22921e, type: 3}
-  m_Name: ConfusionMedalion_SpellItemEffect
+  m_Script: {fileID: 11500000, guid: 1896658a878ef454ea8619848840f47b, type: 3}
+  m_Name: GainManaSpell
   m_EditorClassIdentifier: 
-  Spell: {fileID: 11400000, guid: b2dbfd3dfb85f7b40a96bb4d486fe02d, type: 2}
+  SpellTargetType: 4
+  SpellEffects:
+  - {fileID: 11400000, guid: da826b27f8c57eb4ab684b749eade9a5, type: 2}
+  Radius: 0
+  Icon: {fileID: 0}
+  Name: 
+  ManaCost: 0

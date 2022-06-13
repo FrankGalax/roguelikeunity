@@ -619,6 +619,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: manapotion
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 310
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a79b6de4650aa94449596b69ac0ebb51
+      internalID: -568228278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -634,6 +655,7 @@ TextureImporter:
       Misc-no-bg_7: 3624935134057462791
       Misc-no-bg_0: 4172541528137092636
       Misc-no-bg_4: 6405483156500446941
+      manapotion: -568228278
       icebeam1: 3684039699573790432
       icebeam2: 3258448212986499758
       Misc-no-bg_1: -9157869975800143526

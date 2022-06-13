@@ -189,14 +189,14 @@ public class GameMap : MonoBehaviour
         return enemies;
     }
 
-    public List<Tile> GetFloorsInRange(int x, int y, int radius)
+    public List<Tile> GetFloorsInRange(int x, int y, int radius, GameObject gameObject)
     {
         List<Tile> floors = new List<Tile>();
         foreach (List<Tile> column in m_Tiles)
         {
             foreach (Tile tile in column)
             {
-                if (tile != null && tile.Transparent && !tile.BlocksMovement)
+                if (tile != null && tile.Transparent && !tile.IsBlockingMovement(gameObject))
                 {
                     int distance = tile.GetRadius(x, y);
                     if (distance <= radius)

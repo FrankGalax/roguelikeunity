@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e4f7d16e1cae3d042b8d1b5d2d22921e, type: 3}
-  m_Name: LightningMedalion_SpellItemEffect
+  m_Name: UnicornMedalion_Spell
   m_EditorClassIdentifier: 
-  Spell: {fileID: 11400000, guid: a48f201958c13ed44b268939ff97f3ad, type: 2}
+  Spell: {fileID: 11400000, guid: c2d033baffc4c6a468853228aa046606, type: 2}

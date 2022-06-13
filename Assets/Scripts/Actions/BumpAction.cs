@@ -28,7 +28,7 @@ public class BumpAction : GameAction
         }
 
         Tile actorTile = gameMap.GetActorAtLocation(destX, destY);
-        if (actorTile != null && actorTile.gameObject != GameObject && actorTile.BlocksMovement)
+        if (actorTile != null && actorTile.gameObject != GameObject && actorTile.IsBlockingMovement(GameObject))
         {
             DamageComponent damageComponent = actorTile.GetComponent<DamageComponent>();
             if (damageComponent != null && !damageComponent.IsInvulnerable)
@@ -42,7 +42,7 @@ public class BumpAction : GameAction
         }
 
         Tile tile = gameMap.GetTileAtLocation(destX, destY);
-        if (tile != null && tile.BlocksMovement)
+        if (tile != null && tile.IsBlockingMovement(GameObject))
         {
             if (tile.GetComponent<DoorComponent>() != null && GameObject.GetComponent<OpenDoorComponent>() != null)
             {

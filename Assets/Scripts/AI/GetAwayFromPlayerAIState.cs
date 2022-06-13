@@ -64,9 +64,9 @@ public class GetAwayFromPlayerAIState : AIState
     {
         Tile tile = gameMap.GetTileAtLocation(x, y);
         Tile actor = gameMap.GetActorAtLocation(x, y);
-        if (tile != null && !tile.BlocksMovement && actor == null)
+        if (tile != null && !tile.IsBlockingMovement(gameObjectTile.gameObject) && actor == null)
         {
-            List<(int, int)> path = PathFinding.AStar(gameMap, gameObjectTile.X, gameObjectTile.Y, x, y);
+            List<(int, int)> path = PathFinding.AStar(gameMap, gameObjectTile.gameObject, gameObjectTile.X, gameObjectTile.Y, x, y);
             if (path != null && path.Count > 1)
             {
                 (int, int) direction = (path[1].Item1 - gameObjectTile.X, path[1].Item2 - gameObjectTile.Y);

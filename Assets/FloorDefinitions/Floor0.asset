@@ -30,5 +30,7 @@ MonoBehaviour:
     weight: 1
   - GameObject: {fileID: 9161265329981988794, guid: 0fbca86a606fcfd4e8572a955bfe6cff, type: 3}
     weight: 2
+  - GameObject: {fileID: 2617087261389305819, guid: 79bccf8f6b94c3a488f42b90bc4834d3, type: 3}
+    weight: 5
   Boss: {fileID: 0}
   TemplateFileName: 

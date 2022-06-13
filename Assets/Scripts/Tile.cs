@@ -3,9 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+public enum BlockMovement
+{
+    None,
+    AI,
+    PlayerAndAI
+}
+
 public class Tile : MonoBehaviour
 {
-    public bool BlocksMovement;
+    public BlockMovement BlockMovement = BlockMovement.None;
     public bool Transparent;
     public bool AlwaysVisible;
     public int Radius = 0;
@@ -58,6 +65,16 @@ public class Tile : MonoBehaviour
     public int GetRadius(int x, int y)
     {
         return Math.Max(Math.Abs(X - x), Math.Abs(Y - y));
+    }
+
+    public bool IsBlockingMovement(GameObject gameObject)
+    {
+        if (gameObject.GetComponent<AIComponent>() != null)
+        {
+            return BlockMovement == BlockMovement.AI || BlockMovement == BlockMovement.PlayerAndAI;
+        }
+
+        return BlockMovement == BlockMovement.PlayerAndAI;
     }
 
     private void UpdateVisibility(Transform transform, bool visible, Color color)

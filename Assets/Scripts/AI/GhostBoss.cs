@@ -74,10 +74,10 @@ public class GhostBoss : MonoBehaviour
         Tile bottomTile = gameMap.GetTileAtLocation(tile.X, tile.Y - SizeRadius);
         Tile rightTile = gameMap.GetTileAtLocation(tile.X + SizeRadius, tile.Y);
 
-        bool hasCollisionTop = topTile == null || topTile.BlocksMovement;
-        bool hasCollisionLeft = leftTile == null || leftTile.BlocksMovement;
-        bool hasCollisionBottom = bottomTile == null || bottomTile.BlocksMovement;
-        bool hasCollisionRight = rightTile == null || rightTile.BlocksMovement;
+        bool hasCollisionTop = topTile == null || topTile.IsBlockingMovement(gameObject);
+        bool hasCollisionLeft = leftTile == null || leftTile.IsBlockingMovement(gameObject);
+        bool hasCollisionBottom = bottomTile == null || bottomTile.IsBlockingMovement(gameObject);
+        bool hasCollisionRight = rightTile == null || rightTile.IsBlockingMovement(gameObject);
 
         if (hasCollisionTop || hasCollisionBottom)
         {

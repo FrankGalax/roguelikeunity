@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System;
+using UnityEngine;
 
 public class PathFinding
 {
-    public static List<(int, int)> AStar(GameMap gameMap, int x, int y, int destX, int destY)
+    public static List<(int, int)> AStar(GameMap gameMap, GameObject gameObject, int x, int y, int destX, int destY)
     {
         List<(int, int)> queue = new List<(int, int)>();
         queue.Add((x, y));
@@ -39,13 +40,13 @@ public class PathFinding
                 }
 
                 Tile tile = gameMap.GetTileAtLocation(neighbour.Item1, neighbour.Item2);
-                if (tile != null && tile.BlocksMovement)
+                if (tile != null && tile.IsBlockingMovement(gameObject))
                 {
                     continue;
                 }
 
                 Tile actorTile = gameMap.GetActorAtLocation(neighbour.Item1, neighbour.Item2);
-                if (actorTile != null && actorTile.GetComponent<ItemComponent>() == null)
+                if (actorTile != null && actorTile.IsBlockingMovement(gameObject))
                 {
                     continue;
                 }

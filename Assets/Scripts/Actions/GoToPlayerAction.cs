@@ -32,7 +32,7 @@ public class GoToPlayerAction : GameAction
             return;
         }
 
-        List<(int, int)> path = PathFinding.AStar(gameMap, tile.X, tile.Y, playerTile.X, playerTile.Y);
+        List<(int, int)> path = PathFinding.AStar(gameMap, GameObject, tile.X, tile.Y, playerTile.X, playerTile.Y);
 
         if (path == null || path.Count < 2)
         {
